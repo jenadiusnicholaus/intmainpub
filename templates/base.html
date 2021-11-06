@@ -70,8 +70,7 @@ Header START -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav navbar-nav-scroll ms-auto">
 
-					<!-- Nav item 1 Demos -->
-					<li class="nav-item "><a  class="nav-link active " href="{% url 'home'%}" > <Span> <i class = "fa fa-home"></i></Span></a></li>
+
 					<li class="nav-item "><a  class="nav-link  " href="#" > <Span> <i class = "fa fa-search"></i></Span></a></li>
 					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
 
@@ -192,15 +191,22 @@ Header START -->
 				{% if not user.is_authenticated %}
 
 				<div class="nav-item d-none d-md-block">
-					<a href="#" class="btn btn-sm btn-default mb-0 mx-2">sign Up</a>
+					<a href="{% url 'login'%}" class="btn btn-sm btn-default mb-0 mx-2">sign In</a>
 				</div>
 				{%else%}
 				<!-- Nav Search -->
 				<div class="nav-item dropdown nav-search dropdown-toggle-icon-none">
 					<a class="nav-link pe-0 dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
+						{% if not request.user.userprofile.image %}
+
+						<div class="avatar">
+							<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{request.user.getfirstChar}}</span></div>
+						</div>
+						{% else %}
 						<div class="avatar align-middle">
 							<img class="avatar-img rounded-circle border border-3 border-dark" src="{{request.user.userprofile.image.url}}" alt="avatar">
 						</div>
+						{% endif %}
 					</a>
 					<div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
 						<ul class="list-inline mt-3">
@@ -209,7 +215,7 @@ Header START -->
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Settings</a></li>
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Publication</a></li>
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-default-soft">Dashboard</a></li>
-							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Log out</a></li>
+							<li class="list-inline-item"><a href="{% url 'logout' %}" class="btn btn-sm btn-danger-soft">Log out</a></li>
 						</ul>
 					</div>
 				</div>

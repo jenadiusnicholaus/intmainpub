@@ -13,6 +13,7 @@ from intmainblog import settings
 
 User = settings.AUTH_USER_MODEL
 
+
 class Publication(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     title = models.CharField(max_length=300, null=False, blank=False)
@@ -32,6 +33,5 @@ class Publication(models.Model):
 
     def getFullname(self):
         return f'{self.author.firstname}  .  {self.author.middlename[0]} . {self.author.lastname}'
-
 
 

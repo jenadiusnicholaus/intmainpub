@@ -48,9 +48,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, ):
-    firstname = models.CharField(max_length=20, null = True)
-    middlename =  models.CharField(max_length=20, null = True)
-    lastname = models.CharField(max_length=20, null = True)
+    firstname = models.CharField(max_length=20, null=True)
+    middlename = models.CharField(max_length=20, null=True)
+    lastname = models.CharField(max_length=20, null=True)
     username = models.CharField(max_length=20, unique=True, blank=True, null=True)
     email = models.EmailField(db_index=True, unique=True)
     USERNAME_FIELD = 'email'
@@ -73,8 +73,14 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         else:
             return str(self.username)
 
-    def get_short_name(self):
+    def get_username(self):
         return str(self.username)
+
+    def get_fullname(self):
+        return f'{self.firstname} {self.lastname}'
+
+    def getfirstChar(self):
+        return str(self.username[0])
 
 
 class UserProfile(models.Model):
@@ -82,7 +88,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     mobile = models.CharField(max_length=15, null=True, blank=True)
-    location =  models.CharField(max_length=20, null = True)
+    location = models.CharField(max_length=20, null=True)
 
     def __str__(self):
         return str(self.user.email)

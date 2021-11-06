@@ -6,19 +6,19 @@
 <!-- =======================
 Inner intro START -->
 <section class="pt-3">
-<!--	<div class="container">-->
-<!--		<div class="row">-->
-<!--      <div class="col-12">-->
-<!--		<div class="input-group">-->
-<!--			  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
-<!--			  <div class="input-group-append">-->
+	<div class="container">
+		<div class="row">
+      <div hidden id="show_search" class="col-12">
+		<div class="input-group">
+			  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  <div class="input-group-append">
 
-<!--				<button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>-->
-<!--			  </div>-->
-<!--			</div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--	</div>-->
+				<button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+			  </div>
+			</div>
+      </div>
+    </div>
+	</div>
 </section>
 <!-- =======================
 Inner intro END -->
@@ -47,8 +47,8 @@ Main content START -->
 								</div>
 							</div>
 							<div class="card-body px-0 pt-3">
-								<h5 class="card-title"><a href="{% url 'publication_details' publication.slug %}" class="">{{ publication.title|safe|truncatechars:200}}</a></h5>
-								<p class="card-text">{{ publication.short_description|safe|truncatechars:200 }}
+								<h5 class="card-title"><a href="{% url 'publication_details' publication.slug %}" class="">{{ publication.title|safe|truncatechars:40}}</a></h5>
+								<p class="card-text">{{ publication.short_description|safe|truncatechars:110 }}
 									<a href="{% url 'publication_details' publication.slug %}" class="btn btn-success-soft">Read more <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></a>
 								</p>
 								<!-- Card info -->
@@ -59,7 +59,7 @@ Main content START -->
 												<div class="avatar avatar-xs">
 													<img class="avatar-img rounded-circle" src="{{publication.author.userprofile.image.url}}" alt="avatar">
 												</div>
-												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username %}" class="stretched-link text-reset btn-link">{{publication.author.username}}</a></span>
+												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username publication.author.id %}" class="stretched-link text-reset btn-link">{{publication.author.username}}</a></span>
 											</div>
 										</div>
 									</li>
