@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+	<title>intmain</title>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Bootstrap based News, Magazine and Blog Theme">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-icons.css'%}">
+
+	<!-- Theme CSS -->
+	<link id="style-switch" rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/tiny-slider.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/glightbox.css'%}">
+
+	<!-- Theme CSS -->
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZ4W34ZJ0L"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XZ4W34ZJ0L');
+	</script>
+
+</head>
+
+<body>
+<div class="preloader">
+	<div class="preloader-item">
+		<div class="spinner-grow text-primary"></div>
+	</div>
+</div>
+<!-- =======================
+Header START -->
+<header class="navbar-light navbar-sticky header-static">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<!-- Logo START -->
+
+
+			<a class="navbar-brand" href="{% url 'home'%}">
+
+<!--				<img class="navbar-brand-item light-mode-item" src="assets/images/logo.svg" alt="logo">-->
+<!--				<img class="navbar-brand-item dark-mode-item" src="assets/images/logo-light.svg" alt="logo">-->
+				<h2>Intmain</h2>
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+
+			<!-- Main navbar START -->
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll ms-auto">
+
+					<!-- Nav item 1 Demos -->
+					<li class="nav-item "><a  class="nav-link active " href="{% url 'home'%}" > <Span> <i class = "fa fa-home"></i></Span></a></li>
+					<li class="nav-item "><a  class="nav-link  " href="#" > <Span> <i class = "fa fa-search"></i></Span></a></li>
+					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
+
+
+					<!-- Nav item 4 Mega menu -->
+					<li class="nav-item dropdown dropdown-fullwidth">
+						<a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topics</a>
+						<div class="dropdown-menu" aria-labelledby="megaMenu">
+							<div class="container">
+								<div class="row g-4 p-3 flex-fill">
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="assets/images/blog/16by9/small/01.jpg" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">7 common mistakes everyone makes while traveling</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Joan Wallace</a>
+													</li>
+													<li class="nav-item">Feb 18, 2021</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="assets/images/blog/16by9/small/02.jpg" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">12 worst types of business accounts you follow on Twitter</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Lori Stevens</a>
+													</li>
+													<li class="nav-item">Jun 03, 2021</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="assets/images/blog/16by9/small/03.jpg" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">Skills that you can learn from business</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Judy Nguyen</a>
+													</li>
+													<li class="nav-item">Sep 07, 2021</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="bg-primary-soft p-4 text-center h-100 w-100 rounded">
+											<span>The Blogzine</span>
+											<h3>Premium Membership</h3>
+											<p>Become a Member Today!</p>
+											<a href="#" class="btn btn-warning">View pricing plans</a>
+										</div>
+									</div>
+									<!-- Card item END -->
+								</div> <!-- Row END -->
+								<!-- Trending tags -->
+								<div class="row px-3">
+									<div class="col-12">
+										<ul class="list-inline mt-3">
+											<li class="list-inline-item">Trending tags:</li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Travel</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Business</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Tech</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Gadgets</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Lifestyle</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Vaccine</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Sports</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Covid-19</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Politics</a></li>
+										</ul>
+									</div>
+								</div> <!-- Row END -->
+							</div>
+						</div>
+					</li>
+
+
+				</ul>
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Nav right START -->
+			<div class="nav ms-sm-3 flex-nowrap align-items-center">
+				<!-- Dark mode switch -->
+				<div class="nav-item">
+					<div class="modeswitch" id="darkModeSwitch">
+						<div class="switch"></div>
+					</div>
+				</div>
+<!--				<div class="nav-item">-->
+<!--					<div class="search" id="search">-->
+<!--						<div class="search"><i class="fa fa-search fs-4"> </i></div>-->
+<!--					</div>-->
+<!--				</div>-->
+				<!-- Nav additional link -->
+
+				<!-- Nav Button -->
+				{% if not user.is_authenticated %}
+
+				<div class="nav-item d-none d-md-block">
+					<a href="#" class="btn btn-sm btn-default mb-0 mx-2">sign Up</a>
+				</div>
+				{%else%}
+				<!-- Nav Search -->
+				<div class="nav-item dropdown nav-search dropdown-toggle-icon-none">
+					<a class="nav-link pe-0 dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
+						<div class="avatar align-middle">
+							<img class="avatar-img rounded-circle border border-3 border-dark" src="{{request.user.userprofile.image.url}}" alt="avatar">
+						</div>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
+						<ul class="list-inline mt-3">
+							<li class="list-inline-item">{{request.user.firstname}}:</li>
+							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Profile</a></li>
+							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Settings</a></li>
+							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Publication</a></li>
+							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-default-soft">Dashboard</a></li>
+							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Log out</a></li>
+						</ul>
+					</div>
+				</div>
+				{%endif%}
+			</div>
+			<!-- Nav right END -->
+
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="text-body h6 d-none d-sm-inline-block">Menu</span>
+			  <span class="navbar-toggler-icon"></span>
+		  </button>
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- =======================
+Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+{% block contents%} {% endblock contents%}
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="pb-0">
+	<div class="container">
+		<hr>
+		<!-- Widgets START -->
+		<div class="row pt-5">
+			<!-- Footer Widget -->
+			<div class="col-md-6 col-lg-4 mb-4">
+				<img class="light-mode-item" src="assets/images/logo.svg" alt="logo">
+				<img class="dark-mode-item" src="assets/images/logo-light.svg" alt="logo">
+				<p class="mt-3">The next-generation blog, news, and magazine theme for you to start sharing your stories today! This Bootstrap 5 based theme is ideal for all types of sites that deliver the news.</p>
+				<div class="mt-4">©2021 <a href="https://www.webestica.com/" class="text-reset btn-link" target="_blank">Webestica</a>. All rights reserved
+				</div>
+			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-md-6 col-lg-3 mb-4">
+				<h5 class="mb-4">Navigation</h5>
+				<div class="row">
+					<div class="col-6">
+						<ul class="nav flex-column">
+							<li class="nav-item"><a class="nav-link pt-0" href="#">Features</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Style Guide</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Contact us</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Get Theme</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+						</ul>
+					</div>
+ 					<div class="col-6">
+						<ul class="nav flex-column">
+							<li class="nav-item"><a class="nav-link pt-0" href="#">News</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Career <span class="badge bg-danger ms-2">2 Job</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Technology</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Startups</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Gadgets</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-sm-6 col-lg-3 mb-4">
+				<h5 class="mb-4">Browse by Tag</h5>
+				<ul class="list-inline">
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Travel</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Business</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Tech</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Gadgets</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Lifestyle</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Vaccine</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Marketing</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Sports</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Covid-19</a></li>
+					<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Politics</a></li>
+				</ul>
+			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-sm-6 col-lg-2 mb-4">
+				<h5 class="mb-4">Our Social handles</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link pt-0" href="#"><i class="fab fa-facebook-square fa-fw me-2 text-facebook"></i>Facebook</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-twitter-square fa-fw me-2 text-twitter"></i>Twitter</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-linkedin fa-fw me-2 text-linkedin"></i>Linkedin</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-youtube-square fa-fw me-2 text-youtube"></i>YouTube</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- Widgets END -->
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short"></i></div>
+
+<!-- =======================
+JS libraries, plugins and custom scripts -->
+
+<!-- Bootstrap JS -->
+<script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+
+<!-- Vendors -->
+<script src="{% static 'assets/js/tiny-slider.js'%}"></script>
+<script src="{% static 'assets/js/sticky.min.js'%}"></script>
+<script src="{% static 'assets/js/glightbox.js'%}"></script>
+
+
+<!-- Template Functions -->
+<script src="{% static 'assets/js/functions.js'%}"></script>
+
+
+</body>
+</html>

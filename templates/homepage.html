@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+<main>
+
+<!-- =======================
+Inner intro START -->
+<section class="pt-3">
+<!--	<div class="container">-->
+<!--		<div class="row">-->
+<!--      <div class="col-12">-->
+<!--		<div class="input-group">-->
+<!--			  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+<!--			  <div class="input-group-append">-->
+
+<!--				<button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>-->
+<!--			  </div>-->
+<!--			</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--	</div>-->
+</section>
+<!-- =======================
+Inner intro END -->
+
+<!-- =======================
+Main content START -->
+<section class="position-relative pt-0">
+	<div class="container" data-sticky-container="">
+		<div class="row">
+			<!-- Main Post START -->
+			<div class="col-lg-9">
+				<div class="row gy-4">
+					<!-- Card item START -->
+					{% for publication in publications %}
+					<div class="col-sm-6">
+						<div class="card">
+							<!-- Card img -->
+							<div class="position-relative" >
+								<img style=" height:300px; width:400px;" class="card-img" src="{{ publication.image.url}}" alt="Card image">
+								<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+									<!-- Card overlay bottom -->
+									<div class="w-100 mt-auto">
+										<!-- Card category -->
+										<a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-body px-0 pt-3">
+								<h5 class="card-title"><a href="{% url 'publication_details' publication.slug %}" class="">{{ publication.title|safe|truncatechars:200}}</a></h5>
+								<p class="card-text">{{ publication.short_description|safe|truncatechars:200 }}
+									<a href="{% url 'publication_details' publication.slug %}" class="btn btn-success-soft">Read more <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></a>
+								</p>
+								<!-- Card info -->
+								<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+									<li class="nav-item">
+										<div class="nav-link">
+											<div class="d-flex align-items-center position-relative">
+												<div class="avatar avatar-xs">
+													<img class="avatar-img rounded-circle" src="{{publication.author.userprofile.image.url}}" alt="avatar">
+												</div>
+												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username %}" class="stretched-link text-reset btn-link">{{publication.author.username}}</a></span>
+											</div>
+										</div>
+									</li>
+									<li class="nav-item">{{publication.created_on}}</li>
+									<li class="nav-item"><a href="#"><i class="fa fa-share"></i></a></li>
+									<li class="nav-item"> 4 <a href="#"><i class="fa fa-eye"></i></a> </li>
+									<li class="nav-item"><a href="#"><i class="far fa-heart me-1"></i></a> 266</li>
+									<li class="nav-item"><a href="#"><i class="far fa-square "></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					{% endfor%}
+					<!-- Card item END -->
+
+					<div class="col-12 text-center mt-5">
+						<button type="button" class="btn btn-primary-soft">Load more post <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
+					</div>
+					<!-- Load more END -->
+				</div>
+			</div>
+			<!-- Main Post END -->
+			<div class="col-lg-3">
+				<div data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
+	      			<h4>Share this article</h4>
+					<ul class="nav text-white-force mt-4">
+						<li class="nav-item">
+							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="#">
+								<i class="fab fa-facebook-square align-middle"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-twitter" href="#">
+								<i class="fab fa-twitter-square align-middle"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-linkedin" href="#">
+								<i class="fab fa-linkedin align-middle"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-pinterest" href="#">
+								<i class="fab fa-pinterest align-middle"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-primary" href="#">
+								<i class="far fa-envelope align-middle"></i>
+							</a>
+						</li>
+					</ul>
+					<!-- Advertisement -->
+
+						<div class="mt-4">
+						<div class="col-12 col-sm-6 col-lg-12">
+							<h4 class="mt-4 mb-3">Recent post</h4>
+							<!-- Recent post item -->
+							<div class="card mb-3">
+								<div class="row g-3">
+									<div class="col-4">
+										<img class="rounded" src="assets/images/blog/4by3/thumb/01.jpg" alt="">
+									</div>
+									<div class="col-8">
+										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">The pros and cons of business agency</a></h6>
+										<div class="small mt-1">May 17, 2021</div>
+									</div>
+								</div>
+							</div>
+							<!-- Recent post item -->
+							<div class="card mb-3">
+								<div class="row g-3">
+									<div class="col-4">
+										<img class="rounded" src="assets/images/blog/4by3/thumb/02.jpg" alt="">
+									</div>
+									<div class="col-8">
+										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">5 reasons why you shouldn't startup</a></h6>
+										<div class="small mt-1">Apr 04, 2021</div>
+									</div>
+								</div>
+							</div>
+							<!-- Recent post item -->
+							<div class="card mb-3">
+								<div class="row g-3">
+									<div class="col-4">
+										<img class="rounded" src="assets/images/blog/4by3/thumb/03.jpg" alt="">
+									</div>
+									<div class="col-8">
+										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">Ten questions you should answer truthfully.</a></h6>
+										<div class="small mt-1">Jun 30, 2021</div>
+									</div>
+								</div>
+							</div>
+							<!-- Recent post item -->
+
+						</div>
+					</div>
+
+					<div class="mt-4">
+						<a href="#" class="d-block card-img-flash">
+							<img src="assets/images/adv.png" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div> <!-- Row end -->
+	</div>
+</section>
+<!-- =======================
+Main content END -->
+
+
+
+</main>
+
+{% endblock contents%}
