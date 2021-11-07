@@ -154,15 +154,9 @@ Header START -->
 									<div class="col-12">
 										<ul class="list-inline mt-3">
 											<li class="list-inline-item">Trending tags:</li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Travel</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Business</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Tech</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Gadgets</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Lifestyle</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Vaccine</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Sports</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Covid-19</a></li>
-											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Politics</a></li>
+											{% for topic in topics%}
+											<li class="list-inline-item"><a href="#" class="btn btn-sm {{topic.color}}">{{topic.title}}</a></li>
+											{%endfor%}
 										</ul>
 									</div>
 								</div> <!-- Row END -->

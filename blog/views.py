@@ -6,10 +6,12 @@ def home(request):
     publications = Publication.objects.filter(status=1)
     recent = Publication.objects.first()
     recent_posted_pub = Publication.objects.all()[:3]
+    topics = Topics.objects.all()
     context = {
         'publications': publications,
         'recent': recent,
-        'recent_posted_pub': recent_posted_pub
+        'recent_posted_pub': recent_posted_pub,
+        'topics': topics
     }
     return render(request, template_name='homepage.html', context=context)
 
