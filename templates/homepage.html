@@ -9,8 +9,7 @@ Inner intro START -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 py-md-5 my-lg-5">
-        <a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Travel</a>
-        <a href="#" class="badge bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Photography</a>
+        <a href="#" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title}}</a>
 				<h1 class="text-white">{{recent.title|safe}}</h1>
         <p class="lead text-white">{{recent.short_description|safe|truncatechars:300}}. </p>
         <!-- Info -->
@@ -19,6 +18,7 @@ Inner intro START -->
             <div class="nav-link">
               <div class="d-flex align-items-center text-white position-relative">
 				  {% if not recent.author.userprofile.image %}
+
 				  <div class="avatar">
 					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.getfirstChar}}</span></div>
 				</div>
@@ -95,7 +95,7 @@ Main content START -->
 									<!-- Card overlay bottom -->
 									<div class="w-100 mt-auto">
 										<!-- Card category -->
-										<a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
+										<a href="#" class="badge {{publication.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title}}</a>
 									</div>
 								</div>
 							</div>
@@ -175,8 +175,6 @@ Main content START -->
 								</div>
 							</div>
 							{%endfor%}
-
-
 						</div>
 					</div>
 

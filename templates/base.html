@@ -80,82 +80,13 @@ Header START -->
 						<a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topics</a>
 						<div class="dropdown-menu" aria-labelledby="megaMenu">
 							<div class="container">
-<!--								<div class="row g-4 p-3 flex-fill">-->
-<!--									&lt;!&ndash; Card item START &ndash;&gt;-->
-<!--									<div class="col-sm-6 col-lg-3">-->
-<!--										<div class="card bg-transparent">-->
-<!--											&lt;!&ndash; Card img &ndash;&gt;-->
-<!--											<img class="card-img rounded" src="assets/images/blog/16by9/small/01.jpg" alt="Card image">-->
-<!--											<div class="card-body px-0 pt-3">-->
-<!--												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">7 common mistakes everyone makes while traveling</a></h6>-->
-<!--												&lt;!&ndash; Card info &ndash;&gt;-->
-<!--												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">-->
-<!--													<li class="nav-item">-->
-<!--														<a href="#" class="text-reset btn-link">Joan Wallace</a>-->
-<!--													</li>-->
-<!--													<li class="nav-item">Feb 18, 2021</li>-->
-<!--												</ul>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									&lt;!&ndash; Card item END &ndash;&gt;-->
-<!--									&lt;!&ndash; Card item START &ndash;&gt;-->
-<!--									<div class="col-sm-6 col-lg-3">-->
-<!--										<div class="card bg-transparent">-->
-<!--											&lt;!&ndash; Card img &ndash;&gt;-->
-<!--											<img class="card-img rounded" src="assets/images/blog/16by9/small/02.jpg" alt="Card image">-->
-<!--											<div class="card-body px-0 pt-3">-->
-<!--												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">12 worst types of business accounts you follow on Twitter</a></h6>-->
-<!--												&lt;!&ndash; Card info &ndash;&gt;-->
-<!--												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">-->
-<!--													<li class="nav-item">-->
-<!--														<a href="#" class="text-reset btn-link">Lori Stevens</a>-->
-<!--													</li>-->
-<!--													<li class="nav-item">Jun 03, 2021</li>-->
-<!--												</ul>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									&lt;!&ndash; Card item END &ndash;&gt;-->
-<!--									&lt;!&ndash; Card item START &ndash;&gt;-->
-<!--									<div class="col-sm-6 col-lg-3">-->
-<!--										<div class="card bg-transparent">-->
-<!--											&lt;!&ndash; Card img &ndash;&gt;-->
-<!--											<img class="card-img rounded" src="assets/images/blog/16by9/small/03.jpg" alt="Card image">-->
-<!--											<div class="card-body px-0 pt-3">-->
-<!--												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">Skills that you can learn from business</a></h6>-->
-<!--												&lt;!&ndash; Card info &ndash;&gt;-->
-<!--												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">-->
-<!--													<li class="nav-item">-->
-<!--														<a href="#" class="text-reset btn-link">Judy Nguyen</a>-->
-<!--													</li>-->
-<!--													<li class="nav-item">Sep 07, 2021</li>-->
-<!--												</ul>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--									&lt;!&ndash; Card item END &ndash;&gt;-->
-<!--									&lt;!&ndash; Card item START &ndash;&gt;-->
 
-<!--								//premium-->
-<!--									<div class="col-sm-6 col-lg-3">-->
-<!--										<div class="bg-primary-soft p-4 text-center h-100 w-100 rounded">-->
-<!--											<span>The Blogzine</span>-->
-<!--											<h3>Premium Membership</h3>-->
-<!--											<p>Become a Member Today!</p>-->
-<!--											<a href="#" class="btn btn-warning">View pricing plans</a>-->
-<!--										</div>-->
-<!--									</div>-->
-
-<!--									&lt;!&ndash; Card item END &ndash;&gt;-->
-<!--								</div> &lt;!&ndash; Row END &ndash;&gt;-->
-								<!-- Trending tags -->
 								<div class="row px-3">
 									<div class="col-12">
 										<ul class="list-inline mt-3">
 											<li class="list-inline-item">Trending tags:</li>
 											{% for topic in topics%}
-											<li class="list-inline-item"><a href="#" class="btn btn-sm {{topic.color}}">{{topic.title}}</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm {{topic.get_color_display}}">{{topic.title}}</a></li>
 											{%endfor%}
 										</ul>
 									</div>
@@ -177,12 +108,6 @@ Header START -->
 						<div class="switch"></div>
 					</div>
 				</div>
-<!--				<div class="nav-item">-->
-<!--					<div class="search" id="search">-->
-<!--						<div class="search"><i class="fa fa-search fs-4"> </i></div>-->
-<!--					</div>-->
-<!--				</div>-->
-				<!-- Nav additional link -->
 
 				<!-- Nav Button -->
 				{% if not user.is_authenticated %}
