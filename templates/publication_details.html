@@ -14,6 +14,7 @@ Inner intro START -->
 				<h1>{{publication_detail.title|safe}}</h1>
 			</div>
 			 <p class="lead">{{publication_detail.short_description}}</p>
+
 		</div>
 	</div>
 </section>
@@ -27,40 +28,31 @@ Main START -->
 		<div class="row">
 			<!-- Left sidebar START -->
 			<div class="col-lg-2">
-				<div class="text-start text-lg-center mb-5" data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
+				<div class="text-start  mb-5" data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
 					<!-- Author info -->
 					<div class="position-relative">
-						<div class="avatar avatar-xl">
+						{% if not publication_detail.author.userprofile.image %}
+						<div class="avatar avatar-xxxl">
+							<img class="avatar-img rounded-circle" src="/static/assets/images/avatar.jpeg" alt="avatar">
+						</div>
+						{%else%}
+
+						<div class="avatar avatar-xl ">
 							<img class="avatar-img rounded-circle" src="{{publication_detail.author.userprofile.image.url}}" alt="avatar">
 						</div>
-						<a href="#" class="h5 stretched-link mt-2 mb-0 d-block">{{publication_detail.getFullname}}</a>
-						<p>An editor at Blogzine</p>
+						{%endif%}
+						<a href="{% url 'author_page' publication_detail.author.username publication_detail.author.id %}" class="h5 stretched-link mt-2 mb-0 d-block">{{publication_detail.author.get_fullname}}</a>
+						<p>{{publication_detail.author.userprofile.profession}}</p>
 					</div>
 					<hr class="d-none d-lg-block">
 					<!-- Card info -->
-					<ul class="list-inline list-unstyled">
-						<li class="list-inline-item d-lg-block my-lg-2">{{publication_detail.created_on}}</li>
-						<li class="list-inline-item d-lg-block my-lg-2">5 min read</li>
-						<li class="list-inline-item d-lg-block my-lg-2"><a href="#" class="text-body"><i class="far fa-heart me-1"></i></a> 266</li>
-						<li class="list-inline-item d-lg-block my-lg-2"><i class="far fa-eye me-1"></i> 2344 Views</li>
-					</ul>
+
 					<!-- Tags -->
 					<ul class="list-inline text-primary-hover mt-0 mt-lg-3">
 					  <li class="list-inline-item">
-					  	<a class="text-body" href="#">#agency</a>
+					  	<a class="text-body" href="#">{{publication_detail.author.userprofile.bio}}</a>
 					  </li>
-					  <li class="list-inline-item">
-					  	<a class="text-body" href="#">#business</a>
-					  </li>
-					  <li class="list-inline-item">
-					  	<a class="text-body" href="#">#theme</a>
-					  </li>
-					  <li class="list-inline-item">
-					  	<a class="text-body" href="#">#bootstrap</a>
-					  </li>
-					  <li class="list-inline-item">
-					  	<a class="text-body" href="#">#marketing</a>
-					  </li>
+
 					</ul>
 				</div>
 			</div>
@@ -153,7 +145,13 @@ Main START -->
 			<div class="col-lg-3">
 				<div data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
 	      	<h4>Share this article</h4>
-					<ul class="nav text-white-force">
+					<ul class="nav nav-divider  align-items-center">
+						<li class="nav-item">{{publication_detail.created_on}}</li>
+						<li class="nav-item">5 min read</li>
+						<li class="nav-item"><a href="#" class="text-body"><i class="far fa-heart me-1"></i></a> 266 </li>
+						<li class="nav-item"><i class="far fa-eye me-1"> </i> 2344 Views</li>
+					</ul>
+					<ul class="nav text-white-force mt-2">
 						<li class="nav-item">
 							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="#">
 								<i class="fab fa-facebook-square align-middle"></i>
@@ -183,7 +181,7 @@ Main START -->
 					<!-- Advertisement -->
 					<div class="mt-4">
 						<a href="#" class="d-block card-img-flash">
-							<img src="assets/images/adv.png" alt="">
+							<img src="/static/assets/images/01.jpg" alt="">
 						</a>
 					</div>
 				</div>

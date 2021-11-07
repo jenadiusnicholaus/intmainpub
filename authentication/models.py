@@ -77,6 +77,8 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         return str(self.username)
 
     def get_fullname(self):
+        if  not self.firstname and not self.lastname:
+            return str(self.username)
         return f'{self.firstname} {self.lastname}'
 
     def getfirstChar(self):
@@ -89,6 +91,9 @@ class UserProfile(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     mobile = models.CharField(max_length=15, null=True, blank=True)
     location = models.CharField(max_length=20, null=True)
+    profession = models.CharField(max_length=200, null=True, blank=True)
+    about = models.TextField(max_length=300, null=True, blank=True )
+    bio = models.TextField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return str(self.user.email)

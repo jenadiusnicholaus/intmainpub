@@ -12,34 +12,40 @@ Inner intro START -->
         <!-- Author info START -->
 				<div class="bg-primary-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
 					<!-- Avatar -->
-          <div class=" me-0 me-md-4">
-            <div class="avatar avatar-xxl">
-              <img class="avatar-img rounded-circle border border-3 border-dark" src="{{author_data.userprofile.image.url}}" alt="avatar">
-            </div>
-            <!-- Post count -->
-            <div class="text-center mt-n3 position-relative">
-              <span class="badge bg-success fs-6">{{author_publication.count}} publication</span>
-            </div>
-          </div>
+				  <div class=" me-0 me-md-4">
+					  {% if not author_data.userprofile.image %}
+					   <div class="avatar avatar-xxxl">
+							<img class="avatar-img rounded-circle" src="/static/assets/images/avatar.jpeg" alt="avatar">
+						</div>
+					  {% else %}
+					  <div class="avatar avatar-xxl">
+						  <img class="avatar-img rounded-circle border border-3 border-dark" src="{{author_data.userprofile.image.url}}" alt="avatar">
+						</div>
+					  {% endif %}
+					<!-- Post count -->
+					<div class="text-center mt-n3 position-relative">
+					  <span class="badge bg-success fs-6">{{author_publication.count}} publication</span>
+					</div>
+				  </div>
 					<!-- Info -->
-					<div>
+				<div>
             <h2 class="m-0">{{author_data.get_fullname}}</h2>
             <small>An editor at Blogzine</small>
-						<p class="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on breaking news based in London. He has written about government, criminal justice, and the role of money in politics since 2015.</p>
-						<!-- Social icons -->
-						<ul class="nav justify-content-center justify-content-md-start">
-							<li class="nav-item">
-								<a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
+				<p class="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on breaking news based in London. He has written about government, criminal justice, and the role of money in politics since 2015.</p>
+				<!-- Social icons -->
+				<ul class="nav justify-content-center justify-content-md-start">
+					<li class="nav-item">
+						<a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
 				<!-- Author info END -->
       </div>
     </div>
@@ -75,7 +81,7 @@ Main content START -->
 								</div>
 							</div>
 							<div class="card-body px-0 pt-3">
-								<h4 class="card-title"><a href="post-single-3.html" >{{publication.title|safe}}</a></h4>
+								<h4 class="card-title"><a href="{% url 'publication_details' publication.slug %}" >{{publication.title|safe}}</a></h4>
 								<p class="card-text">{{publication.short_description|truncatechars:200}}</p>
 								<!-- Card info -->
 								<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
