@@ -8,6 +8,7 @@ from django.views import View
 
 from authentication.forms import UserSignUpForm
 from blog.models import Publication
+from django.core.paginator import Paginator
 
 User = get_user_model()
 
@@ -28,11 +29,14 @@ def validate_username(request):
 def author_page(request, username, pk):
     author_data = User.objects.get(pk=pk)
     publication = Publication.objects.filter(author_id=pk)
+    paginator = Paginator(publication, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    print(publication.count)
     context = {
         'author_data': author_data,
-        'author_publication': publication
+        'author_publication': publication,
+        'page_obj': page_obj
 
     }
     return render(request, template_name='author_page.html', context=context)
@@ -40,7 +44,7 @@ def author_page(request, username, pk):
 
 class Register(View):
     def get(self, *args, **kwargs):
-        form =  UserSignUpForm()
+        form = UserSignUpForm()
         return render(self.request, 'register.html', {'register_form': form})
 
     def post(self, request, *args, **kwargs):
@@ -50,12 +54,6 @@ class Register(View):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             password2 = form.cleaned_data.get('password2')
-
-
-            # print(username)
-            # print(email)
-            # print(password)
-            # print(mobile)
 
             # cheking for passwords matching
             if password != password2:

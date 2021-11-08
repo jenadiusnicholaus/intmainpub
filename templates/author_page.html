@@ -24,24 +24,37 @@ Inner intro START -->
 					  {% endif %}
 					<!-- Post count -->
 					<div class="text-center mt-n3 position-relative">
-					  <span class="badge bg-success fs-6">{{author_publication.count}} publication</span>
+					  <span style="color:black;" class="badge bg-success fs-6">
+						  {% if author_publication.count < 2 %}
+						  	{{author_publication.count}}
+						  		publication
+						    {%elif author_publication.count == 0 %}
+								No publication yet
+						   	{%else%}
+						   		{{author_publication.count}}
+						  		publications
+						  {% endif%}
+					  </span>
 					</div>
 				  </div>
 					<!-- Info -->
 				<div>
             <h2 class="m-0">{{author_data.get_fullname}}</h2>
-            <small>An editor at Blogzine</small>
-				<p class="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on breaking news based in London. He has written about government, criminal justice, and the role of money in politics since 2015.</p>
+            <small>{{author_data.userprofile.profession}}</small>
+				<p class="my-2">{{ author_data.userprofile.about}}</p>
 				<!-- Social icons -->
 				<ul class="nav justify-content-center justify-content-md-start">
 					<li class="nav-item">
-						<a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+						<a class="nav-link ps-0 pe-2 fs-5" href="{% if not author_data.userprofile.facebook_link%}#{% else%}{{author_data.userprofile.facebook_link}}{%endif%}"><i class="fab fa-facebook-square"></i></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+						<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.facebook_link%}#{% else%}{{author_data.userprofile.tweeter_link}}{%endif%}"><i class="fab fa-twitter-square"></i></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+						<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.facebook_link%}#{% else%}{{author_data.userprofile.linkedin_link}}{%endif%}"><i class="fab fa-linkedin"></i></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.facebook_link%}#{% else%}{{author_data.userprofile.github_link}}{%endif%}"><i class="fab fa-github"></i></a>
 					</li>
 				</ul>
 			</div>
@@ -66,7 +79,7 @@ Main content START -->
 			<div class="col-12">
 				<div class="row gy-4">
 					<!-- Card item START -->
-					{% for publication in author_publication %}
+					{% for publication in page_obj %}
 					<div class="col-sm-6 col-lg-4">
 						<div class="card">
 							<!-- Card img -->
@@ -76,7 +89,7 @@ Main content START -->
 									<!-- Card overlay bottom -->
 									<div class="w-100 mt-auto">
 										<!-- Card category -->
-										<a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
+										<a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title}}}</a>
 									</div>
 								</div>
 							</div>
@@ -101,9 +114,42 @@ Main content START -->
 					{% endfor%}
 					<!-- Card item END -->
 					<!-- Load more START -->
-					<div class="col-12 text-center mt-5">
-						<button type="button" class="btn btn-primary-soft">Load more post <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
-					</div>
+<!--					<nav aria-label="Page navigation example">-->
+<!--					  <ul class="pagination">-->
+<!--						<li class="page-item">-->
+<!--						  <a class="page-link" href="#" aria-label="Previous">-->
+<!--							<span aria-hidden="true">&laquo;</span>-->
+<!--						  </a>-->
+<!--						</li>-->
+<!--						<li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--						<li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--						<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--						<li class="page-item">-->
+<!--						  <a class="page-link" href="#" aria-label="Next">-->
+<!--							<span aria-hidden="true">&raquo;</span>-->
+<!--						  </a>-->
+<!--						</li>-->
+<!--					  </ul>-->
+<!--					</nav>-->
+
+
+				<div class="pagination">
+					<span class="step-links">
+						{% if page_obj.has_previous %}
+							<a href="?page=1">&laquo; first</a>
+							<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+						{% endif %}
+
+						<span class="current">
+							Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+						</span>
+
+						{% if page_obj.has_next %}
+							<a href="?page={{ page_obj.next_page_number }}">next</a>
+							<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+						{% endif %}
+					</span>
+				</div>
 					<!-- Load more END -->
 				</div>
 			</div>

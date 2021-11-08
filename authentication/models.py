@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
         """Create and return a `User` with an email and password."""
-
         if email is None:
             raise TypeError('Users must have an email address.')
 
@@ -52,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin, ):
     middlename = models.CharField(max_length=20, null=True)
     lastname = models.CharField(max_length=20, null=True)
     username = models.CharField(max_length=20, unique=True, blank=True, null=True)
-    email = models.EmailField(db_index=True, unique=True)
+    email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -67,17 +66,13 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         Returns a string representation of this `User`.
         This string is used when a `User` is printed in the console.
         """
-        if self.email:
-
-            return str(self.email)
-        else:
-            return str(self.username)
+        return str(self.email)
 
     def get_username(self):
         return str(self.username)
 
     def get_fullname(self):
-        if  not self.firstname and not self.lastname:
+        if not self.firstname and not self.lastname:
             return str(self.username)
         return f'{self.firstname} {self.lastname}'
 
@@ -92,8 +87,12 @@ class UserProfile(models.Model):
     mobile = models.CharField(max_length=15, null=True, blank=True)
     location = models.CharField(max_length=20, null=True)
     profession = models.CharField(max_length=200, null=True, blank=True)
-    about = models.TextField(max_length=300, null=True, blank=True )
+    about = models.TextField(max_length=300, null=True, blank=True)
     bio = models.TextField(max_length=300, null=True, blank=True)
+    facebook_link = models.CharField(max_length=400, null=True, blank=True)
+    linkedin_link = models.CharField(max_length=400, null=True, blank=True)
+    tweeter_link = models.CharField(max_length=400, null=True, blank=True)
+    github_link = models.CharField(max_length=400, null=True, blank=True)
 
     def __str__(self):
         return str(self.user.email)

@@ -128,9 +128,23 @@ Main content START -->
 					{% endfor%}
 					<!-- Card item END -->
 
-					<div class="col-12 text-center mt-5">
-						<button type="button" class="btn btn-primary-soft">Load more post <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
-					</div>
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination">
+						<li class="page-item">
+						  <a class="page-link" href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+						  <a class="page-link" href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						</li>
+					  </ul>
+					</nav>
 					<!-- Load more END -->
 				</div>
 			</div>
@@ -186,9 +200,6 @@ Main content START -->
 					</div>
 				</div>
 			</div>
-
-
-
 		</div> <!-- Row end -->
 	</div>
 </section>
