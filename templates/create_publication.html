@@ -13,16 +13,74 @@ Inner intro END -->
 
 <!-- =======================
 Main content START -->
+
 <section class="position-relative pt-0">
 	<div class="container" data-sticky-container="">
 		<div class="row">
 			<!-- Main Post START -->
 			<div class="col-lg-9">
 				<div class="row gy-4">
+					{{form.media}}
+					<form method="post" enctype="multipart/form-data">
 
-					<div class="col-12 text-center mt-5">
-						<button type="button" class="btn btn-primary-soft">Load more post <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
-					</div>
+						{% csrf_token%}
+
+<!--						{{form.as_p}}-->
+
+
+						<div class="mb-3">
+
+							<div class="row">
+								<div class="col-md-6">
+
+									<label class="form-label" for="id_topic"></label>
+									<select required name="topic" class="form-control" id="id_topic">
+									<option value="selected">Select the topic </option>
+									<option value="1">Flutter</option>
+									</select>
+
+								</div>
+								<div class="col-md-6">
+										<label class="form-label" for="id_title">Title:</label>
+										<input class="form-control" type="text" name="title" maxlength="300" required id="id_title">
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-md-6 ">
+									<label for="id_image">Choose image</label>
+									<input required type="file" class="form-control " name ="image" id="id_image">
+								</div>
+								<div class="col-md-6 ">
+									<label class="form-label" for="id_status">Status:</label>
+									<select required class="form-control" name="status" id="id_status">
+										<option value="0" selected="">Draft</option>
+										<option value="1">Published</option>
+									</select>
+							</div>
+							</div>
+							<div class="form-group mt-3 mb-3">
+								<label for="id_short_description" >Short Description</label>
+								<textarea required class="form-control" name="short_description" id="id_short_description" rows="3"></textarea>
+							  </div>
+						</div>
+							{{form.description}}
+						<div class="row">
+								<div class="col-md-6">
+
+
+								</div>
+								<div class="col-md-6">
+									<div class="col-12 text-center mt-5 right">
+										<button type="submit" class="btn btn-primary-soft">post now <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
+									</div>
+								</div>
+							</div>
+
+
+					</form>
+
+
+
 					<!-- Load more END -->
 				</div>
 			</div>

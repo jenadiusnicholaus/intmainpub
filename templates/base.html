@@ -24,7 +24,10 @@
 	<!-- Theme CSS -->
 	<link id="style-switch" rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css'%}">
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/tiny-slider.css'%}">
-		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/glightbox.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/glightbox.css'%}">
+	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/style.css' %}">
+	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.css" data-noprefix />
+
 
 	<!-- Theme CSS -->
 
@@ -236,6 +239,8 @@ JS libraries, plugins and custom scripts -->
 <script src="{% static 'assets/js/tiny-slider.js'%}"></script>
 <script src="{% static 'assets/js/sticky.min.js'%}"></script>
 <script src="{% static 'assets/js/glightbox.js'%}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
 
 <!-- Template Functions -->

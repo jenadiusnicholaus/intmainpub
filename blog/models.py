@@ -1,9 +1,12 @@
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 from django.db import models
 
 # Create your models here.
 from django.utils import timezone
+from django.utils.text import slugify
+
 from intmainblog import settings
 
 STATUS = (
@@ -46,7 +49,7 @@ class Publication(models.Model):
     slug = models.SlugField(max_length=200, unique=True, null=True)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
     short_description = models.TextField(blank=True, null=True)
-    description = RichTextField(null=True)
+    description = RichTextUploadingField(null=True, blank=True)
     created_on = models.DateTimeField(default=timezone.now)
     updated_on = models.DateTimeField(default=timezone.now)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -56,6 +59,11 @@ class Publication(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Publication, self).save(*args, **kwargs)
 
     def getFullname(self):
         return f'{self.author.firstname}  .  {self.author.middlename[0]} . {self.author.lastname}'

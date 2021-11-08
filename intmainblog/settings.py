@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # third part apps
     'ckeditor',
+    'ckeditor_uploader',
     "django_social_share"
 ]
 
@@ -154,7 +155,7 @@ CKEDITOR_CONFIGS = {
                        'Language']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+             'items': ['Image', 'Flash', 'Table', 'Update' 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
@@ -197,6 +198,7 @@ CKEDITOR_CONFIGS = {
             'templates',
             'widget',
             'wsc',
+
             'sharedspace',
             'mathjax',
             'embedbase',
@@ -213,4 +215,3 @@ CKEDITOR_CONFIGS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authentication.User'
-

@@ -79,7 +79,6 @@ var e = {
         e.backTotop(),
         e.stickyPost(),
         e.stickyFooter(),
-        e.lightBox(),
         e.enableIsotope(),
         e.darkMode(),
         e.zooming(),
@@ -480,17 +479,7 @@ var e = {
     },
     // END: Sticky Footer
 
-    // START: 12 GLightbox
-    lightBox: function () {
-        var light = e.select('[data-glightbox]');
-        if (e.isVariableDefined(light)) {
-            var lb = GLightbox({
-                selector: '*[data-glightbox]',
-                openEffect: 'fade',
-                closeEffect: 'fade'
-            });
-        }
-    },
+
     // END: GLightbox
 
     // START: 13 Isotope
