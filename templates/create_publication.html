@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load social_share %}
+
+
+<main>
+
+<!-- =======================
+Inner intro START -->
+
+<!-- =======================
+Inner intro END -->
+
+<!-- =======================
+Main content START -->
+<section class="position-relative pt-0">
+	<div class="container" data-sticky-container="">
+		<div class="row">
+			<!-- Main Post START -->
+			<div class="col-lg-9">
+				<div class="row gy-4">
+
+					<div class="col-12 text-center mt-5">
+						<button type="button" class="btn btn-primary-soft">Load more post <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
+					</div>
+					<!-- Load more END -->
+				</div>
+			</div>
+			<!-- Main Post END -->
+			<div class="col-lg-3">
+				<div data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
+	      			<h4>Popular authors</h4>
+					{% for author in popular_author%}
+					{% if not author.userprofile.image%}
+					<div class="avatar align-middle">
+					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{author.getfirstChar}}</span></div>
+					</div>
+<!--				<div class="avatar align-middle">-->
+<!--					<img class="avatar-img rounded-circle border border-3 border-dark" src="assets/images/avatar/06.jpg" alt="avatar">-->
+<!--				</div>-->
+
+					{%else%}
+					<div class="avatar mt-3">
+						<img class="avatar-img rounded-circle" src="{{author.userprofile.image.url}}" alt="avatar">
+					</div>
+					{% endif%}
+					{% endfor%}
+					<!-- Advertisement -->
+
+						<div class="mt-4">
+						<div class="col-12 col-sm-6 col-lg-12">
+							<h4 class="mt-4 mb-3">Recent Publication</h4>
+							<!-- Recent post item -->
+							{% for publication in recent_posted_pub%}
+							<div class="card mb-3">
+								<div class="row g-3">
+									<div class="col-4">
+										<img class="rounded" src="{{publication.image.url}}" alt="">
+									</div>
+									<div class="col-8">
+										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a></h6>
+										<div class="small mt-1">{{publication.created_on}}</div>
+									</div>
+								</div>
+							</div>
+							{%endfor%}
+						</div>
+					</div>
+
+					<!-- Advertisement -->
+					<div class="mt-4">
+						<a href="#" class="d-block card-img-flash">
+							<img src="/static/assets/images/01.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div> <!-- Row end -->
+	</div>
+</section>
+</main>
+
+{% endblock contents%}

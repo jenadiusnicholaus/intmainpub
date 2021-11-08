@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'authentication',
 
     # third part apps
-    'ckeditor'
+    'ckeditor',
+    "django_social_share"
 ]
 
 MIDDLEWARE = [

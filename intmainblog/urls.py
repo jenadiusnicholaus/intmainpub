@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('authentication/', include('authentication.urls')),
+    # path('', include('socialShare.urls'))
 
 ]
 

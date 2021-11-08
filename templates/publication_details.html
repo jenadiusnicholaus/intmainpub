@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block contents%}
+{% load social_share %}
+{% load static %}
+
 <main>
 <!-- Divider -->
 <div class="border-bottom border-primary border-1 opacity-1"></div>
@@ -43,17 +46,24 @@ Main START -->
 						{%endif%}
 						<a href="{% url 'author_page' publication_detail.author.username publication_detail.author.id %}" class="h5 stretched-link mt-2 mb-0 d-block">{{publication_detail.author.get_fullname}}</a>
 						<p>{{publication_detail.author.userprofile.profession}}</p>
-					</div>
-					<hr class="d-none d-lg-block">
-					<!-- Card info -->
-
-					<!-- Tags -->
-					<ul class="list-inline text-primary-hover mt-0 mt-lg-3">
+						<ul class="list-inline text-primary-hover mt-0 mt-lg-3">
 					  <li class="list-inline-item">
 					  	<a class="text-body" href="#">{{publication_detail.author.userprofile.bio}}</a>
 					  </li>
 
 					</ul>
+					</div>
+					<hr class="d-none d-lg-block">
+					<!-- Card info -->
+					<ul class="nav nav-divider  align-items-center">
+						<li class="nav-item">{{publication_detail.created_on}}</li>
+						<li class="nav-item">5 min read</li>
+						<li class="nav-item"><a href="#" class="text-body"><i class="far fa-heart me-1"></i></a> 266 </li>
+						<li class="nav-item"><i class="far fa-eye me-1"> </i> 2344 Views</li>
+					</ul>
+
+					<!-- Tags -->
+
 				</div>
 			</div>
 			<!-- Left sidebar END -->
@@ -65,6 +75,7 @@ Main START -->
 					<div class="col-12">
 						<ul class="list-inline mt-3">
 							<li class="list-inline-item">Trending tags:</li>
+
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">GitHub</a></li>
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">GitLab</a></li>
 							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">DockerHub image</a></li>
@@ -145,45 +156,15 @@ Main START -->
 			<div class="col-lg-3">
 				<div data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
 	      	<h4>Share this article</h4>
-					<ul class="nav nav-divider  align-items-center">
-						<li class="nav-item">{{publication_detail.created_on}}</li>
-						<li class="nav-item">5 min read</li>
-						<li class="nav-item"><a href="#" class="text-body"><i class="far fa-heart me-1"></i></a> 266 </li>
-						<li class="nav-item"><i class="far fa-eye me-1"> </i> 2344 Views</li>
-					</ul>
-					<ul class="nav text-white-force mt-2">
+
+					<ul class="nav  mt-2">
+						<a href=""></a>
+
 						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="#">
-								<i class="fab fa-facebook-square align-middle"></i>
-							</a>
+							{% post_to_twitter " {{publication_detail.title}}. Check it out!" object_or_url "Twitter" %}
+
 						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-twitter" href="#">
-								<i class="fab fa-twitter-square align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-linkedin" href="#">
-								<i class="fab fa-linkedin align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-pinterest" href="#">
-								<i class="fab fa-pinterest align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-primary" href="#">
-								<i class="far fa-envelope align-middle"></i>
-							</a>
-						</li>
-					</ul>
-					<!-- Advertisement -->
-					<div class="mt-4">
-						<a href="#" class="d-block card-img-flash">
-							<img src="/static/assets/images/01.jpg" alt="">
-						</a>
-					</div>
+
 				</div>
 			</div>
 			<!-- Right sidebar END -->

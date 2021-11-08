@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block contents %}
+{% load social_share %}
+
 
 <main>
 
 <!-- =======================
 Inner intro START -->
-<section class="bg-dark-overlay-4" style="background-image:url({{recent.image.url}}); background-position: center left; background-size: cover;">
+<section  class="bg-dark-overlay-4 mb-4" style="background-image:url({{recent.image.url}}); background-position: center left; background-size: cover;">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 py-md-5 my-lg-5">
@@ -18,12 +20,10 @@ Inner intro START -->
             <div class="nav-link">
               <div class="d-flex align-items-center text-white position-relative">
 				  {% if not recent.author.userprofile.image %}
-
 				  <div class="avatar">
 					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.getfirstChar}}</span></div>
 				</div>
 				  {% else%}
-
                 <div class="avatar avatar-sm">
                   <img class="avatar-img rounded-circle" src="{{recent.author.userprofile.image.url}}" alt="avatar">
                 </div>
@@ -38,41 +38,14 @@ Inner intro START -->
           <li class="nav-item"><i class="far fa-eye me-1"></i> 2344 Views</li>
           <li class="nav-item"><a href="#"><i class="fas fa-heart me-1 text-danger"></i></a> 266</li>
         </ul>
+		<a  href="{% url 'create_publication'%}" class="btn btn-primary mt-3">Create your own publication</a>
+
         <!-- Share post -->
-        <div class="d-md-flex align-items-center mt-4">
-          <h5 class="text-white me-3">Share on: </h5>
-					<ul class="nav text-white-force">
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="#">
-								<i class="fab fa-facebook-square align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-twitter" href="#">
-								<i class="fab fa-twitter-square align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-linkedin" href="#">
-								<i class="fab fa-linkedin align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-pinterest" href="#">
-								<i class="fab fa-pinterest align-middle"></i>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-primary" href="#">
-								<i class="far fa-envelope align-middle"></i>
-							</a>
-						</li>
-					</ul>
-        </div>
+
       </div>
     </div>
 	</div>
-</section>>
+</section>
 <!-- =======================
 Inner intro END -->
 
@@ -123,10 +96,11 @@ Main content START -->
 										</div>
 									</li>
 									<li class="nav-item">{{publication.created_on}}</li>
-									<li class="nav-item"><a href="#"><i class="fa fa-share"></i></a></li>
-									<li class="nav-item"> 4 <a href="#"><i class="fa fa-eye"></i></a> </li>
 									<li class="nav-item"><a href="#"><i class="far fa-heart me-1"></i></a> 266</li>
-									<li class="nav-item"><a href="#"><i class="far fa-square "></i></a></li>
+									<li class="nav-item"><a href="#"><i class="far fa-eye mr-2"></i></a> 292</li>
+									<li class="nav-item">5 min read</li>
+
+
 								</ul>
 							</div>
 						</div>
@@ -144,20 +118,21 @@ Main content START -->
 			<div class="col-lg-3">
 				<div data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
 	      			<h4>Popular authors</h4>
-				<div class="avatar mt-3">
-						<img class="avatar-img rounded-circle" src="/static/assets/images/01.jpg" alt="avatar">
+					{% for author in popular_author%}
+					{% if not author.userprofile.image%}
+					<div class="avatar align-middle">
+					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{author.getfirstChar}}</span></div>
 					</div>
-					<div class="avatar">
-						<img class="avatar-img rounded-circle" src="/static/assets/images/01.jpg" alt="avatar">
-					</div>
-					<div class="avatar">
-						<img class="avatar-img rounded-circle" src="/static/assets/images/01.jpg" alt="avatar">
-					</div>
-					<div class="avatar">
-						<img class="avatar-img rounded-circle" src="/static/assets/images/01.jpg" alt="avatar">
-					</div>
-					<!-- Advertisement -->
+<!--				<div class="avatar align-middle">-->
+<!--					<img class="avatar-img rounded-circle border border-3 border-dark" src="assets/images/avatar/06.jpg" alt="avatar">-->
+<!--				</div>-->
 
+					{%else%}
+					<div class="avatar mt-3">
+						<img class="avatar-img rounded-circle" src="{{author.userprofile.image.url}}" alt="avatar">
+					</div>
+					{% endif%}
+					{% endfor%}
 						<div class="mt-4">
 						<div class="col-12 col-sm-6 col-lg-12">
 							<h4 class="mt-4 mb-3">Recent Publication</h4>
@@ -194,9 +169,6 @@ Main content START -->
 </section>
 <!-- =======================
 Main content END -->
-
-
-
 </main>
 
 {% endblock contents%}
