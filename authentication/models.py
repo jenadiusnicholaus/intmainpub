@@ -77,7 +77,9 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         return f'{self.firstname} {self.lastname}'
 
     def getfirstChar(self):
-        return str(self.username[0])
+        if  self.username:
+            return str(self.username[0])
+        return str(self.email[0])
 
 
 class UserProfile(models.Model):
@@ -89,18 +91,21 @@ class UserProfile(models.Model):
     profession = models.CharField(max_length=200, null=True, blank=True)
     about = models.TextField(max_length=300, null=True, blank=True)
     bio = models.TextField(max_length=300, null=True, blank=True)
-    facebook_link = models.CharField(max_length=400, null=True, blank=True)
-    linkedin_link = models.CharField(max_length=400, null=True, blank=True)
-    tweeter_link = models.CharField(max_length=400, null=True, blank=True)
-    github_link = models.CharField(max_length=400, null=True, blank=True)
+    facebook_link = models.URLField(max_length=400, null=True, blank=True)
+    linkedin_link = models.URLField(max_length=400, null=True, blank=True)
+    tweeter_link = models.URLField(max_length=400, null=True, blank=True)
+    github_link = models.URLField(max_length=400, null=True, blank=True)
 
     def __str__(self):
         return str(self.user.email)
+    def imageUrl(self):
+        if self.image:
+            return self.image.url
+        return None
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
         userprofile = UserProfile.objects.create(user=instance)
-
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)

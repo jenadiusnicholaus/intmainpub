@@ -1,7 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator
+from django.core.serializers import json
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from hitcount.views import HitCountDetailView
+import json
 
 from .forms import CreatePublicationForm
 from .models import *
@@ -14,26 +19,40 @@ def home(request):
     recent = Publication.objects.filter(status=1).first()
     recent_posted_pub = Publication.objects.filter(status=1)[:3]
     topics = Topics.objects.all()
-    popular_author = User.objects.all()[:3]
+    popular_author = User.objects.all()[:4]
+
+    # publication pagination
+
+    paginator = Paginator(publications, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'publications': publications,
         'recent': recent,
         'recent_posted_pub': recent_posted_pub,
         'topics': topics,
-        'popular_author': popular_author
+        'popular_author': popular_author,
+        'page_obj': page_obj
     }
 
     return render(request, template_name='homepage.html', context=context)
 
 
-def publication_details(request, slug):
-    publication = Publication.objects.get(slug=slug)
-    topics = Topics.objects.all()
-    context = {
-        'publication_detail': publication,
-        'topics': topics
-    }
-    return render(request, template_name='publication_details.html', context=context)
+class PublicationDetails(HitCountDetailView):
+    model = Publication
+    template_name = 'publication_details.html'
+    context_object_name = 'publication_detail'
+    slug_field = 'slug'
+    count_hit = True
+
+    def get_context_data(self, **kwargs):
+        context = super(PublicationDetails, self).get_context_data(**kwargs)
+        topics = Topics.objects.all()
+        context.update({
+            'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
+            'topics': topics
+        })
+        return context
 
 
 class CreatePublication(View):
@@ -46,7 +65,6 @@ class CreatePublication(View):
             'recent_posted_pub': recent_posted_pub,
             'popular_author': popular_author,
             'form': form,
-
         }
         return render(request, template_name='create_publication.html', context=context)
 
@@ -62,7 +80,6 @@ class CreatePublication(View):
             short_description = form.cleaned_data.get('short_description')
             description = form.cleaned_data.get('description')
             status = form.cleaned_data.get('status')
-
             publication = Publication()
             publication.topic = topic
             publication.title = title
@@ -79,3 +96,69 @@ class CreatePublication(View):
             'form': form,
         }
         return render(request, template_name='create_publication.html', context=context)
+
+
+def comment(request, slug):
+    if request.method == 'POST':
+        comments = request.POST['comment']
+        if len(comments) < 5:
+            result = U'Comments need to be greater than 5'
+            return HttpResponse(json.dumps({'result': result}))
+        else:
+            result = 'successfully'
+            user = request.user
+            PublicationComment.objects.create(
+                content=comments,
+                article_id=slug,
+                commenter=user)
+            return HttpResponse(json.dumps({'result': result}))
+
+
+def get_comment(request, slug):
+    pub = Publication.objects.get( slug=slug)
+    comments = PublicationComment.objects.filter(publication = pub).order_by('-created_on')
+    html = ''
+    comment_counter = comments.count()
+
+    for i in comments:
+        if  i.commenter.userprofile.imageUrl():
+            image  = ' <img style ="width: 50px; height:50px;" class="avatar-img rounded-circle border border-3 border-dark mr-5"  src='f"{i.commenter.userprofile.imageUrl()}"'  alt="avatar">'
+        else:
+            image = '<div class="avatar mr-5">' + '<div style ="width: 50px; height:50px;" class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">' + f'{i.commenter.getfirstChar()}' + ' </span></div>' + '</div>'
+
+        el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.get_fullname()}'+ '</h5>' + '<span class="me-3 small">'+ f'{i.created_on}' + '</span>' + '<a href="#" class="text-body fw-normal">Reply</a>'+ '</div>'+ '<p>' + f'{i.content}' + '</p>'+ '</div>'+ '</div>'
+
+        ele = '<div> <article>  <p> <span> Author:' + f'{i.commenter.username}' + '</span > </p > <p>' + i.content +\
+              '<ul> <li> <a href = "rel external nofollow > </a> </li> </ul> </article > </div HR'
+        html += el
+    return HttpResponse(json.dumps({'comment': html, 'counter': comment_counter}))
+
+
+def ajax_commenting(request, slug):
+    if request.is_ajax():
+        publication = Publication.objects.get(slug = slug)
+
+        comment = request.POST.get('comment', None) # getting data from first_name input
+        print(comment)
+        if comment: #cheking if first_name and last_name have value
+            user = request.user
+            PublicationComment.objects.create(
+                content=comment,
+                publication=publication,
+                commenter=user)
+            response = {
+                'msg':'successfully' # response message
+            }
+            return JsonResponse(response) # return response as JSON
+
+def ajax_replying(request, pk):
+    response = {
+                'msg':'successfully' # response message
+            }
+    return JsonResponse(response) # return response as JSON
+
+def get_replying(request, pk):
+    response = {
+               'msg':'successfully' # response message
+            }
+    return JsonResponse(response) # return response as JSON

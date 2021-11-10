@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+{% load hitcount_tags %}
+<main>
+
+<!-- =======================
+Inner intro START -->
+<section class="pt-4">
+	<div class="container">
+		<div class="container">
+		{% if messages %}
+	<ul class="messages" >
+		{% for message in messages %}
+	   {% if message.tags %}
+		<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+		{% endif %}
+				<strong>Done!</strong> {{ message }}..
+			<button type="button" style="Color: black" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endfor %}
+	</ul>
+	{% endif %}
+		<div class="row">
+		  <div class="col-4 col-sm-3">
+			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			  <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+			  <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Publications</a>
+			  <a class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+<!--			  <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Theme</a>-->
+			</div>
+		  </div>
+		  <div class="col-8 col-sm-9">
+			<div class="tab-content pt-0" id="v-pills-tabContent">
+			  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+				  <div class="bg-primary-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+							<!-- Avatar -->
+						  <div class=" me-0 me-md-4">
+							  {% if not request.user.userprofile.image %}
+							   <div class="avatar avatar-xxxl">
+									<img class="avatar-img rounded-circle" src="/static/assets/images/avatar.jpeg" alt="avatar">
+								</div>
+							  {% else %}
+							  <div class="avatar avatar-xxl">
+								  <img class="avatar-img rounded-circle border border-3 border-dark" src="{{request.user.userprofile.image.url}}" alt="avatar">
+								</div>
+							  {% endif %}
+							<!-- Post count -->
+							<div class="text-center mt-n3 position-relative">
+							  <span style="color:black;" class="badge bg-success fs-6">
+								  {% if author_publication.count < 2 %}
+									{{author_publication.count}}
+										publication
+									{%elif author_publication.count == 0 %}
+										No publication yet
+									{%else%}
+										{{author_publication.count}}
+										publications
+								  {% endif%}
+							  </span>
+							</div>
+						  </div>
+
+					  <div class=" me-0 me-md-4">
+						  <h3>Edit profile</h3>
+						  <form action="" method="post" enctype="multipart/form-data">
+							  {%csrf_token%}
+							  {{ user_form }}
+							  {{ profile_form }}
+							  <button type="submit" class="btn btn-primary-soft">save now <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
+						  </form>
+					  </div>
+							<!-- Info -->
+						<div>
+					<h2 class="m-0">{{author_data.get_fullname}}</h2>
+					<small>{% if not author_data.userprofile.profession%}{%else%}{{author_data.userprofile.profession}}{%endif%}</small>
+						<p class="my-2">{% if not author_data.userprofile.about%}{%else%}{{author_data.userprofile.about}}{%endif%}</p>
+						<!-- Social icons -->
+						<ul class="nav justify-content-center justify-content-md-start">
+							<li class="nav-item">
+								<a class="nav-link ps-0 pe-2 fs-5" href="{% if not author_data.userprofile.facebook_link%}#{% else%}{{author_data.userprofile.facebook_link}}{%endif%}"><i class="fab fa-facebook-square"></i></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.tweeter_link%}#{% else%}{{author_data.userprofile.tweeter_link}}{%endif%}"><i class="fab fa-twitter-square"></i></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.linkedin_link%}#{% else%}{{author_data.userprofile.linkedin_link}}{%endif%}"><i class="fab fa-linkedin"></i></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.github_link%}#{% else%}{{author_data.userprofile.github_link}}{%endif%}"><i class="fab fa-github"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>    	</div>
+			  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+				  <div class="row">
+					  <div class="col-12 mb-3">
+						<h2> </h2>
+					  </div>
+					  <div class="col-12">
+							<div class="row gy-4">
+								<!-- Card item START -->
+								{% for publication in page_obj %}
+								<div class="col-sm-6 col-lg-4">
+									<div class="card">
+										<!-- Card img -->
+										<div class="position-relative">
+											<img style="height:200px; width:300px;" class="card-img" src="{{publication.image.url}}" alt="Card image">
+											<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+												<!-- Card overlay bottom -->
+												<div class="w-100 mt-auto">
+													<!-- Card category -->
+													<a href="#" class="badge bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title|truncatechars:100}}}</a>
+												</div>
+											</div>
+										</div>
+										<div class="card-body px-0 pt-3">
+											<h4 class="card-title"><a href="{% url 'publication_details' publication.slug %}" >{{publication.title|safe}}</a></h4>
+											<p class="card-text">{{publication.short_description|truncatechars:200}}</p>
+											<!-- Card info -->
+											<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+												<li class="nav-item">{{publication.created_on|timesince}} ago</li>
+												<li class="nav-item">{% get_hit_count for publication %} <i class="fa fa-eye"> Views </i></li>
+												<!--<li class="nav-item">Jan 22, 2021</li>-->
+											</ul>
+										</div>
+									</div>
+								</div>
+								 {% empty %}
+								<div class="alert alert-info" role="alert">
+									No publication yet.
+									 <a  href="{% url 'create_publication'%}" class="btn btn-primary-soft">Create one <i class="fa fa-plus"></i></a>
+								</div>
+
+								{% endfor%}
+
+							<div class="pagination">
+								<span class="step-links">
+									{% if page_obj.has_previous %}
+										<a href="?page=1">&laquo; first</a>
+										<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+									{% endif %}
+
+									<span class="current">
+										Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+									</span>
+
+									{% if page_obj.has_next %}
+										<a href="?page={{ page_obj.next_page_number }}">next</a>
+										<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+									{% endif %}
+								</span>
+							</div>
+								<!-- Load more END -->
+							</div>
+						</div>
+				</div>
+				</div>
+			  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+				  		<h6>Why is it important to list publications on a CV? <br> <br> It is important to list publications on your CV to prove that you have experience and knowledge in a particular area. They also show that you have good writing and analytical skills. Showing your knowledge and skills through your publications is important when you are applying for a scientific or an academic job such as a:</h6>
+				</div>
+<!--			  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">-->
+<!--			  </div>-->
+			</div>
+		  </div>
+		</div>
+	</div>
+</section>
+
+
+</main>
+{% endblock contents %}

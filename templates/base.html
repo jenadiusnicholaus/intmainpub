@@ -34,6 +34,8 @@
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZ4W34ZJ0L"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
@@ -79,7 +81,7 @@ Header START -->
 								<div class="row px-3">
 									<div class="col-12">
 										<ul class="list-inline mt-3">
-											<li class="list-inline-item">Trending tags:</li>
+											<li class="list-inline-item">Trending topics:</li>
 											{% for topic in topics%}
 											<li class="list-inline-item"><a href="#" class="btn btn-sm {{topic.get_color_display}}">{{topic.title}}</a></li>
 											{%endfor%}
@@ -98,11 +100,6 @@ Header START -->
 			<!-- Nav right START -->
 			<div class="nav ms-sm-3 flex-nowrap align-items-center">
 				<!-- Dark mode switch -->
-				<div class="nav-item">
-					<div class="modeswitch" id="darkModeSwitch">
-						<div class="switch"></div>
-					</div>
-				</div>
 
 				<!-- Nav Button -->
 				{% if not user.is_authenticated %}
@@ -128,11 +125,16 @@ Header START -->
 					<div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
 						<ul class="list-inline mt-3">
 							<li class="list-inline-item">{{request.user.firstname}}:</li>
-							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Profile</a></li>
-							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Settings</a></li>
-							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Publication</a></li>
-							<li class="list-inline-item"><a href="#" class="btn btn-sm btn-default-soft">Dashboard</a></li>
-							<li class="list-inline-item"><a href="{% url 'logout' %}" class="btn btn-sm btn-danger-soft">Log out</a></li>
+							<li class="list-inline-item"><a href="{% url 'userprofile'%}" class="btn btn-sm btn-primary-soft">Profile</a></li>
+
+							<li class="list-inline-item">
+								<div class="nav-item">
+									<div class="modeswitch" id="darkModeSwitch">
+										<div class="switch"></div>
+									</div>
+								</div>
+							</li>
+							<li class="list-inline-item"><a href="{% url 'logout'%}" class="btn btn-sm btn-danger-soft">logout</a></li>
 						</ul>
 					</div>
 				</div>
@@ -155,84 +157,13 @@ Header END -->
 {% block contents%} {% endblock contents%}
 <!-- **************** MAIN CONTENT END **************** -->
 
-<!-- =======================
-Footer START -->
-<footer class=" pt-5">
-<!--	<div class="container">-->
-<!--		&lt;!&ndash; About and Newsletter START &ndash;&gt;-->
-<!--		<div class="row pt-3 pb-4">-->
-<!--			<div class="col-md-3">-->
-<!--			<a class="navbar-brand" href="{% url 'home'%}">-->
-
-<!--				<img class="navbar-brand-item light-mode-item" src="{% static 'assets/images/mylogo.png'%}" alt="logo">-->
-<!--				<img class="navbar-brand-item dark-mode-item" src="{% static 'assets/images/mylogo.png'%}" alt="logo">-->
-
-<!--			</a>-->
-<!--			</div>-->
-<!--			<div class="col-md-5">-->
-<!--				<p class="text-muted">learn and create your own publication.</p>-->
-<!--			</div>-->
-<!--			<div class="col-md-4">-->
-<!--				&lt;!&ndash; Form &ndash;&gt;-->
-<!--				<form class="row row-cols-lg-auto g-2 align-items-center justify-content-end">-->
-<!--					<div class="col-12">-->
-<!--				    <input type="email" class="form-control" placeholder="Enter your email address">-->
-<!--				  </div>-->
-<!--				  <div class="col-12">-->
-<!--				    <button type="submit" class="btn btn-primary m-0">Subscribe</button>-->
-<!--				  </div>-->
-<!--				  <div class="form-text mt-2">By subscribing you agree to our-->
-<!--				  	<a href="#" class="text-decoration-underline text-reset">Privacy Policy</a>-->
-<!--				  </div>-->
-<!--				</form>-->
-<!--			</div>-->
-<!--		</div>-->
-
-<!--	</div>-->
-
-	<!-- Footer copyright START -->
-	<div class="bg-dark mt-5 ">
-		<div class="container">
-			<div class="row align-items-center justify-content-md-between py-4">
-				<div class="col-md-6">
-					<!-- Copyright -->
-					<div class="text-center text-md-start text-primary-hover text-muted">©2021 <a href="https://www.webestica.com/" class="text-reset btn-link" target="_blank">Webestica</a>. All rights reserved
-					</div>
-				</div>
-				<div class="col-md-6 d-sm-flex align-items-center justify-content-center justify-content-md-end">
-					<!-- Language switcher -->
-					<div class="dropup me-0 me-sm-3 mt-3 mt-md-0 text-center text-sm-end">
-					  <a class="dropdown-toggle text-primary-hover" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
-					    English Edition
-					  </a>
-					  <ul class="dropdown-menu min-w-auto" aria-labelledby="languageSwitcher">
-					    <li><a class="dropdown-item" href="#">English</a></li>
-					    <li><a class="dropdown-item" href="#">German </a></li>
-					    <li><a class="dropdown-item" href="#">French</a></li>
-					  </ul>
-					</div>
-					<!-- Links -->
-				  <ul class="nav text-primary-hover text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
-			      <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>
-			      <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
-			      <li class="nav-item"><a class="nav-link pe-0" href="#">Cookies</a></li>
-				  </ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Footer copyright END -->
-</footer>
-<!-- =======================
-Footer END -->
-
-<!-- Back to top -->
 <div class="back-top"><i class="bi bi-arrow-up-short"></i></div>
 
 <!-- =======================
 JS libraries, plugins and custom scripts -->
 
 <!-- Bootstrap JS -->
+
 <script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
 
 <!-- Vendors -->
@@ -245,6 +176,7 @@ JS libraries, plugins and custom scripts -->
 
 <!-- Template Functions -->
 <script src="{% static 'assets/js/functions.js'%}"></script>
+
 
 
 </body>

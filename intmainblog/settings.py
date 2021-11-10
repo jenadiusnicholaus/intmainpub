@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # ours
     'blog',
     'authentication',
@@ -43,8 +44,11 @@ INSTALLED_APPS = [
     # third part apps
     'ckeditor',
     'ckeditor_uploader',
-    "django_social_share"
+    "django_social_share",
+    'hitcount',
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,6 +77,7 @@ TEMPLATES = [
         },
     },
 ]
+SITE_ID = 1
 
 WSGI_APPLICATION = 'intmainblog.wsgi.application'
 

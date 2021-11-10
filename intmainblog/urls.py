@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('authentication/', include('authentication.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
 
     # path('', include('socialShare.urls'))
 

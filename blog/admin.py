@@ -12,4 +12,5 @@ class PublicationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Publication, PublicationAdmin)
-admin.site.register(Topics,)
+admin.site.register(Topics, )
+admin.site.register(PublicationComment)

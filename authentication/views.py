@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.shortcuts import render, redirect
 from django.views import View
-
 from authentication.forms import UserSignUpForm
-from blog.models import Publication
+from .forms import usersForm, singleUserProfileForm
+from blog.models import Publication, Topics
 from django.core.paginator import Paginator
 
 User = get_user_model()
@@ -32,12 +33,13 @@ def author_page(request, username, pk):
     paginator = Paginator(publication, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    topics = Topics.objects.all()
 
     context = {
         'author_data': author_data,
         'author_publication': publication,
-        'page_obj': page_obj
-
+        'page_obj': page_obj,
+        'topics': topics
     }
     return render(request, template_name='author_page.html', context=context)
 
@@ -103,3 +105,50 @@ def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("/")
+
+
+class userProfile(View):
+    def get(self, request, *args, **kwargs):
+        # author_data = User.objects.get(pk=request.user)
+        publication = Publication.objects.filter(author=request.user)
+        paginator = Paginator(publication, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        topics = Topics.objects.all()
+
+        update_form_user = usersForm(instance=self.request.user)
+        update_form_user_profile = singleUserProfileForm(instance=self.request.user.userprofile)
+        context = {
+            # 'author_data': author_data,
+            'author_publication': publication,
+            'page_obj': page_obj,
+            'topics': topics,
+            'user_form': update_form_user,
+            'profile_form': update_form_user_profile
+        }
+
+        return render(request, template_name="userprofile.html", context=context)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            update_form_user = usersForm(
+                self.request.POST or None,
+                instance=self.request.user)
+            update_form_user_profile = singleUserProfileForm(
+                self.request.POST or None, self.request.FILES or None,
+                instance=self.request.user.userprofile)
+            if update_form_user.is_valid() and update_form_user_profile.is_valid():
+                user = update_form_user.save(True)
+                profile = update_form_user_profile.save(False)
+                profile.user = user
+                profile.save()
+                messages.success(self.request, ' your profile has been updated successfully')
+                return redirect('userprofile')
+            else:
+                messages.warning(self.request, 'form is invalid')
+                print(update_form_user.data, update_form_user_profile.data)
+                return redirect('userprofile')
+
+        except ObjectDoesNotExist:
+            messages.info(self.request, 'Invalid user profile, try to register as a new user.')
+            return redirect('userprofile')

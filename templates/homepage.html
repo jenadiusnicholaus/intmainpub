@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block contents %}
+{% load hitcount_tags %}
 {% load social_share %}
 
 
+{% block contents %}
 <main>
-
 <!-- =======================
 Inner intro START -->
 <section  class="bg-dark-overlay-4 mb-4" style="background-image:url({{recent.image.url}}); background-position: center left; background-size: cover;">
@@ -14,51 +14,42 @@ Inner intro START -->
 		{% for message in messages %}
 	   {% if message.tags %}
 		<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-
-
 		{% endif %}
-				<strong>Done!</strong> {{ message }}..
+			<strong>Done!</strong> {{ message }}..
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
-
-
 		{% endfor %}
 	</ul>
-{% endif %}
+	{% endif %}
 		<div class="row">
-			<div class="col-lg-8 py-md-5 my-lg-5">
-        <a href="#" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title}}</a>
+			<div class="col-lg-4 py-md-5 my-lg-5">
+        		<a href="#" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title}}</a>
 				<h1 class="text-white">{{recent.title|safe}}</h1>
-        <p class="lead text-white">{{recent.short_description|safe|truncatechars:300}}. </p>
+        		<p class="lead text-white">{{recent.short_description|safe|truncatechars:300}}. </p>
         <!-- Info -->
-        <ul class="nav nav-divider text-white-force align-items-center">
-          <li class="nav-item">
-            <div class="nav-link">
-              <div class="d-flex align-items-center text-white position-relative">
-				  {% if not recent.author.userprofile.image %}
-				  <div class="avatar">
-					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.getfirstChar}}</span></div>
-				</div>
-				  {% else%}
-                <div class="avatar avatar-sm">
-                  <img class="avatar-img rounded-circle" src="{{recent.author.userprofile.image.url}}" alt="avatar">
-                </div>
-
-				  {% endif%}
-                <span class="ms-3"> <a href="#" class="stretched-link text-reset btn-link">{{recent.author.get_fullname}}</a></span>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item">Nov 15, 2021</li>
-          <li class="nav-item">5 min read</li>
-          <li class="nav-item"><i class="far fa-eye me-1"></i> 2344 Views</li>
-          <li class="nav-item"><a href="#"><i class="fas fa-heart me-1 text-danger"></i></a> 266</li>
-        </ul>
-		<a  href="{% url 'create_publication'%}" class="btn btn-primary mt-3">Create your own publication</a>
-
-        <!-- Share post -->
-
-      </div>
+				<ul class="nav nav-divider text-white-force align-items-center">
+				  <li class="nav-item">
+					<div class="nav-link">
+					  <div class="d-flex align-items-center text-white position-relative">
+						  {% if not recent.author.userprofile.image %}
+						  <div class="avatar">
+							<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.getfirstChar}}</span></div>
+						</div>
+						  {% else%}
+						<div class="avatar avatar-sm">
+						  <img class="avatar-img rounded-circle" src="{{recent.author.userprofile.image.url}}" alt="avatar">
+						</div>
+						  {% endif%}
+						<span class="ms-3"> <a href="#" class="stretched-link text-reset btn-link">{{recent.author.get_fullname}}</a></span>
+					  </div>
+					</div>
+				  </li>
+				  <li class="nav-item">{{recent.created_on|timesince}} ago</li>
+					<!--          <li class="nav-item">5 min read</li>-->
+				  <li class="nav-item"><i class="far fa-eye me-1"></i> {% get_hit_count for recent %} Views</li>
+				</ul>
+				<a  href="{% url 'create_publication'%}" class="btn btn-primary mt-3">Create your first publication</a>
+      		</div>
     </div>
 	</div>
 </section>
@@ -74,7 +65,7 @@ Main content START -->
 			<div class="col-lg-9">
 				<div class="row gy-4">
 					<!-- Card item START -->
-					{% for publication in publications %}
+					{% for publication in page_obj %}
 					<div class="col-sm-6">
 						<div class="card">
 							<!-- Card img -->
@@ -114,10 +105,9 @@ Main content START -->
 											</div>
 										</div>
 									</li>
-									<li class="nav-item">{{publication.created_on}}</li>
-									<li class="nav-item"><a href="#"><i class="far fa-heart me-1"></i></a> 266</li>
-									<li class="nav-item"><a href="#"><i class="far fa-eye mr-2"></i></a> 292</li>
-									<li class="nav-item">5 min read</li>
+									<li class="nav-item"> Published: {{publication.created_on|timesince }} ago </li>
+									<li class="nav-item"><a href="#"><i class="far fa-eye mr-2"></i></a> Views: {% get_hit_count for publication %}</li>
+<!--									<li class="nav-item"> min read</li>-->
 
 
 								</ul>
@@ -128,23 +118,24 @@ Main content START -->
 					{% endfor%}
 					<!-- Card item END -->
 
-					<nav aria-label="Page navigation example">
-					  <ul class="pagination">
-						<li class="page-item">
-						  <a class="page-link" href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						  </a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item">
-						  <a class="page-link" href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						  </a>
-						</li>
-					  </ul>
-					</nav>
+
+					<div class="pagination">
+						<span class="step-links">
+							{% if page_obj.has_previous %}
+								<a href="?page=1">&laquo; first</a>
+								<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+							{% endif %}
+
+							<span class="current">
+								Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+							</span>
+
+							{% if page_obj.has_next %}
+								<a href="?page={{ page_obj.next_page_number }}">next</a>
+								<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+							{% endif %}
+						</span>
+</div>
 					<!-- Load more END -->
 				</div>
 			</div>
