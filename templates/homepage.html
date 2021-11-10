@@ -22,10 +22,10 @@ Inner intro START -->
 	</ul>
 	{% endif %}
 		<div class="row">
-			<div class="col-lg-4 py-md-5 my-lg-5">
-        		<a href="#" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title}}</a>
-				<h1 class="text-white">{{recent.title|safe}}</h1>
-        		<p class="lead text-white">{{recent.short_description|safe|truncatechars:300}}. </p>
+			<div class="col-lg-8 py-md-5 my-lg-5">
+        		<a href="{% url 'publication_details' recent.slug %}" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title|truncatechars:100}}</a>
+				 <a href="{% url 'publication_details' recent.slug %}" ><h1 class="text-white text-link">{{recent.title|safe}}</h1></a>
+        		<p class="lead text-white">{{recent.short_description|safe|truncatechars:200}}. </p>
         <!-- Info -->
 				<ul class="nav nav-divider text-white-force align-items-center">
 				  <li class="nav-item">
@@ -107,9 +107,7 @@ Main content START -->
 									</li>
 									<li class="nav-item"> Published: {{publication.created_on|timesince }} ago </li>
 									<li class="nav-item"><a href="#"><i class="far fa-eye mr-2"></i></a> Views: {% get_hit_count for publication %}</li>
-<!--									<li class="nav-item"> min read</li>-->
-
-
+									<!--<li class="nav-item"> min read</li>-->
 								</ul>
 							</div>
 							{% endif %}
@@ -135,7 +133,7 @@ Main content START -->
 								<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
 							{% endif %}
 						</span>
-</div>
+					</div>
 					<!-- Load more END -->
 				</div>
 			</div>

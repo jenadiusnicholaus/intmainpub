@@ -26,7 +26,11 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/tiny-slider.css'%}">
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/glightbox.css'%}">
 	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/style.css' %}">
-	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.css" data-noprefix />
+	<!-- <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.css" data-noprefix /> -->
+	<link rel="stylesheet" href="{% static 'assets/css/prism.css'%}">
+	<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+
+
 
 
 	<!-- Theme CSS -->
@@ -70,7 +74,7 @@ Header START -->
 			<!-- Main navbar START -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav navbar-nav-scroll ms-auto">
-					<li class="nav-item "><a  class="nav-link  " href="#" > <Span> <i class = "fa fa-search"></i></Span></a></li>
+					<li class="nav-item "><a  class="nav-link  " href="{% url 'search'%}" > <Span> <i class = "fa fa-search"></i></Span></a></li>
 					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
 					<!-- Nav item 4 Mega menu -->
 					<li class="nav-item dropdown dropdown-fullwidth">
@@ -157,7 +161,7 @@ Header END -->
 {% block contents%} {% endblock contents%}
 <!-- **************** MAIN CONTENT END **************** -->
 
-<div class="back-top"><i class="bi bi-arrow-up-short"></i></div>
+<div class="back-top"><i class="fa fa-arrow-up"></i></div>
 
 <!-- =======================
 JS libraries, plugins and custom scripts -->
@@ -172,6 +176,11 @@ JS libraries, plugins and custom scripts -->
 <script src="{% static 'assets/js/glightbox.js'%}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<link rel="stylesheet" href="{% static '/assets/js/prism.js'%}">
+<!-- <script src="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.js"></script>
+ -->
 
 
 <!-- Template Functions -->

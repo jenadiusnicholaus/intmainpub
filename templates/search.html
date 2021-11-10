@@ -1,0 +1,100 @@
+
+{% extends 'base.html' %}
+
+{% block contents %}
+
+
+
+<main>
+
+    <!-- =======================
+Inner intro START -->
+    <section class="pt-4">
+        <div class="container">
+            <div class="row ">
+
+            <form action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="q" value="{{request.GET.q}}" placeholder="Search posts" />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-default" name="submit" value="Search" />
+                    </div>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+Inner intro END -->
+
+    <!-- =======================
+Main content START -->
+    <section class="position-relative pt-0">
+        <div class="container" data-sticky-container="">
+
+            <div class="row">
+                <!-- Main Post START -->
+                <div class="col-lg-9">
+                    <!-- Card item START -->
+                    <div class="card mb-4">
+                        <div class="row">
+
+                            {% if submitbutton == 'Search' and request.GET.q != '' %}
+                            {% if results %}
+                            <h5>Results for <b>{{ request.GET.q }}</b></h1>
+                            <br /><br />
+
+                            {% for result in results %}
+
+
+                            <div class="col-md-5">
+                                <img class="rounded-3" src="{{result.image.url}}" alt="">
+                            </div>
+                            <div class="col-md-7 mt-3 mt-md-0">
+                                <a href="#" class="badge {{result.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{result.topic.title}}</a>
+                                <h3><a href="{% url 'publication_details' result.slug %}" class="btn-link stretched-link text-reset">{{result.title}}</a></h3>
+                                <p>{{result.short_description}}</p>
+                                <!-- Card info -->
+                                <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                                    <li class="nav-item">
+                                        <div class="nav-link">
+                                            <div class="d-flex align-items-center position-relative">
+                                                <div class="avatar avatar-xs">
+                                                    <img class="avatar-img rounded-circle" src="{{result.author.userprofile.image.url}}" alt="avatar">
+                                                </div>
+                                                <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Samuel</a></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">{{result.created_on|timesince}} ago</li>
+                                </ul>
+                            </div>
+
+                            {% endfor %}
+                            {% else %}
+                            No search results for this query
+                            {% endif %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <!-- Card item END -->
+                    <!-- Pagination START -->
+
+                    <!-- Pagination END -->
+                </div>
+                <!-- Main Post END -->
+
+
+                <!-- Sidebar END -->
+            </div> <!-- Row end -->
+        </div>
+    </section>
+    <!-- =======================
+Main content END -->
+</main>
+{% endblock %}

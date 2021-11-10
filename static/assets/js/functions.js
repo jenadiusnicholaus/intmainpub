@@ -79,7 +79,6 @@ var e = {
         e.backTotop(),
         e.stickyPost(),
         e.stickyFooter(),
-        e.lightBox(),
         e.enableIsotope(),
         e.darkMode(),
         e.zooming(),

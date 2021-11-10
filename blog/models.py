@@ -9,6 +9,7 @@ from intmainblog import settings
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from six import python_2_unicode_compatible
+import uuid
 
 STATUS = (
     (0, 'Draft'),
@@ -28,6 +29,8 @@ User = settings.AUTH_USER_MODEL
 
 
 class Topics(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     title = models.CharField(max_length=300, null=False, blank=False)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
     color = models.CharField(max_length=25, choices=COLOR)
@@ -48,7 +51,7 @@ class Publication(models.Model):
     topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, related_name='topic', null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     title = models.CharField(max_length=300, null=False, blank=False)
-    slug = models.SlugField(max_length=200, unique=True, null=True)
+    slug = models.SlugField(max_length=1000, unique=True, null=True)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
     short_description = models.TextField(blank=True, null=True)
     description = RichTextUploadingField(null=True, blank=True)

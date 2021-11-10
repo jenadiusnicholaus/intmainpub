@@ -15,5 +15,4 @@ urlpatterns = [
     path("logout", logout_request, name="logout"),
     path("userprofile", userProfile.as_view(), name="userprofile"),
 
-
 ]

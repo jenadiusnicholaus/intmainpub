@@ -186,6 +186,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join([
             'uploadimage',  # the upload image feature
             # your extra plugins here
+            'prism',
             'div',
             'autolink',
             'autoembed',
