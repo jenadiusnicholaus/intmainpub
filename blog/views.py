@@ -52,14 +52,17 @@ class PublicationDetails(HitCountDetailView):
     count_hit = True
 
     def get_context_data(self, **kwargs):
+        try:
+            context = super(PublicationDetails, self).get_context_data(**kwargs)
+            topics = Topics.objects.all()
+            context.update({
+                'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
+                'topics': topics
+            })
+            return context
+        except :
+            return render(request, template_name='error_page.html')
 
-        context = super(PublicationDetails, self).get_context_data(**kwargs)
-        topics = Topics.objects.all()
-        context.update({
-            'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
-            'topics': topics
-        })
-        return context
 
 
 
@@ -69,11 +72,13 @@ class CreatePublication(View):
             recent_posted_pub = Publication.objects.all()[:3]
             popular_author = User.objects.all()[:4]
             form = CreatePublicationForm()
+            topic = Topics.objects.all()
 
             context = {
                 'recent_posted_pub': recent_posted_pub,
                 'popular_author': popular_author,
                 'form': form,
+                'topics': topic
             }
 
             return render(request, template_name='create_publication.html', context=context)
@@ -93,6 +98,10 @@ class CreatePublication(View):
                 short_description = form.cleaned_data.get('short_description')
                 description = form.cleaned_data.get('description')
                 status = form.cleaned_data.get('status')
+                bitBucket_link = form.cleaned_data.get("bitBucket_link")
+                docker_link = form.cleaned_data.get("docker_link")
+                gitlab_link = form.cleaned_data.get("gitlab_link")
+                github_link = form.cleaned_data.get("github_link")
                 publication = Publication()
                 publication.topic = topic
                 publication.title = title
@@ -101,14 +110,22 @@ class CreatePublication(View):
                 publication.short_description = short_description
                 publication.image = image
                 publication.status = status
+                publication.bitBucket_link = bitBucket_link
+                publication.docker_link = docker_link
+                publication.gitlab_link = gitlab_link
+                publication.github_link = github_link
                 publication.save()
-                messages.info(request, 'Three credits remain in your account.')
+                messages.info(request, 'Publication was created success.')
                 return redirect('/')
-            form = CreatePublicationForm()
-            context = {
-                'form': form,
-            }
-            return render(request, template_name='create_publication.html', context=context)
+            else:
+                print(form.is_valid(), )
+                context = {
+                    # 'form': form,
+                }
+                messages.info(request, 'Three credits remain in your account.')
+
+                return redirect('create_publication')
+
         except :
             return render(request, template_name='error_page.html')
 
@@ -200,3 +217,25 @@ def publication_search(request):
     except :
         return render(request, template_name='error_page.html')
 
+
+def topics_details(request, pk):
+    # try:
+    topic = Topics.objects.get(id = pk)
+    topics = Topics.objects.all()
+
+    pubs = Publication.objects.filter(topic_id = pk)
+    paginator = Paginator(pubs, 20)
+    count_pubs = pubs.count()
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'topics': topics,
+        'topic': topic,
+        'page_obj':page_obj,
+        'count_pubs':count_pubs,
+
+    }
+    return render(request, 'topic_items.html', context = context)
+    # except:
+    #      return render(request, template_name='error_page.html')

@@ -16,14 +16,14 @@ Inner intro START -->
 		<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
 		{% endif %}
 			<strong>Done!</strong> {{ message }}..
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			<button style = 'color:black;' type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		{% endfor %}
 	</ul>
 	{% endif %}
 		<div class="row">
 			<div class="col-lg-8 py-md-5 my-lg-5">
-        		<a href="{% url 'publication_details' recent.slug %}" class="badge {{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title|truncatechars:100}}</a>
+        		<a href="{% url 'topic_items' recent.topic.id %}" class="badge bg-{{recent.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{recent.topic.title|truncatechars:100}}</a>
 				 <a href="{% url 'publication_details' recent.slug %}" ><h1 class="text-white text-link">{{recent.title|safe}}</h1></a>
         		<p class="lead text-white">{{recent.short_description|safe|truncatechars:200}}. </p>
         <!-- Info -->
@@ -77,7 +77,7 @@ Main content START -->
 									<!-- Card overlay bottom -->
 									<div class="w-100 mt-auto">
 										<!-- Card category -->
-										<a href="#" class="badge {{publication.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title}}</a>
+										<a href="{% url 'topic_items' publication.topic.id%}" class="badge bg-{{publication.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title}}</a>
 									</div>
 								</div>
 							</div>
@@ -171,8 +171,8 @@ Main content START -->
 									</div>
 
 									<div class="col-8">
-										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a></h6>
-										<div class="small mt-1">{{publication.created_on}}</div>
+										<h6><a href="{% url 'publication_details' publication.slug%}" class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a></h6>
+										<div class="small mt-1">{{publication.created_on|timesince}} ago</div>
 									</div>
 									{%endif%}
 								</div>

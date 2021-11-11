@@ -77,6 +77,19 @@ Main content START -->
                             {% else %}
                             No search results for this query
                             {% endif %}
+                            {%else%}
+
+                            <div class="row px-3">
+                                <div class="col-12">
+                                    <ul class="list-inline mt-3">
+
+                                        <li class="list-inline-item">Trending tags:</li>
+                                        {% for topic in topics %}
+                                        <li class="list-inline-item"><a href="{% url 'topic_items' topic.id %}" class="btn btn-sm btn-{{topic.get_color_display}}-soft">{{ topic.title}}</a></li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+                            </div>
                             {% endif %}
 
                         </div>

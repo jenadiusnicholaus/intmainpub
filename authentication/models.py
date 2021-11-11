@@ -47,10 +47,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, ):
-    firstname = models.CharField(max_length=20, null=True)
-    middlename = models.CharField(max_length=20, null=True)
-    lastname = models.CharField(max_length=20, null=True)
-    username = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    firstname = models.CharField(max_length=30, null=True)
+    middlename = models.CharField(max_length=30, null=True)
+    lastname = models.CharField(max_length=30, null=True)
+    username = models.CharField(max_length=30, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
     is_active = models.BooleanField(default=True)

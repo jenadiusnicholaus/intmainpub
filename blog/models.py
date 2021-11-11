@@ -17,11 +17,11 @@ STATUS = (
 )
 
 COLOR = (
-    ('primary', 'btn-primary-soft'),
-    ('warning', " btn-warning-soft"),
-    ('success', " btn-success-soft"),
-    ('danger', " btn-danger-soft"),
-    ('info', " btn-info-soft"),
+    ('primary', 'primary'),
+    ('warning', "warning"),
+    ('success', "success"),
+    ('danger', "danger"),
+    ('info', "info"),
 
 )
 
@@ -48,7 +48,7 @@ class Topics(models.Model):
 
 @python_2_unicode_compatible
 class Publication(models.Model):
-    topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, related_name='topic', null=True, blank=True)
+    topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, related_name='publication', null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     title = models.CharField(max_length=300, null=False, blank=False)
     slug = models.SlugField(max_length=1000, unique=True, null=True)

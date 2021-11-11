@@ -18,7 +18,7 @@ Inner intro START -->
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<a href="#" class="badge {{publication_detail.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication_detail.topic.title}}</a>
+				<a href="{% url 'topic_items' publication_detail.topic.id %}" class="badge bg-{{publication_detail.topic.get_color_display}} mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{publication_detail.topic.title}}</a>
 				<h1>{{publication_detail.title|safe}}</h1>
 			</div>
 			 <p class="lead">{{publication_detail.short_description}}</p>

@@ -32,12 +32,12 @@ Main content START -->
 
 							<div class="row">
 								<div class="col-md-6">
-
-									<label class="form-label" for="id_topic"></label>
-									<select required name="topic" class="form-control" id="id_topic">
-									<option value="selected">Select the topic </option>
-									<option value="1">Flutter</option>
-									</select>
+								<label class="form-label" for="id_topic">Publication topic</label>
+								<select class="form-select" id="id_topic" name="topic" aria-label="Default select example">
+									{% for name, value in form.fields.topic.choices %}
+									<option value="{{name}}">{{value}}</option>
+									{% endfor %}
+								</select>
 
 								</div>
 								<div class="col-md-6">
@@ -61,9 +61,15 @@ Main content START -->
 							<div class="form-group mt-3 mb-3">
 								<label for="id_short_description" >Short Description</label>
 								<textarea required class="form-control" name="short_description" id="id_short_description" rows="3"></textarea>
-							  </div>
+							</div>
 						</div>
+							<label for="description">The whole content goes here, Again this is place where you can put all of your content and it good place to edit and style your content as you want to make it look more great</label>
 							{{form.description}}
+							<h5>Optional fields but you can fill one of them</h5>
+							{{form.bitBucket_link}}
+							{{form.docker_link}}
+							{{form.gitlab_link}}
+							{{form.github_link}}
 						<div class="row">
 								<div class="col-md-6">
 
