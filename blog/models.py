@@ -29,8 +29,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Topics(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
+    uuid = models.UUIDField( default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=300, null=False, blank=False)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
     color = models.CharField(max_length=25, choices=COLOR)
