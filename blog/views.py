@@ -220,7 +220,7 @@ def publication_search(request):
 
 def topics_details(request, pk):
     # try:
-    topic = Topics.objects.get(uuid = pk)
+    topic = Topics.objects.get(id = pk)
     topics = Topics.objects.all()
 
     pubs = Publication.objects.filter(topic_id = pk)
