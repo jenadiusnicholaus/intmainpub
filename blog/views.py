@@ -17,30 +17,30 @@ User = get_user_model()
 
 
 def home(request):
-    try:
-        publications = Publication.objects.filter(status=1)
-        recent = Publication.objects.filter(status=1).first()
-        recent_posted_pub = Publication.objects.filter(status=1)[:3]
-        topics = Topics.objects.all()
-        popular_author = User.objects.all()[:4]
+    # try:
+    publications = Publication.objects.filter(status=1)
+    recent = Publication.objects.filter(status=1).first()
+    recent_posted_pub = Publication.objects.filter(status=1)[:3]
+    topics = Topics.objects.all()
+    popular_author = User.objects.all()[:4]
 
-        # publication pagination
+    # publication pagination
 
-        paginator = Paginator(publications, 20)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context = {
-            'publications': publications,
-            'recent': recent,
-            'recent_posted_pub': recent_posted_pub,
-            'topics': topics,
-            'popular_author': popular_author,
-            'page_obj': page_obj
-        }
+    paginator = Paginator(publications, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'publications': publications,
+        'recent': recent,
+        'recent_posted_pub': recent_posted_pub,
+        'topics': topics,
+        'popular_author': popular_author,
+        'page_obj': page_obj
+    }
 
-        return render(request, template_name='homepage.html', context=context)
-    except:
-        return render(request, template_name='error_page.html')
+    return render(request, template_name='homepage.html', context=context)
+    # except:
+    #     return render(request, template_name='error_page.html')
 
 
 class PublicationDetails(HitCountDetailView):
@@ -220,7 +220,7 @@ def publication_search(request):
 
 def topics_details(request, pk):
     # try:
-    topic = Topics.objects.get(id = pk)
+    topic = Topics.objects.get(uuid = pk)
     topics = Topics.objects.all()
 
     pubs = Publication.objects.filter(topic_id = pk)
