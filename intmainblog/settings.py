@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # ours
     'blog',
     'authentication',
-
     # third part apps
     'ckeditor',
     'ckeditor_uploader',
