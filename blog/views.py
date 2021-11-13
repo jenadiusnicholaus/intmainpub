@@ -62,7 +62,7 @@ class PublicationDetails(HitCountDetailView):
             })
             return context
         except:
-            return render(request, template_name='error_page.html')
+            return render(self.request, template_name='error_page.html')
 
 
 class CreatePublication(View):

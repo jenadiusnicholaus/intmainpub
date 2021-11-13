@@ -22,7 +22,7 @@ def validate_username(request):
     """Check username availability"""
     username = request.GET.get('username', None)
     response = {
-        'is_taken': User.objects.filter(user_name__iexact=username).exists()
+        'is_taken': User.objects.filter(username__iexact=username).exists()
     }
     return JsonResponse(response)
 
