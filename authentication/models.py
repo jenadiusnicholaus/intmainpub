@@ -23,6 +23,7 @@ class UserManager(BaseUserManager):
         user = self.model(email=self.normalize_email(email), **extra_fields)
 
         user.username = username
+        user.email = email
         user.set_password(password)
         user.is_activate = True
         user.save(using=self._db)

@@ -40,7 +40,7 @@ Inner intro START -->
 						  <img class="avatar-img rounded-circle" src="{{recent.author.userprofile.image.url}}" alt="avatar">
 						</div>
 						  {% endif%}
-						<span class="ms-3"> <a href="#" class="stretched-link text-reset btn-link">{{recent.author.get_fullname}}</a></span>
+						<span class="ms-3"> <a href="{% url 'author_page' recent.author.username recent.author.id %}" class="stretched-link text-reset btn-link">{{recent.author.get_fullname}}</a></span>
 					  </div>
 					</div>
 				  </li>
@@ -48,8 +48,18 @@ Inner intro START -->
 					<!--          <li class="nav-item">5 min read</li>-->
 				  <li class="nav-item"><i class="far fa-eye me-1"></i> {% get_hit_count for recent %} Views</li>
 				</ul>
-				<a  href="{% url 'create_publication'%}" class="btn btn-primary mt-3">Create your first publication</a>
       		</div>
+			  <div class='col-md-4 mt-4 ml-4'>
+				<div style="background-color:rgb(77, 68, 155);" class=" p-4 mb-4 text-center w-100 rounded">
+					<span>Intmain Coders</span>
+					<h4 >Why is it important to list publications on a CV?</h4>
+					<p class="text-left" style="color:white; font-size: 14px;">It is important to list publications on your CV to prove that you have experience and knowledge in a particular area.
+					They also show that you have good writing and analytical skills. Showing your knowledge and skills through your
+					publications is important when you are applying for a scientific or an academic . </p>
+					<a href="{% url 'create_publication'%}" class="btn btn-success">Create yor firstpublication</a>
+				</div>
+			  </div>
+
     </div>
 	</div>
 </section>
@@ -66,13 +76,13 @@ Main content START -->
 				<div class="row gy-4">
 					<!-- Card item START -->
 					{% for publication in page_obj %}
-					<div class="col-sm-6">
+					<div class="col-sm-6 ">
 						<div class="card">
 							<!-- Card img -->
 							{% if not publication.image %}
 							{% else %}
 							<div class="position-relative" >
-								<img style=" height:200px; width:500px;" class="card-img" src="{{ publication.image.url}}" alt="Card image">
+								<img style="object-fit: cover; height:200px; width:500px;" class="card-img" src="{{ publication.image.url}}" alt="Card image">
 								<div class="card-img-overlay d-flex align-items-start flex-column p-3">
 									<!-- Card overlay bottom -->
 									<div class="w-100 mt-auto">
@@ -191,7 +201,7 @@ Main content START -->
 					<!-- Advertisement -->
 					<div class="mt-4">
 						<a href="#" class="d-block card-img-flash">
-							<img src="/static/assets/images/01.jpg" alt="">
+							<img src="" alt="">
 						</a>
 					</div>
 				</div>

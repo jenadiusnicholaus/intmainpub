@@ -62,9 +62,17 @@ Main content START -->
                                     <li class="nav-item">
                                         <div class="nav-link">
                                             <div class="d-flex align-items-center position-relative">
-                                                <div class="avatar avatar-xs">
-                                                    <img class="avatar-img rounded-circle" src="{{result.author.userprofile.image.url}}" alt="avatar">
+                                            {% if not result.author.userprofile.image %}
+                                            <div class="avatar">
+                                                <div class="avatar-img rounded-circle bg-primary"><span
+                                                        class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{result.author.getfirstChar}}</span>
                                                 </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="avatar avatar-xs">
+                                                <img class="avatar-img rounded-circle" src="{{result.author.userprofile.image.url}}" alt="avatar">
+                                            </div>
+                                            {% endif %}
                                                 <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Samuel</a></span>
                                             </div>
                                         </div>
