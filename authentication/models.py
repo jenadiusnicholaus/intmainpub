@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, email, username=None,  password=None, **extra_fields):
+    def create_user(self, email, password=None, username=None, **extra_fields):
         """Create and return a `User` with an email and password."""
         if email is None:
             raise TypeError('Users must have an email address.')
