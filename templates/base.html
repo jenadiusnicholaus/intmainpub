@@ -87,7 +87,7 @@ Header START -->
 										<ul class="list-inline mt-3">
 											<li class="list-inline-item">Trending topics:</li>
 											{% for topic in topics%}
-											<li class="list-inline-item"><a href="{% url 'topic_items' topic.id %}" class="btn btn-sm btn-{{topic.get_color_display}}-soft">{{topic.title}}</a></li>
+											<li class="list-inline-item"><a href="" class="btn btn-sm btn-{{topic.get_color_display}}-soft">{{topic.title}}</a></li>
 											{%endfor%}
 										</ul>
 									</div>
@@ -139,7 +139,7 @@ Header START -->
 					</a>
 					<div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
 						<ul class="list-inline mt-3">
-							<li class="list-inline-item">{{request.user.firstname}}:</li>
+							<li class="list-inline-item">{%if request.user.firstname %}{{request.user.username}}{%else%}{{request.user.firstname}}{%endif%}:</li>
 							<li class="list-inline-item"><a href="{% url 'userprofile'%}"
 									class="btn btn-sm btn-primary-soft">Profile</a></li>
 

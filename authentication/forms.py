@@ -18,20 +18,20 @@ class UserSignUpForm(forms.Form):
 
 # user form
 class usersForm(forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
+    username = forms.CharField( required = False ,widget=forms.TextInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your username here...',
     }))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={
+    email = forms.EmailField(required = False, widget=forms.EmailInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your email here...',
     }))
-    firstname = forms.CharField(widget=forms.TextInput(attrs={
+    firstname = forms.CharField(required = False, widget=forms.TextInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your first name here...',
     }))
 
-    lastname = forms.CharField(widget=forms.TextInput(attrs={
+    lastname = forms.CharField(required = False, widget=forms.TextInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your last name here...',
     }))
@@ -43,42 +43,42 @@ class usersForm(forms.ModelForm):
 
 # user profile form
 class singleUserProfileForm(forms.ModelForm):
-    bio = forms.CharField(widget=forms.Textarea(attrs={
+    bio = forms.CharField(required = False, widget=forms.Textarea(attrs={
         'class': 'form-control ',
         'rows': "3",
         'cols': "100",
         'placeholder': 'Write your bio here...',
 
     }))
-    about = forms.CharField(widget=forms.Textarea(attrs={
+    about = forms.CharField(required = False, widget=forms.Textarea(attrs={
         'class': 'form-control ',
         'rows': "3",
         'cols': "100",
         'placeholder': 'Write your about here...',
 
     }))
-    profession = forms.CharField(widget=forms.TextInput(attrs={
+    profession = forms.CharField(required = False, widget=forms.TextInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your profession here...',
     }))
-    location = forms.CharField(widget=forms.TextInput(attrs={
+    location = forms.CharField(required = False, widget=forms.TextInput(attrs={
         'class': 'form-control ',
         'placeholder': 'Write your location here...',
     }))
-    facebook_link = forms.URLField(widget=forms.URLInput(attrs={
+    facebook_link = forms.URLField(required = False, widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'Write your facebook link here...',
     }))
 
-    linkedin_link = forms.URLField(widget=forms.URLInput(attrs={
+    linkedin_link = forms.URLField(required = False, widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'Write your linked link here...',
     }))
-    tweeter_link = forms.URLField(widget=forms.URLInput(attrs={
+    tweeter_link = forms.URLField(required = False ,widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'Write your tweeter link here...',
     }))
-    github_link = forms.URLField(widget=forms.URLInput(attrs={
+    github_link = forms.URLField(required = False,  widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'Write your github link here...',
     }))

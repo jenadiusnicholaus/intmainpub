@@ -22,7 +22,7 @@ def validate_username(request):
     """Check username availability"""
     username = request.GET.get('username', None)
     response = {
-        'is_taken': User.objects.filter(username__iexact=username).exists()
+        'is_taken': User.objects.filter(user_name__iexact=username).exists()
     }
     return JsonResponse(response)
 
@@ -64,14 +64,16 @@ class Register(View):
                 return redirect('register')
 
             if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
-                User.objects.create_user(email, password, username=username, is_active=True)
+                User.objects.create_user(
+                    email, password, username=username, is_active=True)
                 # it going to be used later in the email sending
                 user = User.objects.get(username=username, email=email)
                 # TODO send email address to activate a user if you want it to
                 messages.success(self.request, f'Registered successfully now')
                 return redirect('login')
             else:
-                messages.warning(self.request, 'Looks like a username with that email or password already exists')
+                messages.warning(
+                    self.request, 'Looks like a username with that email or password already exists')
                 return redirect("register")
         else:
             # For this we need toredirect to register page if there
@@ -85,12 +87,12 @@ def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
+                messages.info(request, f"You are now logged in as {email}.")
                 return redirect("/")
             else:
                 messages.error(request, "Invalid username or password.")
@@ -117,7 +119,8 @@ class userProfile(View):
         topics = Topics.objects.all()
 
         update_form_user = usersForm(instance=self.request.user)
-        update_form_user_profile = singleUserProfileForm(instance=self.request.user.userprofile)
+        update_form_user_profile = singleUserProfileForm(
+            instance=self.request.user.userprofile)
         context = {
             # 'author_data': author_data,
             'author_publication': publication,
@@ -142,7 +145,8 @@ class userProfile(View):
                 profile = update_form_user_profile.save(False)
                 profile.user = user
                 profile.save()
-                messages.success(self.request, ' your profile has been updated successfully')
+                messages.success(
+                    self.request, ' your profile has been updated successfully')
                 return redirect('userprofile')
             else:
                 messages.warning(self.request, 'form is invalid')
@@ -150,5 +154,6 @@ class userProfile(View):
                 return redirect('userprofile')
 
         except ObjectDoesNotExist:
-            messages.info(self.request, 'Invalid user profile, try to register as a new user.')
+            messages.info(
+                self.request, 'Invalid user profile, try to register as a new user.')
             return redirect('userprofile')

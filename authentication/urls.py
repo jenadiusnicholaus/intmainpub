@@ -3,7 +3,7 @@ from django.urls import path
 from authentication.views import \
     SignUpView, validate_username, \
     author_page, logout_request,\
-    login_request, Register , \
+    login_request, Register, \
     userProfile
 
 urlpatterns = [

@@ -46,8 +46,10 @@ class Topics(models.Model):
 
 @python_2_unicode_compatible
 class Publication(models.Model):
-    topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, related_name='publication', null=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    topic = models.ForeignKey(Topics, on_delete=models.SET_NULL,
+                              related_name='publication', null=True, blank=True)
+    author = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name='blog_posts', null=True)
     title = models.CharField(max_length=300, null=False, blank=False)
     slug = models.SlugField(max_length=1000, unique=True, null=True)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
@@ -80,8 +82,10 @@ class Publication(models.Model):
 
 class PublicationComment(models.Model):
     content = models.TextField(max_length=1000, null=True, blank=True)
-    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pub_commenter')
-    publication = models.ForeignKey(Publication, on_delete=models.SET_NULL,null = True,  related_name='commented_pub')
+    commenter = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='pub_commenter')
+    publication = models.ForeignKey(
+        Publication, on_delete=models.SET_NULL, null=True,  related_name='commented_pub')
     created_on = models.DateTimeField(default=timezone.now)
 
     class Meta:

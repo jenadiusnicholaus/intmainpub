@@ -15,21 +15,21 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, username=None,  password=None, **extra_fields):
         """Create and return a `User` with an email and password."""
         if email is None:
             raise TypeError('Users must have an email address.')
 
         user = self.model(email=self.normalize_email(email), **extra_fields)
 
+        user.username = username
         user.set_password(password)
         user.is_activate = True
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
-
+    def create_superuser(self, email, username=None, password=None, **extra_fields):
         """
         Create and return a `User` with superuser powers.
         Superuser powers means that this use is an admin that can do anything
@@ -38,11 +38,13 @@ class UserManager(BaseUserManager):
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        user = self.create_user(email, password=password, **extra_fields)
+        user = self.create_user(email, username=username,
+                                password=password, **extra_fields)
+        user.username = username
+        user.email = email
         user.is_superuser = True
         user.is_staff = True
         user.save()
-
         return user
 
 
@@ -50,7 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin, ):
     firstname = models.CharField(max_length=30, null=True)
     middlename = models.CharField(max_length=30, null=True)
     lastname = models.CharField(max_length=30, null=True)
-    username = models.CharField(max_length=30, unique=True, blank=True, null=True)
+    username = models.CharField(
+        max_length=30, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
     is_active = models.BooleanField(default=True)
@@ -66,6 +69,8 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         Returns a string representation of this `User`.
         This string is used when a `User` is printed in the console.
         """
+        if self.username:
+            return str(self.username)
         return str(self.email)
 
     def get_username(self):
@@ -77,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin, ):
         return f'{self.firstname} {self.lastname}'
 
     def getfirstChar(self):
-        if  self.username:
+        if self.username:
             return str(self.username[0])
         return str(self.email[0])
 
@@ -98,6 +103,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user.email)
+
     def imageUrl(self):
         if self.image:
             return self.image.url
@@ -107,5 +113,6 @@ class UserProfile(models.Model):
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
         userprofile = UserProfile.objects.create(user=instance)
+
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)

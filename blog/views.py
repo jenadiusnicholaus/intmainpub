@@ -17,30 +17,30 @@ User = get_user_model()
 
 
 def home(request):
-    # try:
-    publications = Publication.objects.filter(status=1)
-    recent = Publication.objects.filter(status=1).first()
-    recent_posted_pub = Publication.objects.filter(status=1)[:3]
-    topics = Topics.objects.all()
-    popular_author = User.objects.all()[:4]
+    try:
+        publications = Publication.objects.filter(status=1)
+        recent = Publication.objects.filter(status=1).first()
+        recent_posted_pub = Publication.objects.filter(status=1)[:3]
+        topics = Topics.objects.all()
+        popular_author = User.objects.all()[:4]
 
-    # publication pagination
+        # publication pagination
 
-    paginator = Paginator(publications, 20)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {
-        'publications': publications,
-        'recent': recent,
-        'recent_posted_pub': recent_posted_pub,
-        'topics': topics,
-        'popular_author': popular_author,
-        'page_obj': page_obj
-    }
+        paginator = Paginator(publications, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'publications': publications,
+            'recent': recent,
+            'recent_posted_pub': recent_posted_pub,
+            'topics': topics,
+            'popular_author': popular_author,
+            'page_obj': page_obj
+        }
 
-    return render(request, template_name='homepage.html', context=context)
-    # except:
-    #     return render(request, template_name='error_page.html')
+        return render(request, template_name='homepage.html', context=context)
+    except:
+        return render(request, template_name='error_page.html')
 
 
 class PublicationDetails(HitCountDetailView):
@@ -53,17 +53,16 @@ class PublicationDetails(HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         try:
-            context = super(PublicationDetails, self).get_context_data(**kwargs)
+            context = super(PublicationDetails,
+                            self).get_context_data(**kwargs)
             topics = Topics.objects.all()
             context.update({
                 'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
                 'topics': topics
             })
             return context
-        except :
+        except:
             return render(request, template_name='error_page.html')
-
-
 
 
 class CreatePublication(View):
@@ -82,7 +81,7 @@ class CreatePublication(View):
             }
 
             return render(request, template_name='create_publication.html', context=context)
-        except :
+        except:
             return render(request, template_name='error_page.html')
 
     def post(self, request, *args, **kwargs):
@@ -126,25 +125,27 @@ class CreatePublication(View):
 
                 return redirect('create_publication')
 
-        except :
+        except:
             return render(request, template_name='error_page.html')
 
 
-
-
 def get_comment(request, slug):
-    pub = Publication.objects.get( slug=slug)
-    comments = PublicationComment.objects.filter(publication = pub).order_by('-created_on')
+    pub = Publication.objects.get(slug=slug)
+    comments = PublicationComment.objects.filter(
+        publication=pub).order_by('-created_on')
     html = ''
     comment_counter = comments.count()
 
     for i in comments:
-        if  i.commenter.userprofile.imageUrl():
-            image  = ' <img style ="width: 50px; height:50px;" class="avatar-img rounded-circle border border-3 border-dark mr-5"  src='f"{i.commenter.userprofile.imageUrl()}"'  alt="avatar">'
+        if i.commenter.userprofile.imageUrl():
+            image = ' <img style ="width: 50px; height:50px;" class="avatar-img rounded-circle border border-3 border-dark mr-5"  src='f"{i.commenter.userprofile.imageUrl()}"'  alt="avatar">'
         else:
-            image = '<div class="avatar mr-5">' + '<div style ="width: 50px; height:50px;" class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">' + f'{i.commenter.getfirstChar()}' + ' </span></div>' + '</div>'
+            image = '<div class="avatar mr-5">' + '<div style ="width: 50px; height:50px;" class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">' + \
+                f'{i.commenter.getfirstChar()}' + ' </span></div>' + '</div>'
 
-        el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.get_fullname()}'+ '</h5>' + '<span class="me-3 small">'+ f'{i.created_on}' + '</span>' + '<a href="#" class="text-body fw-normal"></a>'+ '</div>'+ '<p>' + f'{i.content}' + '</p>'+ '</div>'+ '</div>'
+        el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.get_fullname()}' + '</h5>' + '<span class="me-3 small">' + \
+            f'{i.created_on}' + '</span>' + '<a href="#" class="text-body fw-normal"></a>' + \
+            '</div>' + '<p>' + f'{i.content}' + '</p>' + '</div>' + '</div>'
 
         ele = '<div> <article>  <p> <span> Author:' + f'{i.commenter.username}' + '</span > </p > <p>' + i.content +\
               '<ul> <li> <a href = "rel external nofollow > </a> </li> </ul> </article > </div HR'
@@ -155,34 +156,37 @@ def get_comment(request, slug):
 def ajax_commenting(request, slug):
     try:
         if request.is_ajax():
-            publication = Publication.objects.get(slug = slug)
+            publication = Publication.objects.get(slug=slug)
 
-            comment = request.POST.get('comment', None) # getting data from first_name input
+            # getting data from first_name input
+            comment = request.POST.get('comment', None)
             print(comment)
-            if comment: #cheking if first_name and last_name have value
+            if comment:  # cheking if first_name and last_name have value
                 user = request.user
                 PublicationComment.objects.create(
                     content=comment,
                     publication=publication,
                     commenter=user)
                 response = {
-                    'msg':'successfully' # response message
+                    'msg': 'successfully'  # response message
                 }
-                return JsonResponse(response) # return response as JSON
-    except :
+                return JsonResponse(response)  # return response as JSON
+    except:
         return render(request, template_name='error_page.html')
+
 
 def ajax_replying(request, pk):
     response = {
-                'msg':'successfully' # response message
-            }
-    return JsonResponse(response) # return response as JSON
+        'msg': 'successfully'  # response message
+    }
+    return JsonResponse(response)  # return response as JSON
+
 
 def get_replying(request, pk):
     response = {
-               'msg':'successfully' # response message
-            }
-    return JsonResponse(response) # return response as JSON
+        'msg': 'successfully'  # response message
+    }
+    return JsonResponse(response)  # return response as JSON
 
 
 def publication_search(request):
@@ -193,37 +197,37 @@ def publication_search(request):
             pub_submitted = request.GET.get('submit')
 
             if query is not None:
-                lookups = Q(title__icontains=query) | Q( title__icontains=query)
+                lookups = Q(title__icontains=query) | Q(title__icontains=query)
 
                 results = Publication.objects.filter(lookups).distinct()
                 topics = Topics.objects.all()
 
                 context = {
                     'results': results,
-                    'topics':topics,
-                'submitbutton': pub_submitted}
+                    'topics': topics,
+                    'submitbutton': pub_submitted}
 
                 return render(request, 'search.html', context)
 
             else:
                 topics = Topics.objects.all()
-                context ={
-                    'topics':topics
+                context = {
+                    'topics': topics
                 }
                 return render(request, 'search.html', context=context)
 
         else:
             return render(request, 'search.html')
-    except :
+    except:
         return render(request, template_name='error_page.html')
 
 
 def topics_details(request, pk):
     # try:
-    topic = Topics.objects.get(id = pk)
+    topic = Topics.objects.get(id=pk)
     topics = Topics.objects.all()
 
-    pubs = Publication.objects.filter(topic_id = pk)
+    pubs = Publication.objects.filter(topic_id=pk)
     paginator = Paginator(pubs, 20)
     count_pubs = pubs.count()
     page_number = request.GET.get('page')
@@ -232,10 +236,10 @@ def topics_details(request, pk):
     context = {
         'topics': topics,
         'topic': topic,
-        'page_obj':page_obj,
-        'count_pubs':count_pubs,
+        'page_obj': page_obj,
+        'count_pubs': count_pubs,
 
     }
-    return render(request, 'topic_items.html', context = context)
+    return render(request, 'topic_items.html', context=context)
     # except:
     #      return render(request, template_name='error_page.html')
