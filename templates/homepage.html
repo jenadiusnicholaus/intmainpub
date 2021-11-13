@@ -72,7 +72,7 @@ Main content START -->
 							{% if not publication.image %}
 							{% else %}
 							<div class="position-relative" >
-								<img style=" height:300px; width:400px;" class="card-img" src="{{ publication.image.url}}" alt="Card image">
+								<img style=" height:200px; width:500px;" class="card-img" src="{{ publication.image.url}}" alt="Card image">
 								<div class="card-img-overlay d-flex align-items-start flex-column p-3">
 									<!-- Card overlay bottom -->
 									<div class="w-100 mt-auto">
@@ -94,14 +94,18 @@ Main content START -->
 											<div class="d-flex align-items-center position-relative">
 												{% if not publication.author.userprofile.image %}
 												<div class="avatar">
-													<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{publication.author.getfirstChar}}</span></div>
+													<div class="avatar-img rounded-circle bg-primary"><span
+															class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{publication.author.getfirstChar}}</span>
+													</div>
 												</div>
 												{% else %}
 												<div class="avatar avatar-xs">
-													<img class="avatar-img rounded-circle" src="{{publication.author.userprofile.image.url}}" alt="avatar">
+													<img class="avatar-img rounded-circle" src="{{publication.author.userprofile.image.url}}"
+														alt="avatar">
 												</div>
 												{% endif %}
-												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username publication.author.id %}" class="stretched-link text-reset btn-link">{{publication.author.get_fullname}}</a></span>
+												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username publication.author.id %}"
+														class="stretched-link text-reset btn-link">{{publication.author.get_fullname}}</a></span>
 											</div>
 										</div>
 									</li>
@@ -116,24 +120,27 @@ Main content START -->
 					{% endfor%}
 					<!-- Card item END -->
 
-
-					<div class="pagination">
-						<span class="step-links">
-							{% if page_obj.has_previous %}
+					<div class="col-12 text-center mt-5">
+						<div class="pagination">
+							<span class="step-links">
+								{% if page_obj.has_previous %}
 								<a href="?page=1">&laquo; first</a>
 								<a href="?page={{ page_obj.previous_page_number }}">previous</a>
-							{% endif %}
+								{% endif %}
 
-							<span class="current">
-								Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-							</span>
+								<span class="current">
+									Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+								</span>
 
-							{% if page_obj.has_next %}
+								{% if page_obj.has_next %}
 								<a href="?page={{ page_obj.next_page_number }}">next</a>
 								<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-							{% endif %}
-						</span>
+								{% endif %}
+							</span>
+						</div>
 					</div>
+
+
 					<!-- Load more END -->
 				</div>
 			</div>
