@@ -50,56 +50,64 @@ class Register(View):
         return render(self.request, 'register.html', {'register_form': form})
 
     def post(self, request, *args, **kwargs):
-        form = UserSignUpForm(self.request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
+        try:
+            form = UserSignUpForm(self.request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                email = form.cleaned_data.get('email')
+                password = form.cleaned_data.get('password1')
+                password2 = form.cleaned_data.get('password2')
 
-            # cheking for passwords matching
-            if password != password2:
-                messages.warning(self.request, "password doesn't match")
-                # For this we need toredirect to register page if there
-                return redirect('register')
+                # cheking for passwords matching
+                if password != password2:
+                    messages.warning(self.request, "password doesn't match")
+                    # For this we need toredirect to register page if there
+                    return redirect('register')
 
-            if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
-                User.objects.create_user(
-                    email, password, username=username, is_active=True)
-                # it going to be used later in the email sending
-                user = User.objects.get(username=username, email=email)
-                # TODO send email address to activate a user if you want it to
-                messages.success(self.request, f'Registered successfully now')
-                return redirect('login')
+                if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
+                    User.objects.create_user(
+                        email, password, username=username, is_active=True)
+                    # it going to be used later in the email sending
+                    user = User.objects.get(username=username, email=email)
+                    # TODO send email address to activate a user if you want it to
+                    messages.success(
+                        self.request, f'Registered successfully now')
+                    return redirect('login')
+                else:
+                    messages.warning(
+                        self.request, 'Looks like a username with that email or password already exists')
+                    return redirect("register")
             else:
-                messages.warning(
-                    self.request, 'Looks like a username with that email or password already exists')
-                return redirect("register")
-        else:
-            # For this we need toredirect to register page if there
-            print('from not valid')
-            print(form.data)
-            messages.warning(self.request, 'Form not valid')
-        return redirect('/')
+                # For this we need toredirect to register page if there
+                print('from not valid')
+                print(form.data)
+                messages.warning(self.request, 'Form not valid')
+            return redirect('/')
+        except:
+            return render(request, "error_page.html")
 
 
 def login_request(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {email}.")
-                return redirect("/")
+    try:
+        if request.method == "POST":
+            form = AuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+                email = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.info(
+                        request, f"You are now logged in as {email}.")
+                    return redirect("/")
+                else:
+                    messages.error(request, "Invalid username or password.")
             else:
                 messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request=request, template_name="login_page.html", context={"login_form": form})
+        form = AuthenticationForm()
+        return render(request=request, template_name="login_page.html", context={"login_form": form})
+    except:
+        return render(request, "error_page.html")
 
 
 @login_required
