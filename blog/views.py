@@ -87,43 +87,48 @@ class CreatePublication(View):
     def post(self, request, *args, **kwargs):
         try:
             form = CreatePublicationForm(request.POST, request.FILES)
+            if request.user.is_authenticated:
+                if form.is_valid():
+                    title = form.cleaned_data.get('title')
+                    slug = slugify(title)
+                    topic = form.cleaned_data.get('topic')
+                    author = request.user
+                    image = form.cleaned_data.get('image')
+                    short_description = form.cleaned_data.get(
+                        'short_description')
+                    description = form.cleaned_data.get('description')
+                    status = form.cleaned_data.get('status')
+                    bitBucket_link = form.cleaned_data.get("bitBucket_link")
+                    docker_link = form.cleaned_data.get("docker_link")
+                    gitlab_link = form.cleaned_data.get("gitlab_link")
+                    github_link = form.cleaned_data.get("github_link")
 
-            if form.is_valid():
-                title = form.cleaned_data.get('title')
-                slug = slugify(title)
-                topic = form.cleaned_data.get('topic')
-                author = request.user
-                image = form.cleaned_data.get('image')
-                short_description = form.cleaned_data.get('short_description')
-                description = form.cleaned_data.get('description')
-                status = form.cleaned_data.get('status')
-                bitBucket_link = form.cleaned_data.get("bitBucket_link")
-                docker_link = form.cleaned_data.get("docker_link")
-                gitlab_link = form.cleaned_data.get("gitlab_link")
-                github_link = form.cleaned_data.get("github_link")
-                publication = Publication()
-                publication.topic = topic
-                publication.title = title
-                publication.author = author
-                publication.description = description
-                publication.short_description = short_description
-                publication.image = image
-                publication.status = status
-                publication.bitBucket_link = bitBucket_link
-                publication.docker_link = docker_link
-                publication.gitlab_link = gitlab_link
-                publication.github_link = github_link
-                publication.save()
-                messages.info(request, 'Publication was created success.')
-                return redirect('/')
+                    publication = Publication()
+                    publication.topic = topic
+                    publication.title = title
+                    publication.author = author
+                    publication.description = description
+                    publication.short_description = short_description
+                    publication.image = image
+                    publication.status = status
+                    publication.bitBucket_link = bitBucket_link
+                    publication.docker_link = docker_link
+                    publication.gitlab_link = gitlab_link
+                    publication.github_link = github_link
+                    publication.save()
+                    messages.info(request, 'Publication was created success.')
+                    return redirect('/')
+                else:
+                    print(form.is_valid(), )
+                    context = {
+                        # 'form': form,
+                    }
+                    messages.info(
+                        request, 'Three credits remain in your account.')
+
+                    return redirect('create_publication')
             else:
-                print(form.is_valid(), )
-                context = {
-                    # 'form': form,
-                }
-                messages.info(request, 'Three credits remain in your account.')
-
-                return redirect('create_publication')
+                return redirect('login')
 
         except:
             return render(request, template_name='error_page.html')
