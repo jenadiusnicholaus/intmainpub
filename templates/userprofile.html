@@ -89,6 +89,8 @@ Inner intro START -->
 													<!-- Card category -->
 													<a href="#" class="badge bg-warning mb-2"><i
 															class="fas fa-circle me-2 small fw-bold"></i>{{publication.topic.title|truncatechars:100}}}</a>
+													<a class="btn btn-danger btn-xs" href="#">Delete</a>
+													<a class="btn btn-warning btn-xs" href="{% url 'edit_publication' publication.id %}">Edit</a>
 												</div>
 											</div>
 										</div>
@@ -149,6 +151,7 @@ Inner intro START -->
 
 	</div>
 </section>
+
 
 
 </main>

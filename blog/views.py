@@ -10,7 +10,7 @@ import json
 from django.db.models import Q
 
 
-from .forms import CreatePublicationForm
+from .forms import PublicationForm
 from .models import *
 
 User = get_user_model()
@@ -70,7 +70,7 @@ class CreatePublication(View):
         try:
             recent_posted_pub = Publication.objects.all()[:3]
             popular_author = User.objects.all()[:4]
-            form = CreatePublicationForm()
+            form = PublicationForm()
             topic = Topics.objects.all()
 
             context = {
@@ -86,7 +86,7 @@ class CreatePublication(View):
 
     def post(self, request, *args, **kwargs):
         try:
-            form = CreatePublicationForm(request.POST, request.FILES)
+            form = PublicationForm(request.POST, request.FILES)
             if request.user.is_authenticated:
                 if form.is_valid():
                     title = form.cleaned_data.get('title')
@@ -248,3 +248,23 @@ def topics_details(request, pk):
     return render(request, 'topic_items.html', context=context)
     # except:
     #      return render(request, template_name='error_page.html')
+
+
+def edit_publication(request, pk):
+
+    obj = Publication.objects.get(id=pk)
+    if request.method == 'POST':
+        form = PublicationForm(
+            request.POST, request.FILES or None, instance=obj)
+
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'{obj.title} has been edited successfully')
+            return redirect('edit_publication',  pk=obj.pk)
+
+        # return render(request, 'edit_publication.html', context={'form': form})
+    else:
+        form = PublicationForm(instance=obj)
+
+    return render(request, 'edit_publication.html', context={'form': form})

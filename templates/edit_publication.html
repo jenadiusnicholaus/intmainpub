@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+{% block contents %}
+
+<main>
+
+    <!-- =======================
+Inner intro START -->
+    <section class="pt-4">
+        <div class="container">
+            <ul class="nav">
+
+                <li class="nav-item">
+
+                    <a class="nav-link btn btn-primary-soft" href="{% url 'userprofile'%}"> <i class='fa fa-arrow-left'></i> back to profile</a>
+                </li>
+
+            </ul>
+            <form method ="POST" enctype ="multipart/form-data">
+                {%csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{form.topic}}
+                        <!-- <select class="form-select" aria-label="Default select example">
+                           {%  for name , value in form.fields.topic.choices %}
+                            <option value="{{name}}">{{value}}</option>
+                            {%endfor%}
+                        </select> -->
+                    </div>
+                    <div class="col-md-6">
+                        {{form.title}}
+                    </div>
+                </div>
+
+                <div class="row mt-3" >
+                    <div class="col-md-6">
+                        {{form.status}}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.image}}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        {{form.short_description}}
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        {{form.description}}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {{form.bitBucket_link}}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.docker_link}}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {{form.github_link}}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.gitlab_link}}
+                    </div>
+
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-6">
+                       <button type ='submit' class = "btn btn-primary-soft"> save</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+<section>
+{% endblock %}

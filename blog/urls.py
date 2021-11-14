@@ -13,6 +13,7 @@ urlpatterns = [
     path('ajax_replying/<int:pk>', views.ajax_replying, name="ajax_replying"),
     path('search/', views.publication_search, name='search'),
     path('topic_items/<pk>', views.topics_details, name="topic_items"),
+    path('edit_publication/<pk>', views.edit_publication, name="edit_publication"),
 
 
 
