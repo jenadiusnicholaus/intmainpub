@@ -44,9 +44,7 @@ Inner intro START -->
 						<!-- Post count -->
 						<div class="text-center mt-n3 position-relative">
 							<span style="color:black;" class="badge bg-success fs-6">
-								{% if author_publication.count < 2 %} {{author_publication.count}} publication {%elif
-									author_publication.count==0 %} No publication yet {%else%} {{author_publication.count}} publications
-									{% endif%} </span>
+								{% if author_publication.count < 2 %} {{author_publication.count}} publication {%elif author_publication.count == 0 %} No publication yet {%else%} {{author_publication.count}} publications{% endif%} </span>
 						</div>
 					</div>
 
