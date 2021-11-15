@@ -251,7 +251,7 @@ def topics_details(request, pk):
 
 
 def edit_publication(request, pk):
-
+    recent_posted_pub = Publication.objects.filter(status=1)[:3]
     obj = Publication.objects.get(id=pk)
     if request.method == 'POST':
         form = PublicationForm(
@@ -266,5 +266,12 @@ def edit_publication(request, pk):
         # return render(request, 'edit_publication.html', context={'form': form})
     else:
         form = PublicationForm(instance=obj)
+        popular_author = User.objects.all()[:4]
+        context = {
+            'recent_posted_pub': recent_posted_pub,
+            'form': form,
+            'popular_author': popular_author,
 
-    return render(request, 'edit_publication.html', context={'form': form})
+        }
+
+        return render(request, 'edit_publication.html', context=context)

@@ -12,76 +12,138 @@ Inner intro START -->
 
                 <li class="nav-item">
 
-                    <a class="nav-link btn btn-primary-soft" href="{% url 'userprofile'%}"> <i class='fa fa-arrow-left'></i> back to profile</a>
+                    <a class="nav-link btn btn-primary-soft" href="{% url 'userprofile'%}"> <i class='fa fa-arrow-left'></i> back to
+                        profile</a>
                 </li>
 
             </ul>
-            <form method ="POST" enctype ="multipart/form-data">
-                {%csrf_token %}
-                <div class="row">
-                    <div class="col-md-6">
-                        {{form.topic}}
-                        <!-- <select class="form-select" aria-label="Default select example">
-                           {%  for name , value in form.fields.topic.choices %}
-                            <option value="{{name}}">{{value}}</option>
-                            {%endfor%}
-                        </select> -->
-                    </div>
-                    <div class="col-md-6">
-                        {{form.title}}
+            <div class="row">
+                <div class="col-lg-9">
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {%csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{form.topic}}
+                                <!-- <select class="form-select" aria-label="Default select example">
+                                               {%  for name , value in form.fields.topic.choices %}
+                                                <option value="{{name}}">{{value}}</option>
+                                                {%endfor%}
+                                            </select> -->
+                            </div>
+                            <div class="col-md-6">
+                                {{form.title}}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{form.status}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.image}}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                {{form.short_description}}
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                {{form.description}}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{form.bitBucket_link}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.docker_link}}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{form.github_link}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.gitlab_link}}
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-8">
+
+                            </div>
+                            <div class="col-md-6">
+                                <button type='submit' class="btn btn-primary-soft"> save</button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-lg-3">
+                    <div data-sticky="" data-margin-top="80" data-sticky-for="991">
+                        <h4>Popular authors</h4>
+                        {% for author in popular_author%}
+                        {% if not author.userprofile.image%}
+                        <div class="avatar align-middle">
+                            <div class="avatar-img rounded-circle bg-primary"><span
+                                    class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{author.getfirstChar}}</span>
+                            </div>
+                        </div>
+                        <!--				<div class="avatar align-middle">-->
+                        <!--					<img class="avatar-img rounded-circle border border-3 border-dark" src="assets/images/avatar/06.jpg" alt="avatar">-->
+                        <!--				</div>-->
+
+                        {%else%}
+                        <div class="avatar mt-3">
+                            <img class="avatar-img rounded-circle" src="{{author.userprofile.image.url}}" alt="avatar">
+                        </div>
+                        {% endif%}
+                        {% endfor%}
+                        <div class="mt-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <h4 class="mt-4 mb-3">Recent Publication</h4>
+                                <!-- Recent post item -->
+                                {% for publication in recent_posted_pub%}
+                                <div class="card mb-3">
+                                    <div class="row g-3">
+                                        {% if not publication.image %}
+
+                                        {%else%}
+                                        <div class="col-4">
+                                            <img class="rounded" src="{{publication.image.url}}" alt="">
+                                        </div>
+
+                                        <div class="col-8">
+                                            <h6><a href="{% url 'publication_details' publication.slug%}"
+                                                    class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a>
+                                            </h6>
+                                            <div class="small mt-1">{{publication.created_on|timesince}} ago</div>
+                                        </div>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+
+                        <!-- Advertisement -->
+                        <div class="mt-4">
+                            <a href="#" class="d-block card-img-flash">
+                                <img src="" alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
-
-                <div class="row mt-3" >
-                    <div class="col-md-6">
-                        {{form.status}}
-                    </div>
-                    <div class="col-md-6">
-                        {{form.image}}
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        {{form.short_description}}
-                    </div>
-
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        {{form.description}}
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        {{form.bitBucket_link}}
-                    </div>
-                    <div class="col-md-6">
-                        {{form.docker_link}}
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        {{form.github_link}}
-                    </div>
-                    <div class="col-md-6">
-                        {{form.gitlab_link}}
-                    </div>
-
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-8">
-
-                    </div>
-                    <div class="col-md-6">
-                       <button type ='submit' class = "btn btn-primary-soft"> save</button>
-                    </div>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
