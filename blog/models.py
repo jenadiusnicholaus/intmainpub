@@ -89,7 +89,7 @@ class PublicationComment(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        verbose_name_plural = ' publication comments'
+        verbose_name_plural = 'publication comments'
 
     def __str__(self):
         return str(self.commenter.username)

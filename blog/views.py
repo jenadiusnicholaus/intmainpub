@@ -44,7 +44,6 @@ def home(request):
 
 
 class PublicationDetails(HitCountDetailView):
-
     model = Publication
     template_name = 'publication_details.html'
     context_object_name = 'publication_detail'
@@ -124,7 +123,7 @@ class CreatePublication(View):
                         # 'form': form,
                     }
                     messages.info(
-                        request, 'Three credits remain in your account.')
+                        request, 'Login to continue')
 
                     return redirect('create_publication')
             else:
@@ -195,59 +194,59 @@ def get_replying(request, pk):
 
 
 def publication_search(request):
-    # try:
-    if request.method == 'GET':
-        query = request.GET.get('q')
+    try:
+        if request.method == 'GET':
+            query = request.GET.get('q')
 
-        pub_submitted = request.GET.get('submit')
+            pub_submitted = request.GET.get('submit')
 
-        if query is not None:
-            lookups = Q(title__icontains=query) | Q(title__icontains=query)
+            if query is not None:
+                lookups = Q(title__icontains=query) | Q(title__icontains=query)
 
-            results = Publication.objects.filter(lookups).distinct()
-            topics = Topics.objects.all()
+                results = Publication.objects.filter(lookups).distinct()
+                topics = Topics.objects.all()
 
-            context = {
-                'results': results,
-                'topics': topics,
-                'submitbutton': pub_submitted}
+                context = {
+                    'results': results,
+                    'topics': topics,
+                    'submitbutton': pub_submitted}
 
-            return render(request, 'search.html', context)
+                return render(request, 'search.html', context)
+
+            else:
+                topics = Topics.objects.all()
+                context = {
+                    'topics': topics
+                }
+                return render(request, 'search.html', context=context)
 
         else:
-            topics = Topics.objects.all()
-            context = {
-                'topics': topics
-            }
-            return render(request, 'search.html', context=context)
-
-    else:
-        return render(request, 'search.html')
-    # except:
-    #     return render(request, template_name='error_page.html')
+            return render(request, 'search.html')
+    except:
+        return render(request, template_name='error_page.html')
 
 
 def topics_details(request, pk):
-    # try:
-    topic = Topics.objects.get(id=pk)
-    topics = Topics.objects.all()
+    try:
+        topic = Topics.objects.get(id=pk)
+        topics = Topics.objects.all()
 
-    pubs = Publication.objects.filter(topic_id=pk)
-    paginator = Paginator(pubs, 20)
-    count_pubs = pubs.count()
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+        pubs = Publication.objects.filter(topic_id=pk)
+        paginator = Paginator(pubs, 20)
+        count_pubs = pubs.count()
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-    context = {
-        'topics': topics,
-        'topic': topic,
-        'page_obj': page_obj,
-        'count_pubs': count_pubs,
+        context = {
+            'topics': topics,
+            'topic': topic,
+            'page_obj': page_obj,
+            'count_pubs': count_pubs,
 
-    }
-    return render(request, 'topic_items.html', context=context)
-    # except:
-    #      return render(request, template_name='error_page.html')
+        }
+        return render(request, 'topic_items.html', context=context)
+    except:
+        return render(request, template_name='error_page.html')
 
 
 def edit_publication(request, pk):
