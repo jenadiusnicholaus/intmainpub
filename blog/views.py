@@ -8,6 +8,7 @@ from django.views import View
 from hitcount.views import HitCountDetailView
 import json
 from django.db.models import Q
+import datetime
 
 
 from .forms import PublicationForm
@@ -141,6 +142,7 @@ def get_comment(request, slug):
     comment_counter = comments.count()
 
     for i in comments:
+        created_on = i.created_on.strftime("%d %b %Y")
         if i.commenter.userprofile.imageUrl():
             image = ' <img style ="width: 50px; height:50px;" class="avatar-img rounded-circle border border-3 border-dark mr-5"  src='f"{i.commenter.userprofile.imageUrl()}"'  alt="avatar">'
         else:
@@ -148,7 +150,7 @@ def get_comment(request, slug):
                 f'{i.commenter.getfirstChar()}' + ' </span></div>' + '</div>'
 
         el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.get_fullname()}' + '</h5>' + '<span class="me-3 small">' + \
-            f'{i.created_on}' + '</span>' + '<a href="#" class="text-body fw-normal"></a>' + \
+            f'Commented on {created_on}' + '</span>' + '<a href="#" class="text-body fw-normal"></a>' + \
             '</div>' + '<p>' + f'{i.content}' + '</p>' + '</div>' + '</div>'
 
         ele = '<div> <article>  <p> <span> Author:' + f'{i.commenter.username}' + '</span > </p > <p>' + i.content +\
