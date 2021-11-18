@@ -1,6 +1,6 @@
 # intmain coders
 
-Intmain coders is a platform for both developer and non developer to create and publish there their publication
+Intmain coders is a platform for both developer and non developer to create and publish  their publications
 
 ## What is a Publication
 
