@@ -77,6 +77,9 @@ Header START -->
 					<li class="nav-item "><a  class="nav-link  " href="{% url 'search'%}" > <Span> <i class = "fa fa-search"></i></Span></a></li>
 					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
 					<!-- Nav item 4 Mega menu -->
+					{% if not user.is_authenticated %}
+					<li class="nav-item "><a class="nav-link " href="{% url 'login'%}"> <Span> <i class="fa fa-bell"></i> Login</Span></a></li>
+					{%endif%}
 					<li class="nav-item dropdown dropdown-fullwidth">
 						<a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topics</a>
 						<div class="dropdown-menu" aria-labelledby="megaMenu">
@@ -115,9 +118,9 @@ Header START -->
 				<!-- Nav Button -->
 				{% if not user.is_authenticated %}
 
-				<div class="nav-item d-none d-md-block">
-					<a href="{% url 'login'%}" class="btn btn-sm btn-default mb-0 mx-2">sign In</a>
-				</div>
+				<!-- <div class="avatar avatar">
+					<img class="avatar-img rounded-circle" src="/static/assets/images/avatar.jpeg" alt="avatar">
+				</div> -->
 				{%else%}
 				<!-- Nav Search -->
 				<div class="nav-item dropdown nav-search dropdown-toggle-icon-none">
