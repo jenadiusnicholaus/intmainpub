@@ -27,8 +27,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/glightbox.css'%}">
 	<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/style.js' %}">
 	<!-- <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.css" data-noprefix /> -->
-	<link rel="stylesheet" href="{% static 'assets/css/prism.css'%}">
+
 	<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.css' %}"></script>
+	<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'assets/css/prism.css'%}">
 
 
 
@@ -193,8 +195,9 @@ JS libraries, plugins and custom scripts -->
 <link rel="stylesheet" href="{% static '/assets/js/prism.js'%}">
 <!-- <script src="{% static 'ckeditor/ckeditor/plugins/line-numbers/prism-line-numbers.js"></script>
  -->
-<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
-
+<script>
+	$(".django-ckeditor-widget").removeAttr('style');
+</script>
 
 
 <!-- Template Functions -->
