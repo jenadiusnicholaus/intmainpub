@@ -26,7 +26,8 @@ DEBUG = True
 # if DEBUG:
 # ALLOWED_HOSTS = []
 # else:
-ALLOWED_HOSTS = ['159.223.153.39', '127.0.0.1']
+ALLOWED_HOSTS = ['159.223.153.39', '127.0.0.1',
+                 'intmain.co.tz', 'www.intmain.co.tz']
 
 # Application definition
 
