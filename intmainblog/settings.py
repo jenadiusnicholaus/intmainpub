@@ -60,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Serve static in production without nginx or apache
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'intmainblog.urls'
@@ -87,12 +90,12 @@ WSGI_APPLICATION = 'intmainblog.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # if DEBUG:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # else:
 DATABASES = {
     'default': {
@@ -143,9 +146,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'blog/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '/static/ckeditor/')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # ckeditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
