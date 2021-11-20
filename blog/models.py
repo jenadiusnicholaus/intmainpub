@@ -1,11 +1,10 @@
-from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import RichTextUploadingField
+
 from django.db import models
 # Create your models here.
 from django.utils import timezone
 from django.utils.text import slugify
 from intmainblog import settings
-
+from tinymce.models import HTMLField
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from six import python_2_unicode_compatible
@@ -54,7 +53,7 @@ class Publication(models.Model):
     slug = models.SlugField(max_length=1000, unique=True, null=True)
     image = models.FileField(blank=True, null=True, upload_to='Pub_files')
     short_description = models.TextField(blank=True, null=True)
-    description = RichTextUploadingField(null=True, blank=True)
+    description = HTMLField(null=True, blank=True)
     created_on = models.DateTimeField(default=timezone.now)
     updated_on = models.DateTimeField(default=timezone.now)
     status = models.IntegerField(choices=STATUS, default=0)

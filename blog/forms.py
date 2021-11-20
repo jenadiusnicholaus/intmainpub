@@ -1,15 +1,16 @@
-from ckeditor.widgets import CKEditorWidget
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.regex_helper import Choice
 
 from authentication.models import UserProfile
 from blog.models import STATUS, Publication, Topics
+from tinymce.widgets import TinyMCE
 
 
 class PublicationForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorUploadingWidget(), )
+    description = forms.CharField(
+        widget=TinyMCE(attrs={'cols': 80, 'rows': 60}))
     bitBucket_link = forms.URLField(max_length=400, required=False, widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'bitbucket link'
