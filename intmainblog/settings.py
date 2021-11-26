@@ -100,9 +100,9 @@ WSGI_APPLICATION = 'intmainblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'intmaindb',
-        'USER': 'intmainuser',
-        'PASSWORD': 'intmain',
+        'NAME': 'intmain_db',
+        'USER': 'intmain_admin',
+        'PASSWORD': 'intmainps',
         'HOST': 'localhost',
         'PORT': '',
     }
