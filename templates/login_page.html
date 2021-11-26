@@ -12,6 +12,18 @@ Inner intro START -->
       <div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
         <div class="p-4 p-sm-5 bg-primary-soft rounded">
 			<h2>Log in to your account</h2>
+				{% if messages %}
+				<ul class="messages" >
+					{% for message in messages %}
+				{% if message.tags %}
+					<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+					{% endif %}
+						<strong>Done!</strong> {{ message }}..
+						<button style = 'color:black;' type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					{% endfor %}
+				</ul>
+				{%endif%}
 					<!-- Form START -->
 			<form class="mt-4" method="post">
 				<!-- Email -->
@@ -21,7 +33,7 @@ Inner intro START -->
 					{{ field.errors }}
 					<div class="mb-3">
 						<label class="form-label" for="{{field.name}}">{{ field.label_tag }}</label>
-						<input type="{{field.name}}" class="form-control" name="{{field.name}}" id="{{field.name}}" placeholder="Enter you email address">
+						<input type="{{field.name}}" class="form-control" name="{{field.name}}" id="{{field.name}}" placeholder="Enter you username address">
 					</div>
 
 					{% if field.help_text %}
