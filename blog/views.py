@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
@@ -14,36 +16,33 @@ import datetime
 from .forms import PublicationForm
 from .models import *
 
-User = get_user_model()
-
 
 def home(request):
-    try:
 
-        publications = Publication.objects.filter(status=1)
-        recent = Publication.objects.filter(status=1).first()
-        recent_posted_pub = Publication.objects.filter(status=1)[:3]
-        topics = Topics.objects.all()
-        popular_author = User.objects.all()[:4]
+    publications = Publication.objects.filter(status=1)
+    recent = Publication.objects.filter(status=1).first()
+    recent_posted_pub = Publication.objects.filter(status=1)[:3]
+    topics = Topics.objects.all()
+    popular_author = User.objects.all()[:4]
 
-        # publication pagination
+    # publication pagination
 
-        paginator = Paginator(publications, 20)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context = {
-            'publications': publications,
-            'recent': recent,
-            'recent_posted_pub': recent_posted_pub,
-            'topics': topics,
-            'popular_author': popular_author,
-            'page_obj': page_obj
-        }
+    paginator = Paginator(publications, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'publications': publications,
+        'recent': recent,
+        'recent_posted_pub': recent_posted_pub,
+        'topics': topics,
+        'popular_author': popular_author,
+        'page_obj': page_obj
+    }
 
-        return render(request, template_name='homepage.html', context=context)
+    return render(request, template_name='homepage.html', context=context)
 
-    except:
-        return render(request, template_name='error_page.html')
+    # except:
+    #     return render(request, template_name='error_page.html')
 
 
 class PublicationDetails(HitCountDetailView):
@@ -231,26 +230,26 @@ def publication_search(request):
 
 
 def topics_details(request, pk):
-    try:
-        topic = Topics.objects.get(id=pk)
-        topics = Topics.objects.all()
+    # try:
+    topic = Topics.objects.get(id=pk)
+    topics = Topics.objects.all()
 
-        pubs = Publication.objects.filter(topic_id=pk)
-        paginator = Paginator(pubs, 20)
-        count_pubs = pubs.count()
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+    pubs = Publication.objects.filter(topic_id=pk)
+    paginator = Paginator(pubs, 20)
+    count_pubs = pubs.count()
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-        context = {
-            'topics': topics,
-            'topic': topic,
-            'page_obj': page_obj,
-            'count_pubs': count_pubs,
+    context = {
+        'topics': topics,
+        'topic': topic,
+        'page_obj': page_obj,
+        'count_pubs': count_pubs,
 
-        }
-        return render(request, 'topic_items.html', context=context)
-    except:
-        return render(request, template_name='error_page.html')
+    }
+    return render(request, 'topic_items.html', context=context)
+    # except:
+    #     return render(request, template_name='error_page.html')
 
 
 def edit_publication(request, pk):

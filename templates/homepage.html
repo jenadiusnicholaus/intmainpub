@@ -33,14 +33,14 @@ Inner intro START -->
 					  <div class="d-flex align-items-center text-white position-relative">
 						  {% if not recent.author.userprofile.image %}
 						  <div class="avatar">
-							<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.getfirstChar}}</span></div>
+							<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{recent.author.userprofile.getfirstChar}}</span></div>
 						</div>
 						  {% else%}
 						<div class="avatar avatar-sm">
 						  <img class="avatar-img rounded-circle" src="{{recent.author.userprofile.image.url}}" alt="avatar">
 						</div>
 						  {% endif%}
-						<span class="ms-3"> <a href="{% url 'author_page' recent.author.username recent.author.id %}" class="stretched-link text-reset btn-link">{{recent.author.get_fullname}}</a></span>
+						<span class="ms-3"> <a href="{% url 'author_page' recent.author.username recent.author.id %}" class="stretched-link text-reset btn-link">{{recent.author.userprofile.get_fullname}}</a></span>
 					  </div>
 					</div>
 				  </li>
@@ -105,7 +105,7 @@ Main content START -->
 												{% if not publication.author.userprofile.image %}
 												<div class="avatar">
 													<div class="avatar-img rounded-circle bg-primary"><span
-															class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{publication.author.getfirstChar}}</span>
+															class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{publication.author.userprofile.getfirstChar}}</span>
 													</div>
 												</div>
 												{% else %}
@@ -115,7 +115,7 @@ Main content START -->
 												</div>
 												{% endif %}
 												<span class="ms-3"> <a href="{% url 'author_page' publication.author.username publication.author.id %}"
-														class="stretched-link text-reset btn-link">{{publication.author.get_fullname}}</a></span>
+														class="stretched-link text-reset btn-link">{{publication.author.userprofile.get_fullname}}</a></span>
 											</div>
 										</div>
 									</li>
@@ -161,7 +161,7 @@ Main content START -->
 					{% for author in popular_author%}
 					{% if not author.userprofile.image%}
 					<div class="avatar align-middle">
-					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{author.getfirstChar}}</span></div>
+					<div class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{author.userprofile.getfirstChar}}</span></div>
 					</div>
 <!--				<div class="avatar align-middle">-->
 <!--					<img class="avatar-img rounded-circle border border-3 border-dark" src="assets/images/avatar/06.jpg" alt="avatar">-->

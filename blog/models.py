@@ -1,4 +1,4 @@
-
+from django.contrib.auth.models import User
 from django.db import models
 # Create your models here.
 from django.utils import timezone
@@ -8,7 +8,7 @@ from tinymce.models import HTMLField
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from six import python_2_unicode_compatible
-import uuid
+
 
 STATUS = (
     (0, 'Draft'),
@@ -23,8 +23,6 @@ COLOR = (
     ('info', "info"),
 
 )
-
-User = settings.AUTH_USER_MODEL
 
 
 class Topics(models.Model):

@@ -1,3 +1,4 @@
+import django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -6,12 +7,12 @@ from django.http import JsonResponse
 from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.models import User
+
 from authentication.forms import UserSignUpForm
 from .forms import usersForm, singleUserProfileForm
 from blog.models import Publication, Topics
 from django.core.paginator import Paginator
-
-User = get_user_model()
 
 
 def SignUpView(request, ):
