@@ -24,7 +24,7 @@ class PublicationForm(forms.ModelForm):
         'placeholder': 'Gitlab link'
 
     }))
-    github_link = forms.URLField(max_length=400,  widget=forms.URLInput(attrs={
+    github_link = forms.URLField(max_length=400, required=False,  widget=forms.URLInput(attrs={
         'class': 'form-control',
         'placeholder': 'Github link'
     }))
