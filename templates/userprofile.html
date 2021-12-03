@@ -52,8 +52,105 @@ Inner intro START -->
 						<h3>Edit profile</h3>
 						<form action="" method="post" enctype="multipart/form-data">
 							{%csrf_token%}
-							{{ user_form }}
-							{{ profile_form }}
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">Username:</label>
+									{{ user_form.username }}
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Email:</label>
+									{{ user_form.email }}
+
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">First name:</label>
+									{{ user_form.first_name }}
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Last name:</label>
+									{{ user_form.last_name }}
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">Profile pic:</label>
+									<div class="row">
+
+										<div class="col-md-9">
+											{{ profile_form.image}}
+										</div>
+										<div class="col-md-3">
+											<img style="height:30px; width:30px; border-radius: 100%;margin-top:10px;overflow: hidden;"
+												src="{{  profile_form.instance.image.url }}" alt="">
+
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Bio:</label>
+									{{ profile_form.bio}}
+
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">About me:</label>
+									{{ profile_form.about }}
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Professional:</label>
+									{{ profile_form.profession }}
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">Location:</label>
+									{{ profile_form.location }}
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Facebook link:</label>
+									{{ profile_form.facebook_link}}
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="id_username">LinkedIn link:</label>
+									{{ profile_form.linkedin_link }}
+
+								</div>
+								<div class="col-md-6">
+									<label for="id_email">Tweeter link:</label>
+									{{ profile_form.tweeter_link}}
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label for="id_username">GitHub link:</label>
+									{{ profile_form.github_link }}
+
+								</div>
+
+
+							</div>
+
+
 							<button type="submit" class="btn btn-primary-soft">save now <i
 									class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
 						</form>
