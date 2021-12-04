@@ -78,7 +78,7 @@ Main content START -->
                                                     </div>
                                                     {% endif %}
                                                     <span class="ms-3"> <a href="{% url 'author_page' pub.author.username pub.author.id %}"
-                                                            class="stretched-link text-reset btn-link">{% if  pub.author.userprofile.get_fullname %} No username {%else%}{{pub.author.uerserprofile.get_fullname}}{%endif%}</a></span>
+                                                            class="stretched-link text-reset btn-link">{% if  pub.author.userprofile.get_fullname %} {{pub.author.uerserprofile.get_fullname}} {%else%}{%endif%}</a></span>
 
                                                 </div>
                                             </div>
