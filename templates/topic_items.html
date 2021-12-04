@@ -69,16 +69,16 @@ Main content START -->
                                                     {% if not pub.author.userprofile.image %}
                                                     <div class="avatar">
                                                         <div class="avatar-img rounded-circle bg-primary"><span
-                                                                class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{pub.author.getfirstChar}}</span>
+                                                                class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{pub.author.userprofile.getfirstChar}}</span>
                                                         </div>
                                                     </div>
                                                     {% else %}
                                                     <div class="avatar avatar-xs">
-                                                        <img class="avatar-img rounded-circle" src="{{pub.userprofile.image.url}}" alt="avatar">
+                                                        <img class="avatar-img rounded-circle" src="{{pub.author.userprofile.image.url}}" alt="avatar">
                                                     </div>
                                                     {% endif %}
                                                     <span class="ms-3"> <a href="{% url 'author_page' pub.author.username pub.author.id %}"
-                                                            class="stretched-link text-reset btn-link">{% if  pub.author.get_fullname %} No username {%else%}{{pub.author.get_fullname}}{%endif%}</a></span>
+                                                            class="stretched-link text-reset btn-link">{% if  pub.author.userprofile.get_fullname %} No username {%else%}{{pub.author.uerserprofile.get_fullname}}{%endif%}</a></span>
 
                                                 </div>
                                             </div>
@@ -138,8 +138,8 @@ Main content START -->
                             <a href="#" class="d-block card-img-flash">
                                 <img src="assets/images/adv.png" alt="">
                             </a>
-                            <div class="smaller text-end mt-2">ads via <a href="#"
-                                    class="text-muted"><u>Bootstrap</u></a></div>
+                            <div class="smaller text-end mt-2"> <a href="#"
+                                    class="text-muted"><u></u></a></div>
                         </div>
                         <!-- ADV widget END -->
                     </div>

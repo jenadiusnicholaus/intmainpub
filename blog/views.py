@@ -232,7 +232,7 @@ def publication_search(request):
 def topics_details(request, pk):
     # try:
     topic = Topics.objects.get(id=pk)
-    topics = Topics.objects.all()
+    topics = Topics.objects.all()[:5]
 
     pubs = Publication.objects.filter(topic_id=pk)
     paginator = Paginator(pubs, 20)
