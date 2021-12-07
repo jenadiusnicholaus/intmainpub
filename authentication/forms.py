@@ -45,14 +45,14 @@ class usersForm(forms.ModelForm):
 class singleUserProfileForm(forms.ModelForm):
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'class': 'form-control ',
-        'rows': "1",
+        'rows': "2",
         'cols': "100",
         'placeholder': 'Write your bio here...',
 
     }))
     about = forms.CharField(required=False, widget=forms.Textarea(attrs={
         'class': 'form-control ',
-        'rows': "1",
+        'rows': "2",
         'cols': "100",
         'placeholder': 'Write your about here...',
 

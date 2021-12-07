@@ -148,9 +148,10 @@ def get_comment(request, slug):
             image = ' <img style ="width: 50px; height:50px;" class="avatar-img rounded-circle border border-3 border-dark mr-5"  src='f"{i.commenter.userprofile.imageUrl()}"'  alt="avatar">'
         else:
             image = '<div class="avatar mr-5">' + '<div style ="width: 50px; height:50px;" class="avatar-img rounded-circle bg-primary"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">' + \
-                f'{i.commenter.getfirstChar()}' + ' </span></div>' + '</div>'
+                f'{i.commenter.userprofile.getfirstChar()}' + \
+                ' </span></div>' + '</div>'
 
-        el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.get_fullname()}' + '</h5>' + '<span class="me-3 small">' + \
+        el = '<div class="my-4 d-flex ps-2 ps-md-3">' + f'{image}' + '<div>' + '<div class="mb-2">' + '<h5 class="m-3">' + f'{i.commenter.userprofile.get_fullname()}' + '</h5>' + '<span class="me-3 small">' + \
             f'Commented on {created_on}' + '</span>' + '<a href="#" class="text-body fw-normal"></a>' + \
             '</div>' + '<p>' + f'{i.content}' + '</p>' + '</div>' + '</div>'
 
