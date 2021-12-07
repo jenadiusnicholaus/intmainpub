@@ -128,12 +128,38 @@ Main START -->
 						<a href=""></a>
 
 						<li class="nav-item">
-							{% post_to_twitter "{{publication_detail.title}}. Check it out!" object_or_url "Twitter" %}
+							{% post_to_twitter "{{publication_detail.title}}. Check it out!" object_or_url 'Twitter' %}
 						</li>
 					</ul>
 					<div class="mt-4">
+						<div class="col-12 col-sm-6 col-lg-12">
+							<h4 class="mt-4 mb-3">Recent Publication</h4>
+							<!-- Recent post item -->
+							{% for publication in recent_posted_pub%}
+							<div class="card mb-3">
+								<div class="row g-3">
+									{% if not publication.image %}
+
+									{%else%}
+									<div class="col-4">
+										<img class="rounded" src="{{publication.image.url}}" alt="">
+									</div>
+
+									<div class="col-8">
+										<h6><a href="{% url 'publication_details' publication.slug%}"
+												class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a>
+										</h6>
+										<div class="small mt-1">{{publication.created_on|timesince}} ago</div>
+									</div>
+									{%endif%}
+								</div>
+							</div>
+							{%endfor%}
+						</div>
+					</div>
+					<div class="mt-4">
 						<a href="#" class="d-block card-img-flash">
-							<img src="" alt="ads" >
+							<!-- <img src="" alt="ads" > -->
 						</a>
 					</div>
 				</div>

@@ -57,7 +57,11 @@ class PublicationDetails(HitCountDetailView):
             context = super(PublicationDetails,
                             self).get_context_data(**kwargs)
             topics = Topics.objects.all()
+            recent_posted_pub = Publication.objects.filter(status=1)[:3]
+
             context.update({
+                'recent_posted_pub': recent_posted_pub,
+
                 'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
                 'topics': topics
             })
