@@ -36,7 +36,7 @@ Main START -->
 		<div class="row">
 			<!-- Left sidebar START -->
 			<div class="col-lg-2">
-				<div class="text-start  mb-5" data-sticky="" data-margin-top="80" data-sticky-for="991" style="">
+				<div class="text-start  mb-5" data-sticky="" data-margin-top="80" data-sticky-for="991" >
 					<!-- Author info -->
 					<div class="position-relative">
 						{% if not publication_detail.author.userprofile.image %}
@@ -123,13 +123,53 @@ Main START -->
 			<!-- Right sidebar START -->
 			<div class="col-lg-3">
 				<div data-sticky="" data-margin-top="80" data-sticky-for="991" >
-	      		<h4>Share this article</h4>
+	      		<h4>Share this article to</h4>
 					<ul class="nav  mt-2">
 						<a href=""></a>
 
-						<li class="nav-item">
-							{% post_to_twitter "{{publication_detail.title}}. Check it out!" object_or_url 'Twitter' %}
+						<li style="margin-right: 5px;" class="nav-item ">
+
+							{% post_to_twitter "{{publication_detail.title}}. Check it out!" object_or_url ' Twitter' "fab fa-twitter-square badge bg-primary" %}
+
 						</li>
+						<li style="margin-right: 5px;" class="nav-item mr-4">
+						{% post_to_facebook object_or_url "Facebook!" "fab fa-facebook-square badge bg-primary" %}
+
+						</li>
+						<li style="margin-right: 5px;" style="margin-right: 5px;" class="nav-item">
+						{% post_to_linkedin object_or_url %}
+
+
+						</li>
+
+						<li style="margin-right: 5px;" class="nav-item">
+							{% post_to_reddit "New Publication: {{publication_detail.title}}" object_or_url "Reddit"  "fab fa-reddit badge bg-danger" %}
+
+
+						</li>
+						<li style="margin-right: 5px;" class="nav-item">
+							{% post_to_telegram "New Publication: {{publication_detail.title}}" object_or_url 'Telegram' "fab fa-telegram badge bg-success"%}
+
+
+						</li>
+
+						<li style="margin-right: 5px;" class="nav-item">
+							{% post_to_whatsapp object_or_url "WhatsApp" "fab fa-whatsapp-square badge bg-success" %}
+
+
+						</li>
+						<li style="margin-right: 5px;" class="nav-item">
+							{% save_to_pinterest object_or_url %}
+
+						</li>
+						<li style="margin-right: 5px;" class="nav-item">
+							{% add_pinterest_script %}
+
+
+
+						</li>
+
+
 					</ul>
 					<div class="mt-4">
 						<div class="col-12 col-sm-6 col-lg-12">
