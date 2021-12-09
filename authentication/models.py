@@ -19,6 +19,8 @@ class UserProfile(models.Model):
     linkedin_link = models.URLField(max_length=400, null=True, blank=True)
     tweeter_link = models.URLField(max_length=400, null=True, blank=True)
     github_link = models.URLField(max_length=400, null=True, blank=True)
+    following = models.ManyToManyField(
+        User, symmetrical=False, related_name='followers', blank=True,)
 
     def __str__(self):
         return str(self.user.email)

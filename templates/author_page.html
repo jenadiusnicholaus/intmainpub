@@ -58,8 +58,18 @@ Inner intro START -->
 						<a class="nav-link px-2 fs-5" href="{% if not author_data.userprofile.github_link%}#{% else%}{{author_data.userprofile.github_link}}{%endif%}"><i class="fab fa-github"></i></a>
 					</li>
 				</ul>
+
+				<ul class ="nav justify-content-center justify-content-md-start">
+					<form id="form" method="POST">
+						{%csrf_token%}
+						<input type ="text", hidden name = 'username' value="{{author_data.username}}"/>
+					<button type="submit" id='btn_follow_unfollow' class="btn btn-outline-primary" href="">Follow</button>
+
+					</form>
+				</ul>
 			</div>
 		</div>
+
 				<!-- Author info END -->
       </div>
     </div>
@@ -161,4 +171,67 @@ Main content START -->
 Main content END -->
 
 </main>
+
+<script>
+
+
+			$(document).ready(function (event)
+			{
+				//getcomment();
+			$('#form').on('submit', function (e)
+			{
+			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+			console.log('clicked')
+			e.preventDefault();
+			$.ajax({
+				type: "POST",
+			url: "{% url 'follow_unfollow' author_data.username%}",
+			data: {
+				//comment: $('#comment').val(),
+
+			csrfmiddlewaretoken: csrftoken,
+			dataType: "json",
+
+				},
+			success: function (data)
+			{ if (data.action == 'follow'){
+				$('#btn_follow_unfollow').html('Unfollow')
+				$('#btn_follow_unfollow').removeClass('btn-primary').addClass('btn-outline-danger')
+			}
+			else if (data.action == 'unfollow'){
+
+			}
+			else if (data.action == 'selffollow'){
+
+			}
+
+
+
+				/* response message */
+				if (data.sms === 'successfully'){
+				//resettext()
+				//getcomment();
+				console.log(data.info)
+
+				}
+			},
+			failure: function ()
+			{
+
+			}
+
+			});
+
+
+		});
+
+			function showReplyform(){
+
+			}
+
+
+
+			});
+
+</script>
 {% endblock contents %}

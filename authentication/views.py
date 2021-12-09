@@ -3,13 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
+from django.http import JsonResponse, response
 from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
 
 from authentication.forms import UserSignUpForm
+from authentication.models import UserProfile
 from .forms import usersForm, singleUserProfileForm
 from blog.models import Publication, Topics
 from django.core.paginator import Paginator
@@ -67,7 +68,7 @@ class Register(View):
 
             if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
                 User.objects.create_user(
-                   username, email, password=password,  is_active=True)
+                    username, email, password=password,  is_active=True)
                 # it going to be used later in the email sending
                 user = User.objects.get(username=username, email=email)
                 # TODO send email address to activate a user if you want it to
@@ -166,3 +167,31 @@ class userProfile(View):
             messages.info(
                 self.request, 'Invalid user profile, try to register as a new user.')
             return redirect('userprofile')
+
+
+def follow_unfollow(request, username):
+    following_user = UserProfile.objects.get(user__username=username)
+    current_user = User.objects.get(username=request.user.username)
+    following = following_user.following.all()
+    if username != current_user.username:
+        if current_user in following:
+            following_user.following.remove(current_user)
+            response = {
+                'action': 'Unfollow',
+                'info': f'we can follow {current_user}'
+            }
+            print('remove')
+            return JsonResponse(response)
+        else:
+            following_user.following.add(current_user)
+            response = {
+                'action': 'follow',
+                'info': f'we can follow {username}'
+            }
+            print('add')
+            return JsonResponse(response)
+    response = {
+        'action': 'selffollow',
+        'info': f'can\'t follow yourself  {username}'
+    }
+    return JsonResponse(response)
