@@ -63,14 +63,15 @@ Inner intro START -->
 					<form id="form" method="POST">
 						{%csrf_token%}
 						<input type ="text", hidden name = 'username' value="{{author_data.username}}"/>
-					<button type="submit" id='btn_follow_unfollow' class="btn btn-outline-primary" href="">Follow</button>
+
+					<button style ="width: 185.3px;" type="submit" id='btn_follow_unfollow' class="btn btn-outline-primary " href="">Follow</button>
 
 					</form>
 				</ul>
 				<ul class ='nav justify-content-center justify-content-md-start'>
 					<li  class="nav-item">
-						<a href="#" class="badge bg-primary-soft text-secondary">Following <span id ="following">0</span></a>
-						<a href="#" class="badge bg-secondary-soft text-secondary">Followers <span id="followers">0</span></a>
+						<a href="#" class="badge bg-primary-soft text-secondary btn btn-outline-primary">Following <span id ="following">0</span></a>
+						<a href="#" class="badge bg-secondary-soft text-secondary btn btn-outline-primary">Followers <span id="followers">0</span></a>
 
 					</li>
 				</ul>
