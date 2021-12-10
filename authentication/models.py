@@ -19,11 +19,17 @@ class UserProfile(models.Model):
     linkedin_link = models.URLField(max_length=400, null=True, blank=True)
     tweeter_link = models.URLField(max_length=400, null=True, blank=True)
     github_link = models.URLField(max_length=400, null=True, blank=True)
-    following = models.ManyToManyField(
+    followers = models.ManyToManyField(
         User, symmetrical=False, related_name='followers', blank=True,)
+    following = models.ManyToManyField(
+        User, symmetrical=False, related_name='following', blank=True,)
+
+    class Meta:
+
+        verbose_name_plural = 'User Profile'
 
     def __str__(self):
-        return str(self.user.email)
+        return str(self.user.username)
 
     def imageUrl(self):
         if self.image:

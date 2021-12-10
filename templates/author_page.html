@@ -40,7 +40,7 @@ Inner intro START -->
 				  </div>
 					<!-- Info -->
 				<div>
-            <h2 class="m-0">{{author_data.get_fullname}}</h2>
+            <h2 class="m-0">{{author_data.userprofile.get_fullname}}</h2>
             <small>{% if not author_data.userprofile.profession%}{%else%}{{author_data.userprofile.profession}}{%endif%}</small>
 				<p class="my-2">{% if not author_data.userprofile.about%}{%else%}{{author_data.userprofile.about}}{%endif%}</p>
 				<!-- Social icons -->
@@ -67,9 +67,15 @@ Inner intro START -->
 
 					</form>
 				</ul>
+				<ul class ='nav justify-content-center justify-content-md-start'>
+					<li  class="nav-item">
+						<a href="#" class="badge bg-primary-soft text-secondary">Following <span id ="following">0</span></a>
+						<a href="#" class="badge bg-secondary-soft text-secondary">Followers <span id="followers">0</span></a>
+
+					</li>
+				</ul>
 			</div>
 		</div>
-
 				<!-- Author info END -->
       </div>
     </div>
@@ -124,42 +130,27 @@ Main content START -->
 					{% endfor%}
 					<!-- Card item END -->
 					<!-- Load more START -->
-<!--					<nav aria-label="Page navigation example">-->
-<!--					  <ul class="pagination">-->
-<!--						<li class="page-item">-->
-<!--						  <a class="page-link" href="#" aria-label="Previous">-->
-<!--							<span aria-hidden="true">&laquo;</span>-->
-<!--						  </a>-->
-<!--						</li>-->
-<!--						<li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--						<li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--						<li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--						<li class="page-item">-->
-<!--						  <a class="page-link" href="#" aria-label="Next">-->
-<!--							<span aria-hidden="true">&raquo;</span>-->
-<!--						  </a>-->
-<!--						</li>-->
-<!--					  </ul>-->
-<!--					</nav>-->
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination">
+						<div class="pagination">
+							<span class="step-links">
+								{% if page_obj.has_previous %}
+								<a href="?page=1">&laquo; first</a>
+								<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+								{% endif %}
 
+								<span class="current">
+									Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+								</span>
 
-				<div class="pagination">
-					<span class="step-links">
-						{% if page_obj.has_previous %}
-							<a href="?page=1">&laquo; first</a>
-							<a href="?page={{ page_obj.previous_page_number }}">previous</a>
-						{% endif %}
-
-						<span class="current">
-							Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-						</span>
-
-						{% if page_obj.has_next %}
-							<a href="?page={{ page_obj.next_page_number }}">next</a>
-							<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-						{% endif %}
-					</span>
-				</div>
+								{% if page_obj.has_next %}
+								<a href="?page={{ page_obj.next_page_number }}">next</a>
+								<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+								{% endif %}
+							</span>
+						</div>
+					  </ul>
+				</nav>
 					<!-- Load more END -->
 				</div>
 			</div>
@@ -173,18 +164,17 @@ Main content END -->
 </main>
 
 <script>
+let is_followed = false;
 
+$(document).ready(function (event) {
 
-			$(document).ready(function (event)
-			{
-				//getcomment();
-			$('#form').on('submit', function (e)
-			{
-			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-			console.log('clicked')
-			e.preventDefault();
-			$.ajax({
-				type: "POST",
+	get_follow_following()
+	$('#form').on('submit', function (e) {
+		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+		console.log('clicked')
+		e.preventDefault();
+		$.ajax({
+			type: "POST",
 			url: "{% url 'follow_unfollow' author_data.username%}",
 			data: {
 				//comment: $('#comment').val(),
@@ -194,44 +184,75 @@ Main content END -->
 
 				},
 			success: function (data)
+
 			{ if (data.action == 'follow'){
+				get_follow_following()
 				$('#btn_follow_unfollow').html('Unfollow')
-				$('#btn_follow_unfollow').removeClass('btn-primary').addClass('btn-outline-danger')
+				$('#btn_follow_unfollow').removeClass('btn-outline-primary').addClass('btn-outline-danger')
 			}
-			else if (data.action == 'unfollow'){
+			else if (data.action == 'unfollow' ) {
+				get_follow_following()
+				$('#btn_follow_unfollow').html('Follow  ')
+				$('#btn_follow_unfollow').removeClass('btn-outline-danger').addClass('btn-outline-primary')
+			}
+			else if (data.action == 'selffollow') {
 
 			}
-			else if (data.action == 'selffollow'){
-
-			}
-
-
-
-				/* response message */
-				if (data.sms === 'successfully'){
-				//resettext()
-				//getcomment();
-				console.log(data.info)
+			if (data.message === 'You must login') {
+				$('#btn_follow_unfollow').html(data.message)
 
 				}
 			},
-			failure: function ()
-			{
+			failure: function ( data) {
 
+				$('#btn_follow_unfollow').html(data.message)
+				console.log(data.message)
 			}
-
-			});
-
-
 		});
+	});
+});
 
-			function showReplyform(){
+	function get_follow_following()
+	{
+		console.log('We can get  infor here')
+		$.ajax({
+			type: 'GET',
+			url: "{% url 'get_follow_following' author_data.username %}",
+			success: function (data)
+			{
+				//var data_set = $.parseJSON(data);
+
+				//console.log(data)
+				if (data.following  != undefined) {
+					$('#following').html(data.following);
+					console.log(data)
+				}
+
+				if (data.followers != undefined) {
+					$('#followers').html(`${data.followers}`)
+				}
+				else{
+						$('#followers').html(`0`)
+				}
+
+
+				if (data.is_followed){
+					$('#btn_follow_unfollow').html('Unfollow')
+					$('#btn_follow_unfollow').removeClass('btn-outline-primary').addClass('btn-outline-danger')
+				}
+				if (data.is_self)
+				{
+					    $("#btn_follow_unfollow").remove();
+
+				}
+			},
+			failure: function (data)
+			{
+				$('#btn_follow_unfollow').html(data.message)
+
 
 			}
-
-
-
-			});
-
+		})
+	}
 </script>
 {% endblock contents %}

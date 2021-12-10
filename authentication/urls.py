@@ -4,7 +4,8 @@ from authentication.views import \
     SignUpView, validate_username, \
     author_page, logout_request,\
     login_request, Register, \
-    userProfile, follow_unfollow
+    userProfile, follow_unfollow, \
+    get_follow_following
 
 urlpatterns = [
     path('signUp', SignUpView, name='signUp'),
@@ -14,6 +15,8 @@ urlpatterns = [
     path("register", Register.as_view(), name="register"),
     path("logout", logout_request, name="logout"),
     path("userprofile", userProfile.as_view(), name="userprofile"),
-    path('follow/<username>', follow_unfollow, name="follow_unfollow")
+    path('follow/<username>', follow_unfollow, name="follow_unfollow"),
+    path("get_follow_following/<username>", get_follow_following,
+         name="get_follow_following")
 
 ]

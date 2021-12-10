@@ -170,28 +170,64 @@ class userProfile(View):
 
 
 def follow_unfollow(request, username):
-    following_user = UserProfile.objects.get(user__username=username)
-    current_user = User.objects.get(username=request.user.username)
-    following = following_user.following.all()
-    if username != current_user.username:
-        if current_user in following:
-            following_user.following.remove(current_user)
+    try:
+        if request.user.is_authenticated:
+
+            following_user = User.objects.get(username=username)
+            current_user = UserProfile.objects.get(
+                user__username=request.user.username)
+            following = current_user.following.all()
+            followers = following_user.userprofile.followers.all()
+
+            if username != current_user.user.username:
+                if following_user in following and request.user in followers:
+                    current_user.following.remove(following_user)
+                    following_user.userprofile.followers.remove(request.user)
+                    response = {
+                        'action': 'unfollow',
+                        'info': f'we can Unfollow {username}'
+                    }
+                    print(f'remove {username}')
+                    return JsonResponse(response)
+                else:
+                    current_user.following.add(following_user)
+                    following_user.userprofile.followers.add(request.user)
+                    response = {
+                        'action': 'follow',
+                        'info': f'we can follow {username}'
+                    }
+                    print('added')
+                    return JsonResponse(response)
             response = {
-                'action': 'Unfollow',
-                'info': f'we can follow {current_user}'
+                'action': 'selffollow',
+                'info': f'can\'t follow yourself  {username}'
             }
-            print('remove')
             return JsonResponse(response)
-        else:
-            following_user.following.add(current_user)
-            response = {
-                'action': 'follow',
-                'info': f'we can follow {username}'
-            }
-            print('add')
-            return JsonResponse(response)
-    response = {
-        'action': 'selffollow',
-        'info': f'can\'t follow yourself  {username}'
-    }
-    return JsonResponse(response)
+        return JsonResponse({
+
+            'message': 'You must login'}
+        )
+
+    except:
+        return JsonResponse({
+
+            'message': 'You must login'}
+        )
+
+
+def get_follow_following(request, username):
+    try:
+
+        current_profile = UserProfile.objects.get(
+            user__username=request.user.username)
+        following_user = User.objects.get(username=username)
+        response = {
+            'is_followed': following_user in current_profile.following.all(),
+            'following': following_user.userprofile.following.count(),
+            'followers':  following_user.userprofile.followers.count(),
+            'is_self': username == current_profile.user.username}
+        return JsonResponse(response)
+    except:
+        return JsonResponse({
+            'message': 'You must login'}
+        )
