@@ -51,6 +51,24 @@
 	  gtag('config', 'G-XZ4W34ZJ0L');
 	</script>
 
+	<style>
+		::-webkit-scrollbar {
+			width: 3px;
+		}
+
+		::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgb(23, 50, 71);
+			border-radius: 10px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			border-radius: 10px;
+			background-color:rgb(29, 26, 54);
+			-webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.7);
+		}
+
+	</style>
+
 </head>
 
 <body>
@@ -79,6 +97,7 @@ Header START -->
 				<ul class="navbar-nav navbar-nav-scroll ms-auto">
 					<li class="nav-item "><a  class="nav-link  " href="{% url 'search'%}" > <Span> <i class = "fa fa-search"></i></Span></a></li>
 					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
+					<li class="nav-item "><a class="nav-link " href="{% url 'blackboard' %}"> <span> ✏   Black board</span></a></li>
 					<!-- Nav item 4 Mega menu -->
 					{% if not user.is_authenticated %}
 					<li class="nav-item "><a class="nav-link " href="{% url 'login'%}"> <Span> <i class="fa fa-sign-in"></i> Login</Span></a></li>
@@ -188,10 +207,6 @@ JS libraries, plugins and custom scripts -->
 <script src="{% static 'assets/js/prism.js'%}"></script>
 <!-- Template Functions -->
 <script src="{% static 'assets/js/functions.js'%}"></script>
-<!-- <script></script> -->
-
-
-
 
 </body>
 </html>
