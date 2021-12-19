@@ -97,7 +97,6 @@ Header START -->
 				<ul class="navbar-nav navbar-nav-scroll ms-auto">
 					<li class="nav-item "><a  class="nav-link  " href="{% url 'search'%}" > <Span> <i class = "fa fa-search"></i></Span></a></li>
 					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
-					<li class="nav-item "><a class="nav-link " href="{% url 'blackboard' %}"> <span> ✏   Black board</span></a></li>
 					<!-- Nav item 4 Mega menu -->
 					{% if not user.is_authenticated %}
 					<li class="nav-item "><a class="nav-link " href="{% url 'login'%}"> <Span> <i class="fa fa-sign-in"></i> Login</Span></a></li>
