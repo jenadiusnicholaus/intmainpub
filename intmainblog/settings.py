@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # ours
     'blog',
     'authentication',
-    'blackboard',
+
     # third part apps
     "django_social_share",
     'hitcount',
