@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 from authentication.forms import UserSignUpForm
 from authentication.models import UserProfile
+from intmainblog.utils import isValidUsername
 from .forms import usersForm, singleUserProfileForm
 from blog.models import Publication, Topics
 from django.core.paginator import Paginator
@@ -52,41 +53,47 @@ class Register(View):
         return render(self.request, 'register.html', {'register_form': form})
 
     def post(self, request, *args, **kwargs):
-        # try:
-        form = UserSignUpForm(self.request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
 
-            # cheking for passwords matching
-            if password != password2:
-                messages.warning(self.request, "password doesn't match")
-                # For this we need toredirect to register page if there
-                return redirect('register')
+        try:
+            form = UserSignUpForm(self.request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                email = form.cleaned_data.get('email')
+                password = form.cleaned_data.get('password1')
+                password2 = form.cleaned_data.get('password2')
 
-            if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
-                User.objects.create_user(
-                    username, email, password=password,  is_active=True)
-                # it going to be used later in the email sending
-                user = User.objects.get(username=username, email=email)
-                # TODO send email address to activate a user if you want it to
-                messages.success(
-                    self.request, f'Registered successfully now')
-                return redirect('login')
+                # cheking for passwords matching
+                if password != password2:
+                    messages.warning(self.request, "password doesn't match")
+                    # For this we need toredirect to register page if there
+                    return redirect('register')
+                if not isValidUsername(username):
+                    messages.warning(
+                        self.request, "username is not valid, Try another one")
+                    # For this we need toredirect to register page if there
+                    return redirect('register')
+
+                if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
+                    User.objects.create_user(
+                        username, email, password=password,  is_active=True)
+                    # it going to be used later in the email sending
+                    user = User.objects.get(username=username, email=email)
+                    # TODO send email address to activate a user if you want it to
+                    messages.success(
+                        self.request, f'Registered successfully now')
+                    return redirect('login')
+                else:
+                    messages.warning(
+                        self.request, 'Looks like a username with that email or password already exists')
+                    return redirect("register")
             else:
-                messages.warning(
-                    self.request, 'Looks like a username with that email or password already exists')
-                return redirect("register")
-        else:
-            # For this we need toredirect to register page if there
-            print('from not valid')
-            print(form.data)
-            messages.warning(self.request, 'Form not valid')
-        return redirect('/')
-        # except:
-        #     return render(request, "error_page.html")
+                # For this we need toredirect to register page if there
+                print('from not valid')
+                print(form.data)
+                messages.warning(self.request, 'Form not valid')
+            return redirect('register')
+        except:
+            return render(request, "error_page.html")
 
 
 def login_request(request):
@@ -109,6 +116,7 @@ def login_request(request):
         form = AuthenticationForm()
         return render(request=request, template_name="login_page.html", context={"login_form": form})
     except:
+
         return render(request, "error_page.html")
 
 
