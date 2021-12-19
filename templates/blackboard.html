@@ -1,0 +1,352 @@
+{%extends 'base.html'%}
+{%load static %}
+{% block contents %}
+<main >
+
+    <!-- =======================
+Main hero START -->
+    <section style = " height: 100vh; background-color: rgb(26,  22, 22); position:absolute; " class="pt-0 pb-0 card-grid mb-0">
+        <!-- <div style = "height:100%; " class="container"> -->
+            <div   class="row">
+                <div  class="col-12">
+                    <div  class="tiny-slider arrow-hover arrow-blur arrow-white arrow-round rounded-3 overflow-hidden">
+                        <div  class="tns-outer" id="tns1-ow">
+                            <div  class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide
+                                <span class="current">5</span> of 2</div>
+                            <div  id="tns1-mw" class="tns-ovh">
+                                <div  class="tns-inner" id="tns1-iw">
+                                    <div  class="tiny-slider-inner  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
+                                        data-autoplay="true" data-hoverpause="true" data-gutter="0" data-arrow="true"
+                                        data-dots="false" data-items="1" id="tns1"
+                                        style="transform: translate3d(-66.6667%, 0px, 0px);">
+                                        <section style = 'left:0; bottom:0; '  class="py-2">
+
+                                                <div style = "height: 100%;  background-size:cover; background-color: rgb(26, 22, 22); padding-right:20px; padding-left:20px; " class="row g-0">
+                                                    <div style = "height: 100%; " class="col-12 bg-primary-soft  rounded">
+                                                        <div style=" height: 80%; " class="d-sm-flex align-items-center text-center text-sm-start m-2">
+
+
+                                                                    <div style="height: 80%;"  class="col-md-5">
+                                                                        <!-- Author info START -->
+                                                                         <h4 style="color: white">✏ Click Question to Answer</h4>
+
+                                                                        <ul style=" height:678px;overflow-y: scroll;" class="nav nav-pills nav-stacked p-3 ">
+
+                                                                        <li>
+                                                                        <div class="bg-warning-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                            <!-- Avatar -->
+                                                                            <div class=" me-0 me-md-4">
+                                                                            <div class="avatar align-middle">
+                                                                                <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg" alt="avatar">
+                                                                            </div>
+                                                                                <!-- Post count -->
+                                                                                <!-- <div class="text-center mt-n3 position-relative">
+                                                                                    <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                </div> -->
+                                                                            </div>
+                                                                            <!-- Info -->
+                                                                            <div>
+                                                                                <h5 style ="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                <small style ="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                <p style ="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and also reports on breaking news
+                                                                                    based in London. He has written about government, criminal justice, and the role of money in
+                                                                                    politics since 2015.</p>
+                                                                                <!-- Social icons -->
+                                                                                <ul class="nav justify-content-center justify-content-md-start">
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="bg-primary-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                                <!-- Avatar -->
+                                                                                <div class=" me-0 me-md-4">
+                                                                                    <div class="avatar align-middle">
+                                                                                        <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg"
+                                                                                            alt="avatar">
+                                                                                    </div>
+                                                                                    <!-- Post count -->
+                                                                                    <!-- <div class="text-center mt-n3 position-relative">
+                                                                                                                                                            <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                                                                                        </div> -->
+                                                                                </div>
+                                                                                <!-- Info -->
+                                                                                <div>
+                                                                                    <h5 style="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                    <small style="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                    <p style="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015.</p>
+                                                                                    <!-- Social icons -->
+                                                                                    <ul class="nav justify-content-center justify-content-md-start">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="bg-danger-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                                <!-- Avatar -->
+                                                                                <div class=" me-0 me-md-4">
+                                                                                    <div class="avatar align-middle">
+                                                                                        <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg"
+                                                                                            alt="avatar">
+                                                                                    </div>
+                                                                                    <!-- Post count -->
+                                                                                    <!-- <div class="text-center mt-n3 position-relative">
+                                                                                                                                                            <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                                                                                        </div> -->
+                                                                                </div>
+                                                                                <!-- Info -->
+                                                                                <div>
+                                                                                    <h5 style="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                    <small style="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                    <p style="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015.</p>
+                                                                                    <!-- Social icons -->
+                                                                                    <ul class="nav justify-content-center justify-content-md-start">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                        </ul>
+                                                                            <div class="row">
+                                                                                <div class=" col-md-9">
+                                                                                    <div class="mb-3">
+                                                                                        <textarea style ="background-color: #272d41; color :rgb(231, 214, 214);  outline: none !important; border:1px solid #1b233f; " required="" id="textarea" name="message" cols="40" rows="2" class="form-control "
+                                                                                            placeholder="write you Question here"></textarea>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            <div class="col-sm-3 ml-0">
+                                                                                <div class="col-md-12 text-start">
+                                                                                    <button style=" height:60px; background-color: #272d41; border: none" class="btn btn-primary  w-100 btn-lg"
+                                                                                        type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i> </button>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            </div>
+                                                                        <!-- Author info END -->
+                                                                    </div>
+
+                                                                    <div style= "height: 100%; " class="col-md-7 m-2">
+
+                                                                     <h4 style="color: white">✏ Questions title heare</h4>
+
+                                                                        <ul style =" height: 678px; overflow-y: scroll;" class="nav nav-pills nav-stacked p-3 ">
+
+                                                                        <li>
+                                                                            <div style="background-color:rgb(187, 73, 73);"
+                                                                                class="bg-success-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                                <!-- Avatar -->
+                                                                                <div class=" me-0 me-md-4">
+                                                                                    <div class="avatar align-middle">
+                                                                                        <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg"
+                                                                                            alt="avatar">
+                                                                                    </div>
+                                                                                    <!-- Post count -->
+                                                                                    <!-- <div class="text-center mt-n3 position-relative">
+                                                                                                                                                            <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                                                                                        </div> -->
+                                                                                </div>
+                                                                                <!-- Info -->
+                                                                                <div>
+                                                                                    <h5 style="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                    <small style="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                    <p style="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015.
+                                                                                    Louis Ferguson is a senior editor for the blogzine and
+                                                                                    also reports on breaking news
+                                                                                    based in London. He has written about government, criminal justice, and the role of money in
+                                                                                    politics since 2015
+
+                                                                                Louis Ferguson is a senior editor for the blogzine and
+                                                                                also reports on breaking news
+                                                                                based in London. He has written about government, criminal justice, and the role of money in
+                                                                                politics since 2015</p>
+                                                                                    <!-- Social icons -->
+                                                                                    <ul class="nav justify-content-center justify-content-md-start">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style="background-color:rgb(187, 73, 73);"
+                                                                                class="bg-success-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                                <!-- Avatar -->
+                                                                                <div class=" me-0 me-md-4">
+                                                                                    <div class="avatar align-middle">
+                                                                                        <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg"
+                                                                                            alt="avatar">
+                                                                                    </div>
+                                                                                    <!-- Post count -->
+                                                                                    <!-- <div class="text-center mt-n3 position-relative">
+                                                                                                                                                                                                                                        <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                                                                                                                                                                    </div> -->
+                                                                                </div>
+                                                                                <!-- Info -->
+                                                                                <div>
+                                                                                    <h5 style="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                    <small style="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                    <p style="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015.
+                                                                                        Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015
+
+                                                                                        Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015</p>
+                                                                                    <!-- Social icons -->
+                                                                                    <ul class="nav justify-content-center justify-content-md-start">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style="background-color:rgb(187, 73, 73);"
+                                                                                class="bg-success-soft d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                                                                                <!-- Avatar -->
+                                                                                <div class=" me-0 me-md-4">
+                                                                                    <div class="avatar align-middle">
+                                                                                        <img class="avatar-img rounded-circle border border-3 border-dark" src="/media/profile_files/5.jpg"
+                                                                                            alt="avatar">
+                                                                                    </div>
+                                                                                    <!-- Post count -->
+                                                                                    <!-- <div class="text-center mt-n3 position-relative">
+                                                                                                                                                                                                                                        <span class="badge bg-danger fs-6">6 posts</span>
+                                                                                                                                                                                                                                    </div> -->
+                                                                                </div>
+                                                                                <!-- Info -->
+                                                                                <div>
+                                                                                    <h5 style="color:white" class="m-0">Louis Ferguson 🇹🇿 </h5>
+                                                                                    <small style="color:rgb(160, 137, 137)">An editor at Blogzine</small>
+                                                                                    <p style="color:rgb(231, 206, 206)" class="my-2"> Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015.
+                                                                                        Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015
+
+                                                                                        Louis Ferguson is a senior editor for the blogzine and
+                                                                                        also reports on breaking news
+                                                                                        based in London. He has written about government, criminal justice, and the role of money in
+                                                                                        politics since 2015</p>
+                                                                                    <!-- Social icons -->
+                                                                                    <ul class="nav justify-content-center justify-content-md-start">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                                                                        </li>
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </li>
+
+                                                                        </ul>
+                                                                    <div class="row">
+
+                                                                        <div class=" col-md-9 mr-0">
+                                                                            <div class="mb-3">
+                                                                                <textarea required="" style ="background-color: #272d41; color :rgb(231, 214, 214);  outline: none !important; border:1px solid #1b233f; "  id="codesample" name="message" cols="40" rows="2.1" class="form-control"
+                                                                                    placeholder="write you answers here"></textarea>
+                                                                                    <!-- {{answer_form.answer}} -->
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-sm-3 ml-0">
+                                                                            <div class="col-md-12 text-start">
+                                                                                <button style =" height:60px; background-color: #272d41; border: none" class="btn btn-primary  w-100 btn-lg" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i> </button></div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            <!-- Title -->
+
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- Row END -->
+
+                                        </section>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Row END -->
+        <!-- </div> -->
+    </section>
+    <!-- =======================
+Main hero END -->
+
+
+
+</main>
+
+{% endblock %}%}

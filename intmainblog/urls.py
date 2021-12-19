@@ -24,6 +24,7 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('tinymce/', include('tinymce.urls')),
+    path('blackboard/', include('blackboard.urls')),
 
 
 
