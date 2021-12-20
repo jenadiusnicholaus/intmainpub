@@ -18,31 +18,40 @@ from .models import *
 
 
 def home(request):
+    try:
 
-    publications = Publication.objects.filter(status=1)
-    recent = Publication.objects.filter(status=1).first()
-    recent_posted_pub = Publication.objects.filter(status=1)[:3]
-    topics = Topics.objects.all()
-    popular_author = User.objects.all()[:4]
+        publications = Publication.objects.filter(status=1)
+        recent = Publication.objects.filter(status=1).first()
+        recent_posted_pub = Publication.objects.filter(status=1)[:3]
+        topics = Topics.objects.all()
+        notQualified_auther = []
+        popular_author = []
+        count = 0
+        author = Publication.objects.select_related('author').all()[:4]
+        for auth in author:
+            if auth.author not in notQualified_auther:
+                notQualified_auther.append(auth.author)
+            else:
+                print(auth.author)
+                popular_author.append(auth.author)
+                count += 1
 
-    # publication pagination
+        paginator = Paginator(publications, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'publications': publications,
+            'recent': recent,
+            'recent_posted_pub': recent_posted_pub,
+            'topics': topics,
+            'popular_author': popular_author,
+            'page_obj': page_obj
+        }
 
-    paginator = Paginator(publications, 20)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {
-        'publications': publications,
-        'recent': recent,
-        'recent_posted_pub': recent_posted_pub,
-        'topics': topics,
-        'popular_author': popular_author,
-        'page_obj': page_obj
-    }
+        return render(request, template_name='homepage.html', context=context)
 
-    return render(request, template_name='homepage.html', context=context)
-
-    # except:
-    #     return render(request, template_name='error_page.html')
+    except:
+        return render(request, template_name='error_page.html')
 
 
 class PublicationDetails(HitCountDetailView):
