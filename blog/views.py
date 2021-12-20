@@ -27,7 +27,8 @@ def home(request):
         popular_author = []
         author = Publication.objects.select_related('author').all()[:4]
         for auth in author:
-            popular_author.append(auth.author)
+            if auth.author not in popular_author:
+                popular_author.append(auth.author)
 
         paginator = Paginator(publications, 20)
         page_number = request.GET.get('page')
