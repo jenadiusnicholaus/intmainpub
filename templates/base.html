@@ -80,9 +80,21 @@ Header START -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav navbar-nav-scroll ms-auto">
 					<li class="nav-item "><a  class="nav-link  " href="{% url 'search'%}" > <Span> <i class = "fa fa-search"></i></Span></a></li>
-					<li class="nav-item "><a  class="nav-link " href="#" > <Span> <i class = "fa fa-bell"></i></Span></a></li>
 					<!-- Nav item 4 Mega menu -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"><i class="fa fa-bell"></i></a>
+						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
+
+							<li>
+								<a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank">
+									<i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>You have no notifcation  for now
+								</a>
+							</li>
+						</ul>
+					</li>
 					{% if not user.is_authenticated %}
+
 					<li class="nav-item "><a class="nav-link " href="{% url 'login'%}"> <Span> <i class="fa fa-sign-in"></i> Login</Span></a></li>
 					{%endif%}
 					<li class="nav-item dropdown dropdown-fullwidth">
