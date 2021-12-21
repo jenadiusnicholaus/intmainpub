@@ -46,6 +46,15 @@ Inner intro START -->
 							<span style="color:black;" class="badge bg-success fs-6">
 								{% if author_publication.count < 2 %} {{author_publication.count}} publication {%elif author_publication.count == 0 %} No publication yet {%else%} {{author_publication.count}} publications{% endif%} </span>
 						</div>
+						<ul class='nav justify-content-center justify-content-md-start mt-3 ml-5 position-relative'>
+							<li class="nav-item ml-5">
+								<a  href="#" class="badge bg-primary-soft text-primary btn btn-outline-primary ml-5">Following <span
+										id="following">0</span></a>
+								<a  href="#" class="badge bg-secondary-soft text-primary btn btn-outline-primary ml-5">Followers <span
+										id="followers">0</span></a>
+
+							</li>
+						</ul>
 					</div>
 
 					<div class=" me-0 me-md-4">
@@ -254,4 +263,63 @@ Inner intro START -->
 
 
 </main>
+
+
+<script>
+
+
+	$(document).ready(function (event)
+	{
+
+		get_follow_following()
+
+	});
+
+	function get_follow_following()
+		{
+			console.log('We can get  infor here')
+			$.ajax({
+				type: 'GET',
+				url: "{% url 'get_follow_following' request.user.username %}",
+				success: function (data)
+				{
+					//var data_set = $.parseJSON(data);
+
+					//console.log(data)
+					if (data.following != undefined)
+					{
+						$('#following').html(data.following);
+						console.log(data)
+					}
+
+					if (data.followers != undefined)
+					{
+						$('#followers').html(`${data.followers}`)
+					}
+					else
+					{
+						$('#followers').html(`0`)
+					}
+
+
+					if (data.is_followed)
+					{
+						$('#btn_follow_unfollow').html('Unfollow')
+						$('#btn_follow_unfollow').removeClass('btn-outline-primary').addClass('btn-outline-danger')
+					}
+					if (data.is_self)
+					{
+						$("#btn_follow_unfollow").remove();
+
+					}
+				},
+				failure: function (data)
+				{
+					$('#btn_follow_unfollow').html(data.message)
+
+
+				}
+			})
+		}
+	</script>
 {% endblock %}
