@@ -15,11 +15,11 @@ Inner intro START -->
 
             <form action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input type="text" class="form-control" name="q" value="{{request.GET.q}}" placeholder="Search posts" />
                     </div>
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-default" name="submit" value="Search" />
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary-soft" name="submit" value="Search" />
                     </div>
                 </div>
             </form>
@@ -65,7 +65,7 @@ Main content START -->
                                             {% if not result.author.userprofile.image %}
                                             <div class="avatar">
                                                 <div class="avatar-img rounded-circle bg-primary"><span
-                                                        class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{result.author.getfirstChar}}</span>
+                                                        class="text-white position-absolute top-50 start-50 translate-middle fw-bold">{{result.author.userprofile.getfirstChar}}</span>
                                                 </div>
                                             </div>
                                             {% else %}
@@ -91,7 +91,7 @@ Main content START -->
                                 <div class="col-12">
                                     <ul class="list-inline mt-3">
 
-                                        <li class="list-inline-item">Trending tags:</li>
+                                        <li class="list-inline-item">Search by trending topics:</li>
                                         {% for topic in topics %}
                                         <li class="list-inline-item"><a href="{% url 'topic_items' topic.id %}" class="btn btn-sm btn-{{topic.get_color_display}}-soft">{{ topic.title}}</a></li>
                                         {% endfor%}

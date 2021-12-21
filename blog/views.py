@@ -210,6 +210,7 @@ def publication_search(request):
             query = request.GET.get('q')
 
             pub_submitted = request.GET.get('submit')
+            print(pub_submitted)
 
             if query is not None:
                 lookups = Q(title__icontains=query) | Q(title__icontains=query)
