@@ -64,7 +64,6 @@ class PublicationDetails(HitCountDetailView):
 
             context.update({
                 'recent_posted_pub': recent_posted_pub,
-
                 'popular_posts': Publication.objects.order_by('-hit_count_generic__hits')[:3],
                 'topics': topics
             })
@@ -77,10 +76,13 @@ class CreatePublication(View):
     def get(self, request, *args, **kwargs):
         try:
             recent_posted_pub = Publication.objects.all()[:3]
-            popular_author = User.objects.all()[:4]
             form = PublicationForm()
             topic = Topics.objects.all()
-
+            popular_author = []
+            author = Publication.objects.select_related('author').all()[:4]
+            for auth in author:
+                if auth.author not in popular_author:
+                    popular_author.append(auth.author)
             context = {
                 'recent_posted_pub': recent_posted_pub,
                 'popular_author': popular_author,
