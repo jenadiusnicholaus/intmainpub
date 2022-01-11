@@ -241,26 +241,26 @@ def publication_search(request):
 
 
 def topics_details(request, pk):
-    # try:
-    topic = Topics.objects.get(id=pk)
-    topics = Topics.objects.all()[:5]
+    try:
+        topic = Topics.objects.get(id=pk)
+        topics = Topics.objects.all()[:5]
 
-    pubs = Publication.objects.filter(topic_id=pk)
-    paginator = Paginator(pubs, 20)
-    count_pubs = pubs.count()
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+        pubs = Publication.objects.filter(topic_id=pk)
+        paginator = Paginator(pubs, 20)
+        count_pubs = pubs.count()
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-    context = {
-        'topics': topics,
-        'topic': topic,
-        'page_obj': page_obj,
-        'count_pubs': count_pubs,
+        context = {
+            'topics': topics,
+            'topic': topic,
+            'page_obj': page_obj,
+            'count_pubs': count_pubs,
 
-    }
-    return render(request, 'topic_items.html', context=context)
-    # except:
-    #     return render(request, template_name='error_page.html')
+        }
+        return render(request, 'topic_items.html', context=context)
+    except:
+        return render(request, template_name='error_page.html')
 
 
 def edit_publication(request, pk):
