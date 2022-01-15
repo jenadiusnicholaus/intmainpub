@@ -110,7 +110,7 @@ Main content START -->
 										<img class="rounded" src="{{publication.image.url}}" alt="">
 									</div>
 									<div class="col-8">
-										<h6><a href="post-single-2.html" class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a></h6>
+										<h6><a href="{%url 'publication_details' publication.slug%}" class="btn-link stretched-link text-reset fw-bold">{{publication.title|safe|truncatechars:100}}</a></h6>
 										<div class="small mt-1">{{publication.created_on}}</div>
 									</div>
 								</div>

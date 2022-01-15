@@ -222,7 +222,6 @@ Main END -->
 				url: "{% url 'ajax_commenting' publication_detail.slug %}",
 				data: {
 					comment: $('#comment').val(),
-
 					csrfmiddlewaretoken: csrftoken,
 					dataType: "json",
 
